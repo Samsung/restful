@@ -1,0 +1,54 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:aop="http://www.springframework.org/schema/aop" 
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+    <context:annotation-config />
+
+    <context:component-scan base-package="com.sec.ax.restful"/>
+
+    <bean name="exceptionManager" class="com.sec.ax.restful.common.impl.ExceptionManagerImpl"/>
+
+    <bean name="localizationManager" class="com.sec.ax.restful.common.impl.ResourceBundleMessageSourceProxy"/>
+
+    <bean name="resourceBundle" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>messages.exceptions</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location">
+            <value>classpath:config/jdbc.properties</value>
+        </property>
+    </bean>
+ 
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+    <bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+        <property name="configLocation" value="classpath:/sqlmap/sqlMaps.xml"/>
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    
+    <bean id="transactionaMapper" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean name="noteResource" class="com.sec.ax.restful.resource.NoteResource"/>
+    <bean name="noteService" class="com.sec.ax.restful.service.impl.NoteServiceImpl"/>
+    <bean name="notePersistence" class="com.sec.ax.restful.persistence.impl.NotePersistenceImpl">
+        <property name="sqlMapClient" ref="sqlMapClient"/>
+    </bean>
+
+</beans>

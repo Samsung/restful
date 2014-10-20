@@ -1,0 +1,69 @@
+Hello, 
+
+I'm Ax.
+I'm going to share the project how I build web service using Spring and Jersey.
+
+Development Environment
+-----------------------
+IDE: Eclipse
+Java: JDK 1.7
+Maven: 3.x
+Tomcat: 7.x
+
+Release v0.0.4
+Add paging for list
+### Usage ###
+~~~~
+// Retrieving a list of note
+GET /note/list, /note/list?pn=1
+Content-Type: application/json
+~~~~
+
+Release v0.0.3
+Add some classes for handling database using sqlmap 
+### Guide ###
+~~~~
+You DO need to install MySQL and add user for this. 
+Please, take a look at jdbc.properties in src/main/resources/config and edit url, username and password (FYI, I'm planning to add a class to encrypt password).
+There is a sql file name data.sql in doc/sql. Please run it.
+~~~~
+### Usage ###
+~~~~
+// Retrieving a list of note
+GET /note/list 
+Content-Type: application/json
+
+// Retrieving a note
+GET /note/1
+Content-Type: application/json
+
+// Creating a note
+POST /note/create
+Content-Type: application/json
+{
+  "subject": "Hello",
+  "content": "Nice to meet you!"
+}
+
+// Updating a note
+PUT /note/update
+Content-Type: application/json
+{
+  "idx": 1,
+  "subject": "Hello",
+  "content": "It's really nice to meet you."
+}
+
+// Deleting a note
+DELETE /note/delete
+Content-Type: application/json
+{
+  "idx": 1
+}
+~~~~
+
+Release v0.0.2
+Base template including sample codes for RESTful API
+
+Release v0.0.1
+Initial environment for developing RESTful API

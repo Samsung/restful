@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="note">
+
+    <typeAlias alias="note" type="com.sec.ax.restful.pojo.Note"/>
+
+	<resultMap id="list" class="note" extends="audit.list">
+        <result property="idx" column="idx" javaType="int" jdbcType="INT"/>
+        <result property="subject" column="subject" javaType="String" jdbcType="VARCHAR"/>
+        <result property="content" column="content" javaType="String" jdbcType="VARCHAR"/>
+	</resultMap>
+
+    <select id="getNotes" parameterClass="int" resultMap="list">
+        SELECT
+            idx, subject, content, createdate, updatedate
+        FROM
+            note
+    </select>
+
+    <select id="getNote" parameterClass="int" resultMap="list">
+        SELECT
+            idx, subject, content, createdate, updatedate
+        FROM
+            note
+        WHERE
+            idx = #idx#
+    </select>
+
+    <insert id="createNote" parameterClass="note">
+        INSERT INTO
+            note (subject, content)
+        VALUES (
+            #subject#, #content#
+        )
+        <selectKey resultClass="int" keyProperty="idx">
+            SELECT LAST_INSERT_ID() AS idx
+        </selectKey> 
+    </insert>
+
+    <update id="updateNote" parameterClass="note">
+        UPDATE
+            note
+        SET
+            subject = #subject#,
+            content = #content#
+        WHERE
+            idx = #idx#
+    </update>
+
+    <delete id="deleteNote" parameterClass="note">
+        DELETE FROM 
+            note
+        WHERE 
+            idx = #idx#
+    </delete>
+
+</sqlMap>
