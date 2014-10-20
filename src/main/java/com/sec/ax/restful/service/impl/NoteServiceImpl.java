@@ -22,18 +22,14 @@ public class NoteServiceImpl implements NoteService {
     private NotePersistence persistence;
 
 	/* 
-	 * @see com.sec.ax.restful.service.NoteService#getNotes(java.lang.Object)
+	 * @see com.sec.ax.restful.service.NoteService#getNotes(int, java.lang.Object)
 	 */
 	@Override
-	public Object getNotes(Object response) throws Exception {
+	public Object getNotes(int pn, Object response) throws Exception {
 
         logger.debug("..");
         
-        // TODO Need to add type into response
-        // type: text, list
-        // size()
-        
-        response = persistence.getNotes();
+        response = persistence.getNotes(pn);
         
 		return response;
 		
@@ -47,10 +43,6 @@ public class NoteServiceImpl implements NoteService {
 
         logger.debug("..");
         
-        // TODO Need to add type into response
-        // type: text, list
-        // List -> User
-
         response = persistence.getNote(idx);
         
 		return response;
@@ -71,8 +63,6 @@ public class NoteServiceImpl implements NoteService {
 
         response = persistence.createNote(note);
 
-        // TODO Need to add logic for sid
-
 		return response;
 		
 	}
@@ -91,8 +81,6 @@ public class NoteServiceImpl implements NoteService {
 
         response = persistence.updateNote(note);
 
-        // TODO Need to add logic for show the result to user
-
 		return response;
 		
 	}
@@ -110,8 +98,6 @@ public class NoteServiceImpl implements NoteService {
         Note note = gson.fromJson(gson.toJson(request), Note.class);
 
         response = persistence.deleteNote(note);
-
-        // TODO Need to add logic for show the result to user
 
 		return response;
 		

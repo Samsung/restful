@@ -11,7 +11,7 @@
         <result property="content" column="content" javaType="String" jdbcType="VARCHAR"/>
 	</resultMap>
 
-    <select id="getNotes" resultMap="list">
+    <select id="getNotes" parameterClass="int" resultMap="list">
         SELECT
             idx, subject, content, createdate, updatedate
         FROM
@@ -54,12 +54,5 @@
         WHERE 
             idx = #idx#
     </delete>
-
-    <select id="countNote" resultClass="int">
-        SELECT 
-            COUNT(idx)
-        FROM
-            note
-    </select>
 
 </sqlMap>

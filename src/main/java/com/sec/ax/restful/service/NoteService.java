@@ -9,11 +9,12 @@ package com.sec.ax.restful.service;
 public interface NoteService {
 
 	/**
+	 * @param pn
 	 * @param response
 	 * @return
 	 * @throws Exception
 	 */
-	public Object getNotes(Object response) throws Exception;
+	public Object getNotes(int pn, Object response) throws Exception;
 
 	/**
 	 * @param idx

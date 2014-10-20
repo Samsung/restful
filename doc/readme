@@ -10,6 +10,14 @@ Java: JDK 1.7
 Maven: 3.x
 Tomcat: 7.x
 
+Release v0.0.4
+Add paging for list
+### Usage ###
+~~~~
+// Retrieving a list of note
+GET /note/list, /note/list?pn=1
+Content-Type: application/json
+~~~~
 
 Release v0.0.3
 Add some classes for handling database using sqlmap 
