@@ -8,6 +8,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.log4j.Logger;
@@ -37,20 +38,20 @@ public class NoteResource extends AbstractResource {
     @GET
     @Path("/list")
     @Consumes(MediaType.APPLICATION_JSON)
-    public ResponseElement getNotes() {
+    public ResponseElement getNotes(@QueryParam("pn") int pn) {
     	
         logger.debug("..");
         
         Object response = new Object();
 
         try {
-        	response = service.getNotes(response);
+        	response = service.getNotes(pn, response);
         } catch (Exception e) {
         	e.printStackTrace();
         	exceptionManager.fireSystemException(null, new Exception(e));
         }
         
-        return ResponseElement.newSuccessInstance(response);
+        return ResponseElement.newSuccessInstance(pn, response);
 
     }
 

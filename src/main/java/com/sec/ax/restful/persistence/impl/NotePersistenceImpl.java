@@ -7,6 +7,7 @@ import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 
 import com.sec.ax.restful.persistence.NotePersistence;
 import com.sec.ax.restful.pojo.Note;
+import com.sec.ax.restful.pojo.Paging;
 
 /**
  * 
@@ -19,15 +20,19 @@ public class NotePersistenceImpl extends SqlMapClientDaoSupport implements NoteP
     private static final Logger logger = Logger.getLogger(NotePersistenceImpl.class);
 
 	/* 
-	 * @see com.sec.ax.restful.persistence.NotePersistence#getNotes()
+	 * @see com.sec.ax.restful.persistence.NotePersistence#getNotes(int)
 	 */
 	@Override
-	public List<Note> getNotes() throws Exception {
+	public List<Note> getNotes(int pn) throws Exception {
 
         logger.debug("..");
         
+        Paging paging = new Paging();
+        
+        paging.setPn(pn);
+
     	@SuppressWarnings("unchecked")
-        List<Note> list = getSqlMapClientTemplate().queryForList("note.getNotes");
+        List<Note> list = getSqlMapClientTemplate().queryForList("note.getNotes", paging.getPn(), paging.getMaxResults());
     	
 		return list;
 		

@@ -13,10 +13,11 @@ import com.sec.ax.restful.pojo.Note;
 public interface NotePersistence {
 	
 	/**
+	 * @param pn
 	 * @return
 	 * @throws Exception
 	 */
-	public List<Note> getNotes() throws Exception;
+	public List<Note> getNotes(int pn) throws Exception;
 
 	/**
 	 * @param idx
