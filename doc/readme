@@ -3,12 +3,14 @@ Hello,
 I'm Ax.
 I'm going to share the project how I build web service using Spring and Jersey.
 
+
 Development Environment
 -----------------------
 IDE: Eclipse
 Java: JDK 1.7
 Maven: 3.x
 Tomcat: 7.x
+
 
 Release v0.0.4
 Add paging for list
@@ -18,6 +20,7 @@ Add paging for list
 GET /note/list, /note/list?pn=1
 Content-Type: application/json
 ~~~~
+
 
 Release v0.0.3
 Add some classes for handling database using sqlmap 
@@ -62,8 +65,10 @@ Content-Type: application/json
 }
 ~~~~
 
+
 Release v0.0.2
 Base template including sample codes for RESTful API
+
 
 Release v0.0.1
 Initial environment for developing RESTful API
