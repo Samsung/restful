@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN" "http://www.ibatis.com/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+
+    <settings useStatementNamespaces="true" cacheModelsEnabled="false"/>
+
+    <sqlMap resource="sqlmap/audit.xml"/>
+    <sqlMap resource="sqlmap/note.xml"/>
+
+</sqlMapConfig>

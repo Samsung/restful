@@ -23,6 +23,32 @@
         </property>
     </bean>
 
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location">
+            <value>classpath:config/jdbc.properties</value>
+        </property>
+    </bean>
+ 
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+    <bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+        <property name="configLocation" value="classpath:/sqlmap/sqlMaps.xml"/>
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    
+    <bean id="transactionaMapper" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
     <bean name="noteResource" class="com.sec.ax.restful.resource.NoteResource"/>
+    <bean name="noteService" class="com.sec.ax.restful.service.impl.NoteServiceImpl"/>
+    <bean name="notePersistence" class="com.sec.ax.restful.persistence.impl.NotePersistenceImpl">
+        <property name="sqlMapClient" ref="sqlMapClient"/>
+    </bean>
 
 </beans>

@@ -11,8 +11,14 @@ Maven: 3.x
 Tomcat: 7.x
 
 
-Release v0.0.2
-Base template including sample codes for RESTful API
+Release v0.0.3
+Add some classes for handling database using sqlmap 
+### Guide ###
+~~~~
+You DO need to install MySQL and add user for this. 
+Please, take a look at jdbc.properties in src/main/resources/config and edit url, username and password (FYI, I'm planning to add a class to encrypt password).
+There is a sql file name data.sql in doc/sql. Please run it.
+~~~~
 ### Usage ###
 ~~~~
 // Retrieving a list of note
@@ -47,6 +53,9 @@ Content-Type: application/json
   "idx": 1
 }
 ~~~~
+
+Release v0.0.2
+Base template including sample codes for RESTful API
 
 Release v0.0.1
 Initial environment for developing RESTful API

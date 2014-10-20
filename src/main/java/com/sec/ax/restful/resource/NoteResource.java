@@ -11,9 +11,11 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.sec.ax.restful.pojo.ResponseElement;
+import com.sec.ax.restful.service.NoteService;
 
 /**
  * 
@@ -29,6 +31,9 @@ public class NoteResource extends AbstractResource {
 	
     private static final Logger logger = Logger.getLogger(NoteResource.class);
     
+    @Autowired
+    private NoteService service;
+
     @GET
     @Path("/list")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -36,8 +41,14 @@ public class NoteResource extends AbstractResource {
     	
         logger.debug("..");
         
-        Object response = null;
-        
+        Object response = new Object();
+
+        try {
+        	response = service.getNotes(response);
+        } catch (Exception e) {
+        	e.printStackTrace();
+        	exceptionManager.fireSystemException(null, new Exception(e));
+        }
         
         return ResponseElement.newSuccessInstance(response);
 
@@ -50,8 +61,14 @@ public class NoteResource extends AbstractResource {
     	
         logger.debug("..");
         
-        Object response = null;
-        
+        Object response = new Object();
+
+        try {
+        	response = service.getNote(idx, response);
+        } catch (Exception e) {
+        	e.printStackTrace();
+        	exceptionManager.fireSystemException(idx, new Exception(e));
+        }
         
         return ResponseElement.newSuccessInstance(idx, response);
 
@@ -64,9 +81,15 @@ public class NoteResource extends AbstractResource {
     	
         logger.debug("..");
         
-        Object response = null;
-        
+        Object response = new Object();
 
+        try {
+        	response = service.createNote(request, response);
+        } catch (Exception e) {
+        	e.printStackTrace();
+        	exceptionManager.fireSystemException(request, new Exception(e));
+        }
+        
         return ResponseElement.newSuccessInstance(request, response);
 
     }
@@ -78,8 +101,14 @@ public class NoteResource extends AbstractResource {
     	
         logger.debug("..");
         
-        Object response = null;
-        
+        Object response = new Object();
+
+        try {
+        	response = service.updateNote(request, response);
+        } catch (Exception e) {
+        	e.printStackTrace();
+        	exceptionManager.fireSystemException(request, new Exception(e));
+        }
         
         return ResponseElement.newSuccessInstance(request, response);
 
@@ -92,8 +121,14 @@ public class NoteResource extends AbstractResource {
     	
         logger.debug("..");
         
-        Object response = null;
-        
+        Object response = new Object();
+
+        try {
+        	response = service.deleteNote(request, response);
+        } catch (Exception e) {
+        	e.printStackTrace();
+        	exceptionManager.fireSystemException(request, new Exception(e));
+        }
         
         return ResponseElement.newSuccessInstance(request, response);
 
