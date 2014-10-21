@@ -21,6 +21,22 @@ public class AxCryptTest extends TestCase {
 		logger.setLevel(Level.DEBUG);
 	}
 	
+	public void testEncrypt() {
+		
+		try {
+			
+			String plain = "대한민국 Korea 韓國  ~!@#$%^&*()_+|";
+			String encrypted = AxCrypt.encrypt("Vvb7oruYPkOHrEwoTVnXtw==", plain);
+			
+			logger.debug(plain);
+			logger.debug(encrypted);
+			
+		} catch (AxCryptException e) {
+			fail(e.toString());
+		}
+		
+	}
+
 	public void testDecrypt() {
 		
 		try {
