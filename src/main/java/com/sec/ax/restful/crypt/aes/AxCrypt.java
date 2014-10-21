@@ -32,6 +32,67 @@ public class AxCrypt {
 	 * @return
 	 * @throws AxCryptException
 	 */
+	public static final String encrypt(String data) throws AxCryptException {
+		
+		if (data == null) {
+			throw new AxCryptException("String is null or keystring is null in AxCrypt.encrypt(String)");
+		} else {
+			return encrypt(key, data);
+		}
+	
+	}
+
+	/**
+	 * @param key
+	 * @param data
+	 * @return
+	 * @throws AxCryptException
+	 */
+	public static final String encrypt(String key, String data) throws AxCryptException {
+		
+		if (key == null || data == null) {
+			throw new AxCryptException("String is null or keystring is null in AxCrypt.encrypt(String, String)");
+		} else {
+	        SecretKeySpec keySpec = new SecretKeySpec(Base64.decodeBase64(key), "AES");
+			return encrypt(keySpec, data);
+		}
+	
+	}
+
+	/**
+	 * @param keySpec
+	 * @param data
+	 * @return
+	 * @throws AxCryptException
+	 */
+	private static String encrypt(SecretKeySpec keySpec, String data) throws AxCryptException {
+		
+		if (keySpec == null || data == null) {
+			throw new AxCryptException("Key is null or data is null in AxCrypt.encrypt(String, String)");
+		}
+		
+		byte[] abyte;
+
+        try {
+        	
+			Cipher cipher = Cipher.getInstance("AES");
+			cipher.init(Cipher.ENCRYPT_MODE, keySpec);
+
+			abyte = cipher.doFinal(data.getBytes("UTF-8"));
+	        
+		} catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException | UnsupportedEncodingException e) {
+			throw new AxCryptException("Encrypt Exception", e);
+		}
+
+        return Base64.encodeBase64String(abyte);
+
+	}
+
+	/**
+	 * @param data
+	 * @return
+	 * @throws AxCryptException
+	 */
 	public static final String decrypt(String data) throws AxCryptException {
 		
 		if (data == null) {

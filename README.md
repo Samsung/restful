@@ -5,6 +5,10 @@ Suggesting the codes for RESTful API including filter/annotator for allowing use
 
 Please take a look at https://github.com/Samsung/restful/blob/master/doc/readme to see how to use.
 
+Release v0.0.6
+--------------
+Add encrypt text using 128-bit AES encryption algorithm
+
 Release v0.0.5
 --------------
 Add decrypt text using 128-bit AES encryption algorithm
