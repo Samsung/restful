@@ -5,6 +5,10 @@ Suggesting the codes for RESTful API including filter/annotator for allowing use
 
 Please take a look at https://github.com/Samsung/restful/blob/master/doc/readme to see how to use.
 
+Release v0.0.5
+--------------
+Add decrypt text using 128-bit AES encryption algorithm
+
 Release v0.0.4
 --------------
 Add paging for list
@@ -19,11 +23,9 @@ Release v0.0.3
 --------------
 Add some classes for handling database using sqlmap 
 ### Guide ###
-~~~~
 You DO need to install MySQL and add user for this. 
 Please, take a look at jdbc.properties in src/main/resources/config and edit url, username and password (FYI, I'm planning to add a class to encrypt password).
 There is a sql file name data.sql in doc/sql. Please run it.
-~~~~
 ### Usage ###
 ~~~~
 // Retrieving a list of note
