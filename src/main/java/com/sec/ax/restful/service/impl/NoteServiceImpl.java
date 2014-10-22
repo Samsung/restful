@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.google.gson.Gson;
 import com.sec.ax.restful.persistence.NotePersistence;
 import com.sec.ax.restful.pojo.Note;
+import com.sec.ax.restful.pojo.Query;
 import com.sec.ax.restful.service.NoteService;
 
 /**
@@ -22,14 +23,14 @@ public class NoteServiceImpl implements NoteService {
     private NotePersistence persistence;
 
 	/* 
-	 * @see com.sec.ax.restful.service.NoteService#getNotes(int, java.lang.Object)
+	 * @see com.sec.ax.restful.service.NoteService#getNotes(com.sec.ax.restful.pojo.Query, java.lang.Object)
 	 */
 	@Override
-	public Object getNotes(int pn, Object response) throws Exception {
+	public Object getNotes(Query query, Object response) throws Exception {
 
         logger.debug("..");
         
-        response = persistence.getNotes(pn);
+        response = persistence.getNotes(query);
         
 		return response;
 		

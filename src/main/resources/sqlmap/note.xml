@@ -4,6 +4,7 @@
 <sqlMap namespace="note">
 
     <typeAlias alias="note" type="com.sec.ax.restful.pojo.Note"/>
+    <typeAlias alias="query" type="com.sec.ax.restful.pojo.Query"/>
 
 	<resultMap id="list" class="note" extends="audit.list">
         <result property="idx" column="idx" javaType="int" jdbcType="INT"/>
@@ -11,11 +12,16 @@
         <result property="content" column="content" javaType="String" jdbcType="VARCHAR"/>
 	</resultMap>
 
-    <select id="getNotes" parameterClass="int" resultMap="list">
+    <select id="getNotes" parameterClass="query" resultMap="list">
         SELECT
             idx, subject, content, createdate, updatedate
         FROM
             note
+        <dynamic prepend="WHERE">
+            <isNotNull property="search">
+                subject LIKE CONCAT('%', #search#, '%') OR content LIKE CONCAT('%', #search#, '%') 
+            </isNotNull>
+        </dynamic>
     </select>
 
     <select id="getNote" parameterClass="int" resultMap="list">

@@ -3,6 +3,7 @@ package com.sec.ax.restful.persistence;
 import java.util.List;
 
 import com.sec.ax.restful.pojo.Note;
+import com.sec.ax.restful.pojo.Query;
 
 /**
  * 
@@ -13,11 +14,11 @@ import com.sec.ax.restful.pojo.Note;
 public interface NotePersistence {
 	
 	/**
-	 * @param pn
+	 * @param query
 	 * @return
 	 * @throws Exception
 	 */
-	public List<Note> getNotes(int pn) throws Exception;
+	public List<Note> getNotes(Query query) throws Exception;
 
 	/**
 	 * @param idx
