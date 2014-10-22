@@ -1,5 +1,8 @@
 package com.sec.ax.restful.service;
 
+import com.sec.ax.restful.pojo.Query;
+
+
 /**
  * 
  * @author heesik.jeon
@@ -9,12 +12,12 @@ package com.sec.ax.restful.service;
 public interface NoteService {
 
 	/**
-	 * @param pn
+	 * @param query
 	 * @param response
 	 * @return
 	 * @throws Exception
 	 */
-	public Object getNotes(int pn, Object response) throws Exception;
+	public Object getNotes(Query query, Object response) throws Exception;
 
 	/**
 	 * @param idx

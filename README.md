@@ -5,27 +5,37 @@ Suggesting the codes for RESTful API including filter/annotator for allowing use
 
 Please take a look at https://github.com/Samsung/restful/blob/master/doc/readme to see how to use.
 
+Release v0.0.8
+--------------
+Add search
+### Usage ###
+```
+// Retrieving a list of note with paging and search query
+GET /note/list?pn=1&q=hello
+Content-Type: application/json
+```
+
 Release v0.0.7
 --------------
 Add CryptDataSource to use encrypted password
 
 Release v0.0.6
 --------------
-Add encrypt text using 128-bit AES encryption algorithm
+Add encrypt text using AES encryption algorithm
 
 Release v0.0.5
 --------------
-Add decrypt text using 128-bit AES encryption algorithm
+Add decrypt text using AES encryption algorithm
 
 Release v0.0.4
 --------------
 Add paging for list
 ### Usage ###
-~~~~
-// Retrieving a list of note
+```
+// Retrieving a list of note with paging
 GET /note/list, /note/list?pn=1
 Content-Type: application/json
-~~~~
+```
 
 Release v0.0.3
 --------------
@@ -35,7 +45,7 @@ You DO need to install MySQL and add user for this.
 Please, take a look at jdbc.properties in src/main/resources/config and edit url, username and password (FYI, I'm planning to add a class to encrypt password).
 There is a sql file name data.sql in doc/sql. Please run it.
 ### Usage ###
-~~~~
+```
 // Retrieving a list of note
 GET /note/list 
 Content-Type: application/json
@@ -67,7 +77,7 @@ Content-Type: application/json
 {
   "idx": 1
 }
-~~~~
+```
 
 Release v0.0.2
 --------------

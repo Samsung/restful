@@ -2,6 +2,7 @@ package com.sec.ax.restful.resource;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -15,8 +16,10 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.sec.ax.restful.pojo.Query;
 import com.sec.ax.restful.pojo.ResponseElement;
 import com.sec.ax.restful.service.NoteService;
+import com.sec.ax.restful.utils.QueryUtils;
 
 /**
  * 
@@ -35,17 +38,24 @@ public class NoteResource extends AbstractResource {
     @Autowired
     private NoteService service;
 
+    /**
+     * @param pn
+     * @param search
+     * @return
+     */
     @GET
     @Path("/list")
     @Consumes(MediaType.APPLICATION_JSON)
-    public ResponseElement getNotes(@QueryParam("pn") int pn) {
+    public ResponseElement getNotes(@DefaultValue("1") @QueryParam("pn") int pn, @QueryParam("q") String search) {
     	
         logger.debug("..");
         
+        Query query = QueryUtils.setQuery(pn, search);
+        
         Object response = new Object();
-
+        
         try {
-        	response = service.getNotes(pn, response);
+        	response = service.getNotes(query, response);
         } catch (Exception e) {
         	e.printStackTrace();
         	exceptionManager.fireSystemException(null, new Exception(e));
@@ -55,6 +65,10 @@ public class NoteResource extends AbstractResource {
 
     }
 
+    /**
+     * @param idx
+     * @return
+     */
     @GET
     @Path("/{idx}")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -75,6 +89,10 @@ public class NoteResource extends AbstractResource {
 
     }
 
+    /**
+     * @param request
+     * @return
+     */
     @POST
     @Path("/create")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -95,6 +113,10 @@ public class NoteResource extends AbstractResource {
 
     }
 
+    /**
+     * @param request
+     * @return
+     */
     @PUT
     @Path("/update")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -115,6 +137,10 @@ public class NoteResource extends AbstractResource {
 
     }
 
+    /**
+     * @param request
+     * @return
+     */
     @DELETE
     @Path("/delete")
     @Consumes(MediaType.APPLICATION_JSON)
