@@ -60,6 +60,10 @@ public class ResponseElement {
         return new ResponseElement("OK", request, response);
     }
 
+    public static ResponseElement newFailedInstance(Object message) {
+        return new ResponseElement("FAILED", message);
+    }
+
     public static ResponseElement newFailedInstance(Object request, Object message) {
         return new ResponseElement("FAILED", request, message);
     }

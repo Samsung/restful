@@ -16,6 +16,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.sec.ax.restful.pojo.Note;
 import com.sec.ax.restful.pojo.Query;
 import com.sec.ax.restful.pojo.ResponseElement;
 import com.sec.ax.restful.service.NoteService;
@@ -57,7 +58,6 @@ public class NoteResource extends AbstractResource {
         try {
         	response = service.getNotes(query, response);
         } catch (Exception e) {
-        	e.printStackTrace();
         	exceptionManager.fireSystemException(null, new Exception(e));
         }
         
@@ -81,7 +81,6 @@ public class NoteResource extends AbstractResource {
         try {
         	response = service.getNote(idx, response);
         } catch (Exception e) {
-        	e.printStackTrace();
         	exceptionManager.fireSystemException(idx, new Exception(e));
         }
         
@@ -90,74 +89,71 @@ public class NoteResource extends AbstractResource {
     }
 
     /**
-     * @param request
+     * @param note
      * @return
      */
     @POST
     @Path("/create")
     @Consumes(MediaType.APPLICATION_JSON)
-    public ResponseElement createNote(Object request) {
+    public ResponseElement createNote(Note note) {
     	
         logger.debug("..");
         
         Object response = new Object();
 
         try {
-        	response = service.createNote(request, response);
+        	response = service.createNote(note, response);
         } catch (Exception e) {
-        	e.printStackTrace();
-        	exceptionManager.fireSystemException(request, new Exception(e));
+        	exceptionManager.fireSystemException(note, new Exception(e));
         }
         
-        return ResponseElement.newSuccessInstance(request, response);
+        return ResponseElement.newSuccessInstance(note, response);
 
     }
 
     /**
-     * @param request
+     * @param note
      * @return
      */
     @PUT
     @Path("/update")
     @Consumes(MediaType.APPLICATION_JSON)
-    public ResponseElement updateNote(Object request) {
+    public ResponseElement updateNote(Note note) {
     	
         logger.debug("..");
         
         Object response = new Object();
 
         try {
-        	response = service.updateNote(request, response);
+        	response = service.updateNote(note, response);
         } catch (Exception e) {
-        	e.printStackTrace();
-        	exceptionManager.fireSystemException(request, new Exception(e));
+        	exceptionManager.fireSystemException(note, new Exception(e));
         }
         
-        return ResponseElement.newSuccessInstance(request, response);
+        return ResponseElement.newSuccessInstance(note, response);
 
     }
 
     /**
-     * @param request
+     * @param note
      * @return
      */
     @DELETE
     @Path("/delete")
     @Consumes(MediaType.APPLICATION_JSON)
-    public ResponseElement deleteNote(Object request) {
+    public ResponseElement deleteNote(Note note) {
     	
         logger.debug("..");
         
         Object response = new Object();
 
         try {
-        	response = service.deleteNote(request, response);
+        	response = service.deleteNote(note, response);
         } catch (Exception e) {
-        	e.printStackTrace();
-        	exceptionManager.fireSystemException(request, new Exception(e));
+        	exceptionManager.fireSystemException(note, new Exception(e));
         }
         
-        return ResponseElement.newSuccessInstance(request, response);
+        return ResponseElement.newSuccessInstance(note, response);
 
     }
 
