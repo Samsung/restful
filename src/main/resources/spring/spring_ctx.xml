@@ -57,8 +57,12 @@
 
     <util:map id="validateMap" map-class="java.util.HashMap">
         <entry key="validatePOST" value-ref="validatePOST"/>
+        <entry key="validatePUT" value-ref="validatePUT"/>
+        <entry key="validateDELETE" value-ref="validateDELETE"/>
     </util:map>
     
     <bean id="validatePOST" class="com.sec.ax.restful.validate.note.ValidatePOST"/>
+    <bean id="validatePUT" class="com.sec.ax.restful.validate.note.ValidatePUT"/>
+    <bean id="validateDELETE" class="com.sec.ax.restful.validate.note.ValidateDELETE"/>
 
 </beans>

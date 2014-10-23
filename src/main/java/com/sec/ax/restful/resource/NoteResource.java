@@ -16,6 +16,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.sec.ax.restful.annotation.ValidatedBy;
 import com.sec.ax.restful.pojo.Note;
 import com.sec.ax.restful.pojo.Query;
 import com.sec.ax.restful.pojo.ResponseElement;
@@ -95,6 +96,7 @@ public class NoteResource extends AbstractResource {
     @POST
     @Path("/create")
     @Consumes(MediaType.APPLICATION_JSON)
+    @ValidatedBy({"validatePOST"})
     public ResponseElement createNote(Note note) {
     	
         logger.debug("..");
@@ -118,6 +120,7 @@ public class NoteResource extends AbstractResource {
     @PUT
     @Path("/update")
     @Consumes(MediaType.APPLICATION_JSON)
+    @ValidatedBy({"validatePUT"})
     public ResponseElement updateNote(Note note) {
     	
         logger.debug("..");
@@ -141,6 +144,7 @@ public class NoteResource extends AbstractResource {
     @DELETE
     @Path("/delete")
     @Consumes(MediaType.APPLICATION_JSON)
+    @ValidatedBy({"validateDELETE"})
     public ResponseElement deleteNote(Note note) {
     	
         logger.debug("..");
