@@ -1,5 +1,6 @@
 package com.sec.ax.restful.service;
 
+import com.sec.ax.restful.pojo.Note;
 import com.sec.ax.restful.pojo.Query;
 
 
@@ -28,27 +29,27 @@ public interface NoteService {
 	public Object getNote(int idx, Object response) throws Exception;
 
 	/**
-	 * @param request
+	 * @param note
 	 * @param response
 	 * @return
 	 * @throws Exception
 	 */
-	public Object createNote(Object request, Object response) throws Exception;
+	public Object createNote(Note note, Object response) throws Exception;
 
 	/**
-	 * @param request
+	 * @param note
 	 * @param response
 	 * @return
 	 * @throws Exception
 	 */
-	public Object updateNote(Object request, Object response) throws Exception;
+	public Object updateNote(Note note, Object response) throws Exception;
 
 	/**
-	 * @param request
+	 * @param note
 	 * @param response
 	 * @return
 	 * @throws Exception
 	 */
-	public Object deleteNote(Object request, Object response) throws Exception;
+	public Object deleteNote(Note note, Object response) throws Exception;
 	
 }

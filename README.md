@@ -5,11 +5,16 @@ Suggesting the codes for RESTful API including filter/annotator for allowing use
 
 Please take a look at https://github.com/Samsung/restful/blob/master/doc/readme to see how to use.
 
-Release v0.0.9
+
+#### Release v0.1.0 ####
+--------------
+Add customized resource filter to validate data from client and related works
+
+#### Release v0.0.9 ####
 --------------
 Prepare adding customized filter
 
-Release v0.0.8
+#### Release v0.0.8 ####
 --------------
 Add search
 ##### Usage #####
@@ -19,19 +24,19 @@ GET /note/list?pn=1&q=hello
 Content-Type: application/json
 ```
 
-Release v0.0.7
+#### Release v0.0.7 ####
 --------------
 Add CryptDataSource to use encrypted password
 
-Release v0.0.6
+#### Release v0.0.6 ####
 --------------
 Add encrypt text using AES encryption algorithm
 
-Release v0.0.5
+#### Release v0.0.5 ####
 --------------
 Add decrypt text using AES encryption algorithm
 
-Release v0.0.4
+#### Release v0.0.4 ####
 --------------
 Add paging for list
 ##### Usage #####
@@ -41,7 +46,7 @@ GET /note/list, /note/list?pn=1
 Content-Type: application/json
 ```
 
-Release v0.0.3
+#### Release v0.0.3 ####
 --------------
 Add some classes for handling database using sqlmap 
 ##### Guide #####
@@ -83,10 +88,10 @@ Content-Type: application/json
 }
 ```
 
-Release v0.0.2
+#### Release v0.0.2 ####
 --------------
 Base template including sample codes for RESTful API
 
-Release v0.0.1
+#### Release v0.0.1 ####
 --------------
 Initial environment for developing RESTful API

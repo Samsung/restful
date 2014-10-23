@@ -13,6 +13,9 @@ public class Note extends Audit {
 	private String subject;
 	private String content;
 	
+	public Note() {		
+	}
+	
 	public int getIdx() {
 		return idx;
 	}

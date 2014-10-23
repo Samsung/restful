@@ -3,7 +3,6 @@ package com.sec.ax.restful.service.impl;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.google.gson.Gson;
 import com.sec.ax.restful.persistence.NotePersistence;
 import com.sec.ax.restful.pojo.Note;
 import com.sec.ax.restful.pojo.Query;
@@ -51,17 +50,13 @@ public class NoteServiceImpl implements NoteService {
 	}
 
 	/* 
-	 * @see com.sec.ax.restful.service.NoteService#createNote(java.lang.Object, java.lang.Object)
+	 * @see com.sec.ax.restful.service.NoteService#createNote(com.sec.ax.restful.pojo.Note, java.lang.Object)
 	 */
 	@Override
-	public Object createNote(Object request, Object response) throws Exception {
+	public Object createNote(Note note, Object response) throws Exception {
 
         logger.debug("..");
         
-        Gson gson = new Gson();
-
-        Note note = gson.fromJson(gson.toJson(request), Note.class);
-
         response = persistence.createNote(note);
 
 		return response;
@@ -69,17 +64,13 @@ public class NoteServiceImpl implements NoteService {
 	}
 
 	/* 
-	 * @see com.sec.ax.restful.service.NoteService#updateNote(java.lang.Object, java.lang.Object)
+	 * @see com.sec.ax.restful.service.NoteService#updateNote(com.sec.ax.restful.pojo.Note, java.lang.Object)
 	 */
 	@Override
-	public Object updateNote(Object request, Object response) throws Exception {
+	public Object updateNote(Note note, Object response) throws Exception {
 
         logger.debug("..");
         
-        Gson gson = new Gson();
-        
-        Note note = gson.fromJson(gson.toJson(request), Note.class);
-
         response = persistence.updateNote(note);
 
 		return response;
@@ -87,17 +78,13 @@ public class NoteServiceImpl implements NoteService {
 	}
 
 	/* 
-	 * @see com.sec.ax.restful.service.NoteService#deleteNote(java.lang.Object, java.lang.Object)
+	 * @see com.sec.ax.restful.service.NoteService#deleteNote(com.sec.ax.restful.pojo.Note, java.lang.Object)
 	 */
 	@Override
-	public Object deleteNote(Object request, Object response) throws Exception {
+	public Object deleteNote(Note note, Object response) throws Exception {
 
         logger.debug("..");
         
-        Gson gson = new Gson();
-        
-        Note note = gson.fromJson(gson.toJson(request), Note.class);
-
         response = persistence.deleteNote(note);
 
 		return response;
