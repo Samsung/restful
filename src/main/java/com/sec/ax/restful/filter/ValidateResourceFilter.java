@@ -28,16 +28,16 @@ public class ValidateResourceFilter implements ResourceFilter, ContainerRequestF
     private ExceptionManager exceptionManager;
 
     private Class<?> target;
-	private List<Validate> validate;
+	private List<Validate> list;
 	
 	/**
 	 * @param target
-	 * @param validate
+	 * @param list
 	 * @param exceptionManager
 	 */
-	protected ValidateResourceFilter(Class<?> target, List<Validate> validate, ExceptionManager exceptionManager) {
+	protected ValidateResourceFilter(Class<?> target, List<Validate> list, ExceptionManager exceptionManager) {
 		this.target = target;
-		this.validate = validate;
+		this.list = list;
 		this.exceptionManager = exceptionManager;
 	}
 
@@ -55,12 +55,12 @@ public class ValidateResourceFilter implements ResourceFilter, ContainerRequestF
         	
         	List<Error> error = new ArrayList<Error>();
         	
-        	for (Validate v : validate) {
-        		v.validate(obj, error);
+        	for (Validate validate : list) {
+        		validate.validate(obj, error);
         	}
         	
             if (error.size() > 0) {
-              exceptionManager.fireValidationException(error);
+            	exceptionManager.fireValidationException(error);
             }
             
         } catch (WebApplicationException wae) {
