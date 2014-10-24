@@ -5,6 +5,9 @@ Suggesting the codes for RESTful API including filter/annotator for allowing use
 
 Please take a look at https://github.com/Samsung/restful/blob/master/doc/readme to see how to use.
 
+#### Release v0.1.2 ####
+--------------
+Add util to enable json pretty print
 
 #### Release v0.1.1 ####
 --------------
