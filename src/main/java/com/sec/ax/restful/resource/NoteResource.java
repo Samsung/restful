@@ -20,8 +20,8 @@ import com.sec.ax.restful.annotation.ValidatedBy;
 import com.sec.ax.restful.pojo.Note;
 import com.sec.ax.restful.pojo.Query;
 import com.sec.ax.restful.pojo.ResponseElement;
+import com.sec.ax.restful.resource.utils.QueryUtils;
 import com.sec.ax.restful.service.NoteService;
-import com.sec.ax.restful.utils.QueryUtils;
 
 /**
  * 

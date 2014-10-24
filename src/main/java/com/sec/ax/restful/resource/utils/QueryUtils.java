@@ -1,4 +1,4 @@
-package com.sec.ax.restful.utils;
+package com.sec.ax.restful.resource.utils;
 
 import com.sec.ax.restful.pojo.Paging;
 import com.sec.ax.restful.pojo.Query;

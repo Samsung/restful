@@ -45,7 +45,7 @@ public class ResourceFilterFactoryImpl implements ResourceFilterFactory {
 
         if (am.isAnnotationPresent(ValidatedBy.class)) {
 
-            ArrayList<Validate> validate = new ArrayList<Validate>();
+            List<Validate> list = new ArrayList<Validate>();
             
             ValidatedBy validated = am.getAnnotation(ValidatedBy.class);
             
@@ -53,10 +53,10 @@ public class ResourceFilterFactoryImpl implements ResourceFilterFactory {
             
             for (String validatedName : validatedValue) {
             	
-            	Validate v = map.get(validatedName);
+            	Validate validate = map.get(validatedName);
                 
-            	if (v != null) {
-                    validate.add(v);
+            	if (validate != null) {
+                    list.add(validate);
                 } else {
                     logger.debug("No validate found for: " + validatedName);
                 }
@@ -65,8 +65,8 @@ public class ResourceFilterFactoryImpl implements ResourceFilterFactory {
 
 			Class<?>[] target = am.getMethod().getParameterTypes();
 			
-            if (validate.size() > 0 && target.length > 0) {
-                filter.add(new ValidateResourceFilter(target[0], validate, exceptionManager));
+            if (list.size() > 0 && target.length > 0) {
+                filter.add(new ValidateResourceFilter(target[0], list, exceptionManager));
             }
 
         }
