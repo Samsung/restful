@@ -30,7 +30,7 @@ public class StreamHelperTest extends TestCase {
 		
 		try {
 
-			reader = StreamHelper.getStream("/com/sec/ax/restful/utils/reader.properties");
+			reader = StreamHelper.getStream("/com/sec/ax/restful/utils/project.properties");
 			
 			Properties prop = new Properties();
 			prop.load(reader);
@@ -52,7 +52,7 @@ public class StreamHelperTest extends TestCase {
 		
 		try {
 
-			reader = StreamHelper.getStream("/com/sec/ax/restful/utils/reader.properties");
+			reader = StreamHelper.getStream("/com/sec/ax/restful/utils/project.properties");
 			
 			BufferedReader br = new BufferedReader(reader);
 			
