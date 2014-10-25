@@ -22,6 +22,7 @@ import com.sec.ax.restful.pojo.Query;
 import com.sec.ax.restful.pojo.ResponseElement;
 import com.sec.ax.restful.resource.utils.QueryUtils;
 import com.sec.ax.restful.service.NoteService;
+import com.sec.ax.restful.utils.FormatHelper;
 
 /**
  * 
@@ -62,7 +63,10 @@ public class NoteResource extends AbstractResource {
         	exceptionManager.fireSystemException(null, new Exception(e));
         }
         
-        return ResponseElement.newSuccessInstance(pn, response);
+        logger.debug(FormatHelper.printPretty(query));
+        logger.debug(FormatHelper.printPretty(response));
+        
+        return ResponseElement.newSuccessInstance(query, response);
 
     }
 
@@ -84,6 +88,9 @@ public class NoteResource extends AbstractResource {
         } catch (Exception e) {
         	exceptionManager.fireSystemException(idx, new Exception(e));
         }
+        
+        logger.debug(FormatHelper.printPretty(idx));
+        logger.debug(FormatHelper.printPretty(response));
         
         return ResponseElement.newSuccessInstance(idx, response);
 
@@ -108,6 +115,9 @@ public class NoteResource extends AbstractResource {
         } catch (Exception e) {
         	exceptionManager.fireSystemException(note, new Exception(e));
         }
+
+        logger.debug(FormatHelper.printPretty(note));
+        logger.debug(FormatHelper.printPretty(response));
         
         return ResponseElement.newSuccessInstance(note, response);
 
@@ -132,6 +142,9 @@ public class NoteResource extends AbstractResource {
         } catch (Exception e) {
         	exceptionManager.fireSystemException(note, new Exception(e));
         }
+
+        logger.debug(FormatHelper.printPretty(note));
+        logger.debug(FormatHelper.printPretty(response));
         
         return ResponseElement.newSuccessInstance(note, response);
 
@@ -156,6 +169,9 @@ public class NoteResource extends AbstractResource {
         } catch (Exception e) {
         	exceptionManager.fireSystemException(note, new Exception(e));
         }
+
+        logger.debug(FormatHelper.printPretty(note));
+        logger.debug(FormatHelper.printPretty(response));
         
         return ResponseElement.newSuccessInstance(note, response);
 

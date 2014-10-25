@@ -31,7 +31,7 @@ public class NotePersistenceImpl extends SqlMapClientDaoSupport implements NoteP
         Paging paging = query.getPaging();
         
     	@SuppressWarnings("unchecked")
-        List<Note> list = getSqlMapClientTemplate().queryForList("note.getNotes", query, paging.getPn(), paging.getMaxResults());
+        List<Note> list = getSqlMapClientTemplate().queryForList("note.getNotes", query, paging.getSkipResults(), paging.getMaxResults());
     	
 		return list;
 		
