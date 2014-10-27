@@ -6,6 +6,9 @@ Maven: 3.x
 Tomcat: 7.x
 
 
+#### Release v0.1.3 ####
+Add customized filter to issue session ID 
+
 #### Release v0.1.2 ####
 Add util to enable json pretty print
 

@@ -22,7 +22,7 @@ import com.sec.ax.restful.crypt.AxCryptException;
 
 public class AxCrypt {
 
-	private static final String key = "ZYkjS2a-zy86lgusPpYCYg00";
+	private static final String key = "MNx/VbJWxnYHIbWZLnfD4A==";
 
 	private AxCrypt() {
 	}
