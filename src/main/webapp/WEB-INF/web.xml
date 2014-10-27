@@ -29,6 +29,10 @@
 			<param-value>true</param-value>
 		</init-param>
         <init-param>
+            <param-name>com.sun.jersey.spi.container.ContainerRequestFilters</param-name>
+            <param-value>com.sec.ax.restful.filter.AuthenticationContainerFilter</param-value>
+        </init-param>
+        <init-param>
             <param-name>com.sun.jersey.spi.container.ResourceFilters</param-name>
             <param-value>com.sec.ax.restful.filter.ResourceFilterFactoryImpl</param-value>
         </init-param>
