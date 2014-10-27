@@ -7,7 +7,7 @@ Please take a look at https://github.com/Samsung/restful/blob/master/doc/readme 
 
 ##### Guide #####
 You DO need to install MySQL and add user for this. 
-Please, take a look at jdbc.properties in src/main/resources/config and edit url, username and password (FYI, I'm planning to add a class to encrypt password).
+Please, take a look at jdbc.properties in src/main/resources/config and edit url, username and password.
 There is a sql file name data.sql in doc/sql. Please run it.
 
 ##### Usage #####
