@@ -6,6 +6,9 @@ Maven: 3.x
 Tomcat: 7.x
 
 
+#### Release v0.1.4 ####
+Add util to get a hashed directory
+
 #### Release v0.1.3 ####
 Add customized filter to issue session ID 
 
