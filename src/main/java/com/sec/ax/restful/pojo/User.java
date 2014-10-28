@@ -15,8 +15,8 @@ public class User extends Audit implements Principal {
 
     private int idx;
     
-	private String name;	// UserId
-    private String username;		// UserName
+	private String name;     // UserId
+    private String username; // UserName
 	
 	private String wssid;
     private String sid;
