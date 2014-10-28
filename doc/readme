@@ -6,6 +6,9 @@ Maven: 3.x
 Tomcat: 7.x
 
 
+#### Release v0.1.5 ####
+Add util to decompress files from a zip file
+
 #### Release v0.1.4 ####
 Add util to get a hashed directory
 

@@ -27,7 +27,7 @@ public class FileHelperTest extends TestCase {
 			String input = "ax";
 			int depth = 2;
 			
-			logger.debug(FileHelper.dir(base, input, depth));
+			logger.debug(FileHelper.hashdir(base, input, depth));
 	        
 		} catch (Exception e) {
 			fail(e.toString());
