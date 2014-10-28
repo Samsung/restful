@@ -109,8 +109,9 @@ public class NoteResource extends AbstractResource {
         logger.debug("..");
         
         Object response = new Object();
-
+        
         try {
+            note.setWssdi(getUserPrincipal().getWssid());
         	response = service.createNote(note, response);
         } catch (Exception e) {
         	exceptionManager.fireSystemException(note, new Exception(e));
@@ -138,6 +139,7 @@ public class NoteResource extends AbstractResource {
         Object response = new Object();
 
         try {
+            note.setWssdi(getUserPrincipal().getWssid());
         	response = service.updateNote(note, response);
         } catch (Exception e) {
         	exceptionManager.fireSystemException(note, new Exception(e));
@@ -165,6 +167,7 @@ public class NoteResource extends AbstractResource {
         Object response = new Object();
 
         try {
+            note.setWssdi(getUserPrincipal().getWssid());
         	response = service.deleteNote(note, response);
         } catch (Exception e) {
         	exceptionManager.fireSystemException(note, new Exception(e));

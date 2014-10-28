@@ -13,6 +13,8 @@ public class Note extends Audit {
 	private String subject;
 	private String content;
 	
+	private String wssdi;
+	
 	public Note() {		
 	}
 	
@@ -38,6 +40,14 @@ public class Note extends Audit {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public String getWssdi() {
+		return wssdi;
+	}
+
+	public void setWssdi(String wssdi) {
+		this.wssdi = wssdi;
 	}
 
 }
