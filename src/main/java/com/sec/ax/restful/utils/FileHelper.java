@@ -1,6 +1,13 @@
 package com.sec.ax.restful.utils;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 import org.apache.log4j.Logger;
 
@@ -20,7 +27,13 @@ public class FileHelper {
 	private static final int ALPHA_MAX = 26;
 	private static final int ALPHA_START = 97;
 
-    public static String dir(String base, String input, int depth) {
+    /**
+     * @param base
+     * @param input
+     * @param depth
+     * @return
+     */
+    public static String hashdir(String base, String input, int depth) {
     	
 		logger.debug("..");
 
@@ -48,6 +61,9 @@ public class FileHelper {
     	
     }
     
+    /**
+     * @param foldername
+     */
     public static void mkdir(String foldername) {
     	
 		logger.debug("..");
@@ -59,5 +75,84 @@ public class FileHelper {
 		}
 
     }
+
+    /**
+     * @param foldername
+     */
+    public static void rmdir(String pathname) {
+    	
+		logger.debug("..");
+
+		File f = new File(pathname);
+
+    	for (String filename : f.list()) {
+
+    		String path = new StringBuffer(pathname + File.separator + filename).toString();
+    		
+    		File file = new File(path);
+    		
+    		if (file.isDirectory()) {
+    			rmdir(path);
+    		} else {
+    			file.delete();
+    		}
+    		
+    	}
+    	
+    	f.delete();
+
+    }
+
+	/**
+	 * @param foldername
+	 * @param filename
+	 * @return
+	 * @throws IOException
+	 */
+	public static List<String> unzip(String foldername, String filename) throws IOException {
+		
+		logger.debug("..");
+		
+		List<String> list = new ArrayList<String>();
+		
+		byte[] buffer = new byte[1024];
+
+		ZipInputStream zis = new ZipInputStream(new FileInputStream(new StringBuffer(foldername + File.separator + filename).toString()));
+		ZipEntry ze;
+		
+		while ((ze = zis.getNextEntry()) != null) {
+			
+			File unzip = new File(foldername + File.separator + ze.getName());
+			
+			if (ze.getName().endsWith("/")) {
+				
+				String folder = new StringBuffer(foldername + File.separator + ze.getName()).toString();
+
+				mkdir(folder);
+				
+			} else {
+				
+				int len;
+				
+				FileOutputStream fos = new FileOutputStream(unzip);
+
+				while ((len = zis.read(buffer)) > 0) {
+					fos.write(buffer, 0, len);
+				}
+				
+				fos.close();
+				
+				list.add(unzip.getAbsolutePath());
+				
+			}
+			
+		}
+
+		zis.closeEntry();
+		zis.close();
+		
+		return list;
+
+	}
 
 }
