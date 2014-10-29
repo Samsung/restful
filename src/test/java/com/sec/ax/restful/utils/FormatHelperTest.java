@@ -48,5 +48,24 @@ public class FormatHelperTest extends TestCase {
 		}
 
 	}
+	
+	public void testNumeral() {
+		
+		try {
+			
+			int base = 16;
+			int number = 238328;
+			
+			String haxa = FormatHelper.getNumConverter(base, number);
+			long decimal = FormatHelper.getNumInverter(base, haxa);
+			
+			logger.debug(haxa);
+			logger.debug(decimal);
+			
+		} catch (Exception e) {
+			fail(e.toString());
+		}
+		
+	}
 
 }
