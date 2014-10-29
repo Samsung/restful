@@ -5,6 +5,8 @@ Java: JDK 1.7
 Maven: 3.x
 Tomcat: 7.x
 
+#### Release v0.1.7 ####
+Add numeral system for user management
 
 #### Release v0.1.6 ####
 Prepare adding user for personalization
