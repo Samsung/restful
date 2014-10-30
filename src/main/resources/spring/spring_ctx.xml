@@ -49,6 +49,12 @@
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
+    <bean name="userResource" class="com.sec.ax.restful.resource.UserResource"/>
+    <bean name="userService" class="com.sec.ax.restful.service.impl.UserServiceImpl"/>
+    <bean name="userPersistence" class="com.sec.ax.restful.persistence.impl.UserPersistenceImpl">
+        <property name="sqlMapClient" ref="sqlMapClient"/>
+    </bean>
+
     <bean name="noteResource" class="com.sec.ax.restful.resource.NoteResource"/>
     <bean name="noteService" class="com.sec.ax.restful.service.impl.NoteServiceImpl"/>
     <bean name="notePersistence" class="com.sec.ax.restful.persistence.impl.NotePersistenceImpl">
@@ -56,13 +62,13 @@
     </bean>
 
     <util:map id="validateMap" map-class="java.util.HashMap">
-        <entry key="validatePOST" value-ref="validatePOST"/>
-        <entry key="validatePUT" value-ref="validatePUT"/>
-        <entry key="validateDELETE" value-ref="validateDELETE"/>
+        <entry key="postNote" value-ref="validatePOST"/>
+        <entry key="putNote" value-ref="validatePUT"/>
+        <entry key="deleteNote" value-ref="validateDELETE"/>
     </util:map>
     
-    <bean id="validatePOST" class="com.sec.ax.restful.validate.note.ValidatePOST"/>
-    <bean id="validatePUT" class="com.sec.ax.restful.validate.note.ValidatePUT"/>
-    <bean id="validateDELETE" class="com.sec.ax.restful.validate.note.ValidateDELETE"/>
+    <bean id="postNote" class="com.sec.ax.restful.validate.note.ValidatePOST"/>
+    <bean id="putNote" class="com.sec.ax.restful.validate.note.ValidatePUT"/>
+    <bean id="deleteNote" class="com.sec.ax.restful.validate.note.ValidateDELETE"/>
 
 </beans>

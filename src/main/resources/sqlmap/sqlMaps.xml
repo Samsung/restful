@@ -6,6 +6,7 @@
     <settings useStatementNamespaces="true" cacheModelsEnabled="false"/>
 
     <sqlMap resource="sqlmap/audit.xml"/>
+    <sqlMap resource="sqlmap/user.xml"/>
     <sqlMap resource="sqlmap/note.xml"/>
 
 </sqlMapConfig>

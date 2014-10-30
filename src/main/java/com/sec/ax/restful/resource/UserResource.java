@@ -16,12 +16,11 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.sec.ax.restful.annotation.ValidatedBy;
-import com.sec.ax.restful.pojo.Note;
 import com.sec.ax.restful.pojo.Query;
 import com.sec.ax.restful.pojo.ResponseElement;
+import com.sec.ax.restful.pojo.User;
 import com.sec.ax.restful.resource.utils.QueryUtils;
-import com.sec.ax.restful.service.NoteService;
+import com.sec.ax.restful.service.UserService;
 import com.sec.ax.restful.utils.FormatHelper;
 
 /**
@@ -31,15 +30,15 @@ import com.sec.ax.restful.utils.FormatHelper;
  */
 
 @Component
-@Path("/note")
+@Path("/user")
 @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-public class NoteResource extends AbstractResource {
+public class UserResource extends AbstractResource {
 	
-    private static final Logger logger = Logger.getLogger(NoteResource.class);
+    private static final Logger logger = Logger.getLogger(UserResource.class);
     
     @Autowired
-    private NoteService service;
+    private UserService service;
 
     /**
      * @param pn
@@ -49,7 +48,7 @@ public class NoteResource extends AbstractResource {
     @GET
     @Path("/list")
     @Consumes(MediaType.APPLICATION_JSON)
-    public ResponseElement getNotes(@DefaultValue("1") @QueryParam("pn") int pn, @QueryParam("q") String search) {
+    public ResponseElement getUsers(@DefaultValue("1") @QueryParam("pn") int pn, @QueryParam("q") String search) {
     	
         logger.debug("..");
         
@@ -58,7 +57,7 @@ public class NoteResource extends AbstractResource {
         Object response = new Object();
         
         try {
-        	response = service.getNotes(query, response);
+        	response = service.getUsers(query, response);
         } catch (Exception e) {
         	exceptionManager.fireSystemException(null, new Exception(e));
         }
@@ -75,108 +74,103 @@ public class NoteResource extends AbstractResource {
      * @return
      */
     @GET
-    @Path("/{idx}")
+    @Path("/{name}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public ResponseElement getNote(@PathParam("idx") int idx) {
+    public ResponseElement getUser(@PathParam("name") String name) {
     	
         logger.debug("..");
         
         Object response = new Object();
 
         try {
-        	response = service.getNote(idx, response);
+        	response = service.getUser(name, response);
         } catch (Exception e) {
-        	exceptionManager.fireSystemException(idx, new Exception(e));
+        	exceptionManager.fireSystemException(name, new Exception(e));
         }
         
-        logger.debug(FormatHelper.printPretty(idx));
+        logger.debug(FormatHelper.printPretty(name));
         logger.debug(FormatHelper.printPretty(response));
         
-        return ResponseElement.newSuccessInstance(idx, response);
+        return ResponseElement.newSuccessInstance(name, response);
 
     }
 
     /**
-     * @param note
+     * @param user
      * @return
      */
     @POST
     @Path("/create")
     @Consumes(MediaType.APPLICATION_JSON)
-    @ValidatedBy({"postNote"})
-    public ResponseElement createNote(Note note) {
+    public ResponseElement createUser(User user) {
     	
         logger.debug("..");
         
         Object response = new Object();
         
         try {
-            note.setWssdi(getUserPrincipal().getWssid());
-        	response = service.createNote(note, response);
+        	response = service.createUser(user, response);
         } catch (Exception e) {
-        	exceptionManager.fireSystemException(note, new Exception(e));
+        	e.printStackTrace();
+        	exceptionManager.fireSystemException(user, new Exception(e));
         }
 
-        logger.debug(FormatHelper.printPretty(note));
+        logger.debug(FormatHelper.printPretty(user));
         logger.debug(FormatHelper.printPretty(response));
         
-        return ResponseElement.newSuccessInstance(note, response);
+        return ResponseElement.newSuccessInstance(user, response);
 
     }
 
     /**
-     * @param note
+     * @param user
      * @return
      */
     @PUT
     @Path("/update")
     @Consumes(MediaType.APPLICATION_JSON)
-    @ValidatedBy({"putNote"})
-    public ResponseElement updateNote(Note note) {
+    public ResponseElement updateUser(User user) {
     	
         logger.debug("..");
         
         Object response = new Object();
 
         try {
-            note.setWssdi(getUserPrincipal().getWssid());
-        	response = service.updateNote(note, response);
+        	response = service.updateUser(user, response);
         } catch (Exception e) {
-        	exceptionManager.fireSystemException(note, new Exception(e));
+        	exceptionManager.fireSystemException(user, new Exception(e));
         }
 
-        logger.debug(FormatHelper.printPretty(note));
+        logger.debug(FormatHelper.printPretty(user));
         logger.debug(FormatHelper.printPretty(response));
         
-        return ResponseElement.newSuccessInstance(note, response);
+        return ResponseElement.newSuccessInstance(user, response);
 
     }
 
     /**
-     * @param note
+     * @param user
      * @return
      */
     @DELETE
     @Path("/delete")
     @Consumes(MediaType.APPLICATION_JSON)
-    @ValidatedBy({"deleteNote"})
-    public ResponseElement deleteNote(Note note) {
+    public ResponseElement deleteUser(User user) {
     	
         logger.debug("..");
         
         Object response = new Object();
 
         try {
-            note.setWssdi(getUserPrincipal().getWssid());
-        	response = service.deleteNote(note, response);
+        	response = service.deleteUser(user, response);
         } catch (Exception e) {
-        	exceptionManager.fireSystemException(note, new Exception(e));
+        	exceptionManager.fireSystemException(user, new Exception(e));
         }
 
-        logger.debug(FormatHelper.printPretty(note));
+        logger.debug(FormatHelper.printPretty(user));
         logger.debug(FormatHelper.printPretty(response));
         
-        return ResponseElement.newSuccessInstance(note, response);
+        return ResponseElement.newSuccessInstance(user, response);
 
     }
 
