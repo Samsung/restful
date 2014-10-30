@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="user">
+
+    <typeAlias alias="user" type="com.sec.ax.restful.pojo.User"/>
+    <typeAlias alias="query" type="com.sec.ax.restful.pojo.Query"/>
+
+	<resultMap id="list" class="user" extends="audit.list">
+        <result property="idx" column="idx" javaType="int" jdbcType="INT"/>
+        <result property="name" column="name" javaType="String" jdbcType="VARCHAR"/>
+        <result property="sid" column="sid" javaType="String" jdbcType="VARCHAR"/>
+        <result property="username" column="username" javaType="String" jdbcType="VARCHAR"/>
+	</resultMap>
+
+    <select id="getUsers" parameterClass="query" resultMap="list">
+        SELECT
+            idx, name, sid, username, createdate, updatedate
+        FROM
+            user
+        <dynamic prepend="WHERE">
+            <isNotNull property="search">
+                name LIKE CONCAT('%', #search#, '%') OR username LIKE CONCAT('%', #search#, '%') 
+            </isNotNull>
+        </dynamic>
+    </select>
+
+    <select id="getUser" parameterClass="String" resultMap="list">
+        SELECT
+            idx, name, sid, username, createdate, updatedate
+        FROM
+            user
+        WHERE
+            name = #name#
+    </select>
+
+    <insert id="createUser" parameterClass="user">
+        INSERT INTO
+            user (name, pwd, sid, username)
+        VALUES (
+            #name#, PASSWORD(#pwd#), #sid#, #username#
+        )
+        <selectKey resultClass="int" keyProperty="idx">
+            SELECT LAST_INSERT_ID() AS idx
+        </selectKey> 
+    </insert>
+
+    <update id="updateSid" parameterClass="user">
+        UPDATE
+            user
+        SET
+            sid = #sid# 
+        WHERE
+            idx = #idx#
+    </update>
+
+    <update id="updateUser" parameterClass="user">
+        UPDATE
+            user
+        SET
+            username = #username#
+        WHERE
+            name = #name#
+    </update>
+
+    <delete id="deleteUser" parameterClass="user">
+        DELETE FROM 
+            user
+        WHERE 
+            name = #name#
+    </delete>
+
+</sqlMap>

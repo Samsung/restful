@@ -15,51 +15,60 @@ public class User extends Audit implements Principal {
 
     private int idx;
     
-	private String name;     // UserId
-    private String username; // UserName
-	
-	private String wssid;
+    private String name;     // UserId
+    private String pwd;
+    
+    private String wssid;
     private String sid;
+    private String username; // UserName
 
-	public int getIdx() {
-		return idx;
+    public int getIdx() {
+        return idx;
+    }
+
+    public void setIdx(int idx) {
+        this.idx = idx;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+	public String getPwd() {
+		return pwd;
 	}
 
-	public void setIdx(int idx) {
-		this.idx = idx;
+	public void setPwd(String pwd) {
+		this.pwd = pwd;
 	}
 
-	@Override
-	public String getName() {
-		return name;
-	}
+    public String getWssid() {
+        return wssid;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setWssid(String wssid) {
+        this.wssid = wssid;
+    }
 
-	public String getUsername() {
-		return username;
-	}
+    public String getSid() {
+        return sid;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public void setSid(String sid) {
+        this.sid = sid;
+    }
 
-	public String getWssid() {
-		return wssid;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public void setWssid(String wssid) {
-		this.wssid = wssid;
-	}
-
-	public String getSid() {
-		return sid;
-	}
-
-	public void setSid(String sid) {
-		this.sid = sid;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
 }

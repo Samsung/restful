@@ -5,8 +5,11 @@ Java: JDK 1.7
 Maven: 3.x
 Tomcat: 7.x
 
+#### Release v0.1.8 ####
+Add user management using sqlmap
+
 #### Release v0.1.7 ####
-Add numeral system for user management
+Add util to identify user using numeral system
 
 #### Release v0.1.6 ####
 Prepare adding user for personalization
@@ -48,7 +51,7 @@ Add decrypt text using AES encryption algorithm
 Add paging for list
 
 #### Release v0.0.3 ####
-Add some classes for handling database using sqlmap 
+Add note management like bbs using sqlmap
 
 #### Release v0.0.2 ####
 Base template including sample codes for RESTful API
