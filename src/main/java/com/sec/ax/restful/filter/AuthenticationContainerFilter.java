@@ -1,10 +1,8 @@
 package com.sec.ax.restful.filter;
 
 import java.security.Principal;
-import java.util.Map;
 
 import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
@@ -19,7 +17,6 @@ import com.sec.ax.restful.crypt.AxCryptException;
 import com.sec.ax.restful.crypt.aes.AxCrypt;
 import com.sec.ax.restful.pojo.ResponseElement;
 import com.sec.ax.restful.pojo.User;
-import com.sun.jersey.api.core.HttpRequestContext;
 import com.sun.jersey.spi.container.ContainerRequest;
 import com.sun.jersey.spi.container.ContainerRequestFilter;
 
@@ -45,24 +42,24 @@ public class AuthenticationContainerFilter implements ContainerRequestFilter {
 
         logger.debug("..");
         
+        String wssid = request.getHeaderValue(Constant.USER_KEY_WSSID);
+        
         User user = new User();
-
-    	String wssid = request.getHeaderValue(Constant.USER_KEY_WSSID);
-
+        
     	try {
     		
-    		if (StringUtils.isBlank(wssid) || !verify(wssid)) {
-    			wssid = issue(request);
-	    	}
+    		if (StringUtils.isBlank(wssid) || !valid(wssid)) {
+    			wssid = issue();
+    		}
 
+        	user.setWssid(wssid);
+        	
+        	logger.debug(wssid);
+        	
 		} catch (AxCryptException e) {
 			throw new WebApplicationException(Response.status(Response.Status.BAD_REQUEST).entity(ResponseElement.newFailedInstance(e.getMessage())).type(MediaType.APPLICATION_JSON  + ";charset=utf-8").build());
 		}
 
-    	user.setWssid(wssid);
-    	
-    	logger.debug(user.getWssid());
-    	
 		request.setSecurityContext(new SecurityContextWrapper(user, request.getSecurityContext()));
 		
 		return request;
@@ -70,19 +67,13 @@ public class AuthenticationContainerFilter implements ContainerRequestFilter {
 	}
 	
 	/**
-	 * @param request
 	 * @return
 	 * @throws AxCryptException
 	 */
-	protected String issue(HttpRequestContext request) throws AxCryptException {
+	protected String issue() throws AxCryptException {
 		
-		String cookie = getCookie(request, Constant.USER_COOKIE_KEY);
 		String random = RandomStringUtils.randomAlphanumeric(Constant.USER_WSSID_RAMDOM_COUNT);
 
-		if (StringUtils.isNotBlank(cookie)) {
-			random = new StringBuffer(random + cookie).toString();
-		}
-		
 		return AxCrypt.encrypt(random);
 		
 	}
@@ -91,7 +82,7 @@ public class AuthenticationContainerFilter implements ContainerRequestFilter {
 	 * @param wssid
 	 * @return
 	 */
-	protected boolean verify(String wssid) {
+	protected boolean valid(String wssid) {
 		
 		try {
 			
@@ -105,23 +96,7 @@ public class AuthenticationContainerFilter implements ContainerRequestFilter {
 		return true;
 
 	}
-	
-	/**
-	 * @param request
-	 * @param cookiename
-	 * @return
-	 */
-	private String getCookie(HttpRequestContext request, String cookiename) {
-		
-		Map<String, Cookie> cookies = request.getCookies();
-		
-		if (cookies.get(cookiename) != null) {
-			return cookies.get(cookiename).getValue();
-		}
-		
-		return null;
-	}
-	
+
 	private class SecurityContextWrapper implements SecurityContext {
 
 		private final User user;

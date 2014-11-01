@@ -62,9 +62,9 @@
     </bean>
 
     <util:map id="validateMap" map-class="java.util.HashMap">
-        <entry key="postNote" value-ref="validatePOST"/>
-        <entry key="putNote" value-ref="validatePUT"/>
-        <entry key="deleteNote" value-ref="validateDELETE"/>
+        <entry key="postNote" value-ref="postNote"/>
+        <entry key="putNote" value-ref="putNote"/>
+        <entry key="deleteNote" value-ref="deleteNote"/>
     </util:map>
     
     <bean id="postNote" class="com.sec.ax.restful.validate.note.ValidatePOST"/>
