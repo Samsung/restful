@@ -30,7 +30,7 @@
 		</init-param>
         <init-param>
             <param-name>com.sun.jersey.spi.container.ContainerRequestFilters</param-name>
-            <param-value>com.sec.ax.restful.filter.AuthenticationContainerFilter</param-value>
+            <param-value>com.sec.ax.restful.filter.AuthenticationContainerFilter,com.sec.ax.restful.filter.WSSIDContainerFilter</param-value>
         </init-param>
         <init-param>
             <param-name>com.sun.jersey.spi.container.ResourceFilters</param-name>

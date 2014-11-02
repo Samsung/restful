@@ -173,5 +173,60 @@ public class UserResource extends AbstractResource {
         return ResponseElement.newSuccessInstance(user, response);
 
     }
+    
+    /**
+     * @param user
+     * @return
+     */
+    @POST
+    @Path("/login")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public ResponseElement loginUser(User user) {
+    	
+        logger.debug("..");
+        
+        Object response = new Object();
+        
+        try {
+        	// TODO response = service.loginUser(user, response);
+        } catch (Exception e) {
+        	e.printStackTrace();
+        	exceptionManager.fireSystemException(user, new Exception(e));
+        }
+
+        logger.debug(FormatHelper.printPretty(user));
+        logger.debug(FormatHelper.printPretty(response));
+        
+        return ResponseElement.newSuccessInstance(user, response);
+
+    }
+
+    /**
+     * @param user
+     * @return
+     */
+    @POST
+    @Path("/logout")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public ResponseElement logoutUser(User user) {
+    	
+        logger.debug("..");
+        
+        Object response = new Object();
+        
+        try {
+        	// TODO response = service.logoutUser(user, response);
+        } catch (Exception e) {
+        	e.printStackTrace();
+        	exceptionManager.fireSystemException(user, new Exception(e));
+        }
+
+        logger.debug(FormatHelper.printPretty(user));
+        logger.debug(FormatHelper.printPretty(response));
+        
+        return ResponseElement.newSuccessInstance(user, response);
+
+    }
+
 
 }

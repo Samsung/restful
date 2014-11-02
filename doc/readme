@@ -5,6 +5,10 @@ Java: JDK 1.7
 Maven: 3.x
 Tomcat: 7.x
 
+#### Release v0.1.9 ####
+Add session filter/element and adjust some classes
+Prepare adding authentication
+
 #### Release v0.1.8 ####
 Add user management using sqlmap
 

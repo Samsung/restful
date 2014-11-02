@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipEntry;
@@ -26,6 +29,23 @@ public class FileHelper {
 
 	private static final int ALPHA_MAX = 26;
 	private static final int ALPHA_START = 97;
+
+	/**
+	 * @param classpath
+	 * @return
+	 * @throws IOException
+	 */
+	public static Reader getStream(String classpath) throws IOException {
+		
+		logger.debug("..");
+		
+		InputStream is = StreamHelper.class.getClass().getResourceAsStream(classpath);
+		
+		Reader reader = new InputStreamReader(is, "utf-8");
+		
+		return reader;
+
+	}
 
     /**
      * @param base

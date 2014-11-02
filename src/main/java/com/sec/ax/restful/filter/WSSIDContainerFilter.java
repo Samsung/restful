@@ -7,12 +7,17 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
+import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
+import com.sec.ax.restful.common.Constant;
 import com.sec.ax.restful.crypt.AxCryptException;
+import com.sec.ax.restful.crypt.aes.AxCrypt;
 import com.sec.ax.restful.pojo.ResponseElement;
 import com.sec.ax.restful.pojo.User;
+import com.sec.ax.restful.resource.AbstractResource;
 import com.sun.jersey.spi.container.ContainerRequest;
 import com.sun.jersey.spi.container.ContainerRequestFilter;
 
@@ -23,9 +28,9 @@ import com.sun.jersey.spi.container.ContainerRequestFilter;
  */
 
 @Component
-public class AuthenticationContainerFilter implements ContainerRequestFilter {
+public class WSSIDContainerFilter extends AbstractResource implements ContainerRequestFilter {
 
-	private static final Logger logger = Logger.getLogger(AuthenticationContainerFilter.class);
+	private static final Logger logger = Logger.getLogger(WSSIDContainerFilter.class);
 	
 	static {
 	}
@@ -40,9 +45,35 @@ public class AuthenticationContainerFilter implements ContainerRequestFilter {
         
     	try {
     		
-            User user = new User();
+    		User user = new User();
+    		
+            String wssid = request.getHeaderValue(Constant.USER_WSSID_KEY);
             
-        	user = user.getUser(request, user);
+    		if (StringUtils.isBlank(wssid)) {
+    			
+    			wssid = issue();
+    		
+    		} else {
+    			
+    			wssid = decode(wssid);
+    			
+        		if (request.getUserPrincipal() != null && StringUtils.isNotBlank(request.getUserPrincipal().getName())) {
+        			
+        			user = getUserPrincipal();
+        			
+        			if (!StringUtils.equals(wssid, user.getWssid())) {
+            			wssid = issue();
+            			// TODO remove cookie
+            			throw new WebApplicationException(Response.status(Response.Status.OK).entity(ResponseElement.newWSSIDInstance(wssid)).type(MediaType.APPLICATION_JSON  + ";charset=utf-8").build());
+        			}
+            		
+        		}
+
+    		}
+    		
+        	user.setWssid(wssid);
+        	
+        	logger.debug(user.getWssid());
         	
     		request.setSecurityContext(new SecurityContextWrapper(user, request.getSecurityContext()));
     		
@@ -54,6 +85,23 @@ public class AuthenticationContainerFilter implements ContainerRequestFilter {
         
 	}
 	
+	/**
+	 * @return
+	 * @throws AxCryptException
+	 */
+	protected String issue() throws AxCryptException {
+		return AxCrypt.encrypt(RandomStringUtils.randomAlphanumeric(Constant.USER_WSSID_RAMDOM_COUNT));
+	}
+	
+	/**
+	 * @param wssid
+	 * @return
+	 * @throws AxCryptException
+	 */
+	protected String decode(String wssid) throws AxCryptException {
+		return AxCrypt.decrypt(wssid);
+	}
+
 	private class SecurityContextWrapper implements SecurityContext {
 
 		private final User user;

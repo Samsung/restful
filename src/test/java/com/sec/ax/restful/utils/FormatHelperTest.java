@@ -32,7 +32,7 @@ public class FormatHelperTest extends TestCase {
 		
 		try {
 
-			reader = StreamHelper.getStream("/com/sec/ax/restful/utils/list.json");
+			reader = FileHelper.getStream("/com/sec/ax/restful/utils/list.json");
 			
 			String text = IOUtils.toString(reader);
 			

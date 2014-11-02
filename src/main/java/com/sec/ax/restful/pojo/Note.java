@@ -13,7 +13,7 @@ public class Note extends Audit {
 	private String subject;
 	private String content;
 	
-	private String wssdi;
+	private String wssid;
 	
 	public Note() {		
 	}
@@ -42,12 +42,12 @@ public class Note extends Audit {
 		this.content = content;
 	}
 
-	public String getWssdi() {
-		return wssdi;
+	public String getWssid() {
+		return wssid;
 	}
 
-	public void setWssdi(String wssdi) {
-		this.wssdi = wssdi;
+	public void setWssid(String wssid) {
+		this.wssid = wssid;
 	}
 
 }

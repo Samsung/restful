@@ -103,7 +103,7 @@ public class NoteResource extends AbstractResource {
     @POST
     @Path("/create")
     @Consumes(MediaType.APPLICATION_JSON)
-    @ValidatedBy({"postNote"})
+    @ValidatedBy({"validateNotePOST"})
     public ResponseElement createNote(Note note) {
     	
         logger.debug("..");
@@ -111,7 +111,7 @@ public class NoteResource extends AbstractResource {
         Object response = new Object();
         
         try {
-            note.setWssdi(getUserPrincipal().getWssid());
+            note.setWssid(getUserPrincipal().getWssid());
         	response = service.createNote(note, response);
         } catch (Exception e) {
         	exceptionManager.fireSystemException(note, new Exception(e));
@@ -131,7 +131,7 @@ public class NoteResource extends AbstractResource {
     @PUT
     @Path("/update")
     @Consumes(MediaType.APPLICATION_JSON)
-    @ValidatedBy({"putNote"})
+    @ValidatedBy({"validateNotePUT"})
     public ResponseElement updateNote(Note note) {
     	
         logger.debug("..");
@@ -139,7 +139,7 @@ public class NoteResource extends AbstractResource {
         Object response = new Object();
 
         try {
-            note.setWssdi(getUserPrincipal().getWssid());
+            note.setWssid(getUserPrincipal().getWssid());
         	response = service.updateNote(note, response);
         } catch (Exception e) {
         	exceptionManager.fireSystemException(note, new Exception(e));
@@ -159,7 +159,7 @@ public class NoteResource extends AbstractResource {
     @DELETE
     @Path("/delete")
     @Consumes(MediaType.APPLICATION_JSON)
-    @ValidatedBy({"deleteNote"})
+    @ValidatedBy({"validateNoteDELETE"})
     public ResponseElement deleteNote(Note note) {
     	
         logger.debug("..");
@@ -167,7 +167,7 @@ public class NoteResource extends AbstractResource {
         Object response = new Object();
 
         try {
-            note.setWssdi(getUserPrincipal().getWssid());
+            note.setWssid(getUserPrincipal().getWssid());
         	response = service.deleteNote(note, response);
         } catch (Exception e) {
         	exceptionManager.fireSystemException(note, new Exception(e));
