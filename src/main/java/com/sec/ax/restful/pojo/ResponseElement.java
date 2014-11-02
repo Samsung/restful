@@ -68,4 +68,8 @@ public class ResponseElement {
         return new ResponseElement("FAILED", request, message);
     }
 
+    public static ResponseElement newWSSIDInstance(Object response) {
+        return new ResponseElement("WSSID", response);
+    }
+
 }
