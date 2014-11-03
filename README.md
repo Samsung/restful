@@ -6,9 +6,9 @@ Suggesting the codes for RESTful API including filter/annotator for allowing use
 Please take a look at [readme](https://github.com/Samsung/restful/blob/master/doc/readme) to see release note.
 
 ##### Guide #####
-You DO need to install MySQL and create database for this. 
-Please, take a look at [jdbc.properties](https://github.com/Samsung/restful/blob/master/src/main/resources/config/jdbc.properties) and edit url, username and password.
-There is a sql file named [data.sql](https://github.com/Samsung/restful/blob/master/doc/sql/data.sql). Please run it.
+You need to install MySQL and create database for this. Please, run a sql file named [data.sql](https://github.com/Samsung/restful/blob/master/doc/sql/data.sql) in doc/sql.<br>
+And, please, take a look at [jdbc.properties](https://github.com/Samsung/restful/blob/master/src/main/resources/config/jdbc.properties) in src/main/resources/config and edit url, username and password.
+
 
 ##### Usage #####
 ```
