@@ -3,12 +3,12 @@ RESTful
 
 Suggesting the codes for RESTful API including filter/annotator for allowing user access and validating input data, user management, data management and some utils such as protecting data using 128/256-bit AES encryption and so on.
 
-Please take a look at https://github.com/Samsung/restful/blob/master/doc/readme to see release note.
+Please take a look at [readme](https://github.com/Samsung/restful/blob/master/doc/readme) to see release note.
 
 ##### Guide #####
-You DO need to install MySQL and add user for this. 
-Please, take a look at jdbc.properties in src/main/resources/config and edit url, username and password.
-There is a sql file name data.sql in doc/sql. Please run it.
+You DO need to install MySQL and create database for this. 
+Please, take a look at [jdbc.properties](https://github.com/Samsung/restful/blob/master/src/main/resources/config/jdbc.properties) and edit url, username and password.
+There is a sql file named [data.sql](https://github.com/Samsung/restful/blob/master/doc/sql/data.sql). Please run it.
 
 ##### Usage #####
 ```
