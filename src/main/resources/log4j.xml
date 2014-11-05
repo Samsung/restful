@@ -24,7 +24,7 @@
 
 	<!-- Root Logger -->
 	<root>
-		<priority value="debug"/>
+		<priority value="error"/>
 		<appender-ref ref="stdout"/>
 		<appender-ref ref="dailyRollingFile"/>
 	</root>
