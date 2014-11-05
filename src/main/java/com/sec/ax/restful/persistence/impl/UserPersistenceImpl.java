@@ -99,5 +99,19 @@ public class UserPersistenceImpl extends SqlMapClientDaoSupport implements UserP
 		return getSqlMapClientTemplate().delete("user.deleteUser", user);
 		
 	}
-	
+
+	/* 
+	 * @see com.sec.ax.restful.persistence.UserPersistence#loginUser(com.sec.ax.restful.pojo.User)
+	 */
+	@Override
+	public User loginUser(User user) throws Exception {
+
+        logger.debug("..");
+        
+        user = (User) getSqlMapClientTemplate().queryForObject("user.loginUser", user);
+        
+		return user;
+
+	}
+
 }

@@ -34,7 +34,7 @@ public abstract class AbstractResource {
         Principal principal = sc.getUserPrincipal();
         
         if (!(principal instanceof User)) {
-            exceptionManager.fireSystemException(null, new NullPointerException("User principle has not been loaded."));
+            exceptionManager.fireSystemException(new NullPointerException("User principle has not been loaded."));
         }
         
         return (User) principal;

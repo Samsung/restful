@@ -55,4 +55,11 @@ public interface UserPersistence {
 	 */
 	public int deleteUser(User user) throws Exception;
 
+	/**
+	 * @param user
+	 * @return
+	 * @throws Exception
+	 */
+	public User loginUser(User user) throws Exception;
+
 }
