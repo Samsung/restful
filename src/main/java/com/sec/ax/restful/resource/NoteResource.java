@@ -55,18 +55,18 @@ public class NoteResource extends AbstractResource {
         
         Query query = QueryUtils.setQuery(pn, search);
         
-        Object response = new Object();
+        Object object = new Object();
         
         try {
-        	response = service.getNotes(query, response);
+        	object = service.getNotes(query, object);
         } catch (Exception e) {
         	exceptionManager.fireSystemException(new Exception(e));
         }
         
         logger.debug(FormatHelper.printPretty(query));
-        logger.debug(FormatHelper.printPretty(response));
+        logger.debug(FormatHelper.printPretty(object));
         
-        return ResponseElement.newSuccessInstance(response);
+        return ResponseElement.newSuccessInstance(object);
 
     }
 
@@ -81,18 +81,18 @@ public class NoteResource extends AbstractResource {
     	
         logger.debug("..");
         
-        Object response = new Object();
+        Object object = new Object();
 
         try {
-        	response = service.getNote(idx, response);
+        	object = service.getNote(idx, object);
         } catch (Exception e) {
         	exceptionManager.fireSystemException(new Exception(e));
         }
         
         logger.debug(FormatHelper.printPretty(idx));
-        logger.debug(FormatHelper.printPretty(response));
+        logger.debug(FormatHelper.printPretty(object));
         
-        return ResponseElement.newSuccessInstance(response);
+        return ResponseElement.newSuccessInstance(object);
 
     }
 
@@ -108,19 +108,19 @@ public class NoteResource extends AbstractResource {
     	
         logger.debug("..");
         
-        Object response = new Object();
+        Object object = new Object();
         
         try {
             note.setWssdi(getUserPrincipal().getWssid());
-        	response = service.createNote(note, response);
+        	object = service.createNote(note, object);
         } catch (Exception e) {
         	exceptionManager.fireSystemException(new Exception(e));
         }
 
         logger.debug(FormatHelper.printPretty(note));
-        logger.debug(FormatHelper.printPretty(response));
+        logger.debug(FormatHelper.printPretty(object));
         
-        return ResponseElement.newSuccessInstance(response);
+        return ResponseElement.newSuccessInstance(true);
 
     }
 
@@ -136,19 +136,19 @@ public class NoteResource extends AbstractResource {
     	
         logger.debug("..");
         
-        Object response = new Object();
+        Object object = new Object();
 
         try {
             note.setWssdi(getUserPrincipal().getWssid());
-        	response = service.updateNote(note, response);
+        	object = service.updateNote(note, object);
         } catch (Exception e) {
         	exceptionManager.fireSystemException(new Exception(e));
         }
 
         logger.debug(FormatHelper.printPretty(note));
-        logger.debug(FormatHelper.printPretty(response));
+        logger.debug(FormatHelper.printPretty(object));
         
-        return ResponseElement.newSuccessInstance(response);
+        return ResponseElement.newSuccessInstance(true);
 
     }
 
@@ -164,19 +164,19 @@ public class NoteResource extends AbstractResource {
     	
         logger.debug("..");
         
-        Object response = new Object();
+        Object object = new Object();
 
         try {
             note.setWssdi(getUserPrincipal().getWssid());
-        	response = service.deleteNote(note, response);
+        	object = service.deleteNote(note, object);
         } catch (Exception e) {
         	exceptionManager.fireSystemException(new Exception(e));
         }
 
         logger.debug(FormatHelper.printPretty(note));
-        logger.debug(FormatHelper.printPretty(response));
+        logger.debug(FormatHelper.printPretty(object));
         
-        return ResponseElement.newSuccessInstance(response);
+        return ResponseElement.newSuccessInstance(true);
 
     }
 

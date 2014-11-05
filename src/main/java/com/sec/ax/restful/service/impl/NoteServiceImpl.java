@@ -25,13 +25,13 @@ public class NoteServiceImpl implements NoteService {
 	 * @see com.sec.ax.restful.service.NoteService#getNotes(com.sec.ax.restful.pojo.Query, java.lang.Object)
 	 */
 	@Override
-	public Object getNotes(Query query, Object response) throws Exception {
+	public Object getNotes(Query query, Object object) throws Exception {
 
         logger.debug("..");
         
-        response = persistence.getNotes(query);
+        object = persistence.getNotes(query);
         
-		return response;
+		return object;
 		
 	}
 
@@ -39,13 +39,13 @@ public class NoteServiceImpl implements NoteService {
 	 * @see com.sec.ax.restful.service.NoteService#getNote(int, java.lang.Object)
 	 */
 	@Override
-	public Object getNote(int idx, Object response) throws Exception {
+	public Object getNote(int idx, Object object) throws Exception {
 
         logger.debug("..");
         
-        response = persistence.getNote(idx);
+        object = persistence.getNote(idx);
         
-		return response;
+		return object;
 		
 	}
 
@@ -53,13 +53,13 @@ public class NoteServiceImpl implements NoteService {
 	 * @see com.sec.ax.restful.service.NoteService#createNote(com.sec.ax.restful.pojo.Note, java.lang.Object)
 	 */
 	@Override
-	public Object createNote(Note note, Object response) throws Exception {
+	public Object createNote(Note note, Object object) throws Exception {
 
         logger.debug("..");
         
-        response = persistence.createNote(note);
+        object = persistence.createNote(note);
 
-		return response;
+		return object;
 		
 	}
 
@@ -67,13 +67,13 @@ public class NoteServiceImpl implements NoteService {
 	 * @see com.sec.ax.restful.service.NoteService#updateNote(com.sec.ax.restful.pojo.Note, java.lang.Object)
 	 */
 	@Override
-	public Object updateNote(Note note, Object response) throws Exception {
+	public Object updateNote(Note note, Object object) throws Exception {
 
         logger.debug("..");
         
-        response = persistence.updateNote(note);
+        object = persistence.updateNote(note);
 
-		return response;
+		return object;
 		
 	}
 
@@ -81,13 +81,13 @@ public class NoteServiceImpl implements NoteService {
 	 * @see com.sec.ax.restful.service.NoteService#deleteNote(com.sec.ax.restful.pojo.Note, java.lang.Object)
 	 */
 	@Override
-	public Object deleteNote(Note note, Object response) throws Exception {
+	public Object deleteNote(Note note, Object object) throws Exception {
 
         logger.debug("..");
         
-        response = persistence.deleteNote(note);
+        object = persistence.deleteNote(note);
 
-		return response;
+		return object;
 		
 	}
 

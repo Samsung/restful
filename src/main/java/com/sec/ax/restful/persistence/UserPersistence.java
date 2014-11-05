@@ -40,7 +40,14 @@ public interface UserPersistence {
 	 * @throws Exception
 	 */
 	public int updateSid(User user) throws Exception;
-	
+
+	/**
+	 * @param user
+	 * @return
+	 * @throws Exception
+	 */
+	public int leaveUser(User user) throws Exception;
+
 	/**
 	 * @param user
 	 * @return

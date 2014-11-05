@@ -18,7 +18,6 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -64,18 +63,18 @@ public class UserResource extends AbstractResource {
         
         Query query = QueryUtils.setQuery(pn, search);
         
-        Object response = new Object();
+        Object object = new Object();
         
         try {
-        	response = service.getUsers(query, response);
+        	object = service.getUsers(query, object);
         } catch (Exception e) {
         	exceptionManager.fireSystemException(new Exception(e));
         }
         
         logger.debug(FormatHelper.printPretty(query));
-        logger.debug(FormatHelper.printPretty(response));
+        logger.debug(FormatHelper.printPretty(object));
         
-        return ResponseElement.newSuccessInstance(response);
+        return ResponseElement.newSuccessInstance(object);
 
     }
 
@@ -90,18 +89,18 @@ public class UserResource extends AbstractResource {
     	
         logger.debug("..");
         
-        Object response = new Object();
+        Object object = new Object();
 
         try {
-        	response = service.getUser(name, response);
+        	object = service.getUser(name, object);
         } catch (Exception e) {
         	exceptionManager.fireSystemException(new Exception(e));
         }
         
         logger.debug(FormatHelper.printPretty(name));
-        logger.debug(FormatHelper.printPretty(response));
+        logger.debug(FormatHelper.printPretty(object));
         
-        return ResponseElement.newSuccessInstance(response);
+        return ResponseElement.newSuccessInstance(object);
 
     }
 
@@ -116,18 +115,18 @@ public class UserResource extends AbstractResource {
     	
         logger.debug("..");
         
-        Object response = new Object();
+        Object object = new Object();
         
         try {
-        	response = service.createUser(user, response);
+        	object = service.createUser(user, object);
         } catch (Exception e) {
         	exceptionManager.fireSystemException(new Exception(e));
         }
 
         logger.debug(FormatHelper.printPretty(user));
-        logger.debug(FormatHelper.printPretty(response));
+        logger.debug(FormatHelper.printPretty(object));
         
-        return ResponseElement.newSuccessInstance(response);
+        return ResponseElement.newSuccessInstance(true);
 
     }
 
@@ -142,18 +141,45 @@ public class UserResource extends AbstractResource {
     	
         logger.debug("..");
         
-        Object response = new Object();
+        Object object = new Object();
 
         try {
-        	response = service.updateUser(user, response);
+        	object = service.updateUser(user, object);
         } catch (Exception e) {
         	exceptionManager.fireSystemException(new Exception(e));
         }
 
         logger.debug(FormatHelper.printPretty(user));
-        logger.debug(FormatHelper.printPretty(response));
+        logger.debug(FormatHelper.printPretty(object));
         
-        return ResponseElement.newSuccessInstance(response);
+        return ResponseElement.newSuccessInstance(true);
+
+    }
+    
+    /**
+     * @param user
+     * @return
+     */
+    @GET
+    @Path("/leave")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public ResponseElement leaveUser(@Context HttpServletRequest request, @Context HttpServletResponse response) {
+    	
+        logger.debug("..");
+        
+        Object object = new Object();
+
+        try {
+        	service.expiryCookie(request, response);
+        	object = service.leaveUser(getUserPrincipal(), response);
+        } catch (Exception e) {
+        	exceptionManager.fireSystemException(new Exception(e));
+        }
+
+        logger.debug(FormatHelper.printPretty(getUserPrincipal()));
+        logger.debug(FormatHelper.printPretty(object));
+        
+        return ResponseElement.newSuccessInstance(true);
 
     }
 
@@ -168,18 +194,18 @@ public class UserResource extends AbstractResource {
     	
         logger.debug("..");
         
-        Object response = new Object();
+        Object object = new Object();
 
         try {
-        	response = service.deleteUser(user, response);
+        	object = service.deleteUser(user, object);
         } catch (Exception e) {
         	exceptionManager.fireSystemException(new Exception(e));
         }
 
         logger.debug(FormatHelper.printPretty(user));
-        logger.debug(FormatHelper.printPretty(response));
+        logger.debug(FormatHelper.printPretty(object));
         
-        return ResponseElement.newSuccessInstance(response);
+        return ResponseElement.newSuccessInstance(true);
 
     }
     
@@ -193,17 +219,17 @@ public class UserResource extends AbstractResource {
     	
         logger.debug("..");
         
-        Object response = new Object();
+        Object object = new Object();
         
         try {
-        	response = getUserPrincipal();
+        	object = getUserPrincipal();
         } catch (Exception e) {
         	exceptionManager.fireSystemException(new Exception(e));
         }
         
-        logger.debug(FormatHelper.printPretty(response));
+        logger.debug(FormatHelper.printPretty(object));
         
-        return ResponseElement.newSuccessInstance(response);
+        return ResponseElement.newSuccessInstance(object);
 
     }
     
@@ -278,27 +304,7 @@ public class UserResource extends AbstractResource {
         logger.debug("..");
         
         try {
-
-        	Cookie[] cookies = request.getCookies();
-        	
-        	for(Cookie cookie : cookies) {
-        		
-        		logger.debug(cookie.getName() + ": " + cookie.getValue());
-        		
-        		if (StringUtils.equals(Constant.COOKIE_USER_KEY, cookie.getName())) {
-
-                	cookie.setDomain(Constant.COOKIE_DOMAIN);
-            		cookie.setMaxAge(Constant.COOKIE_EXPIRY);
-                	cookie.setPath("/");
-
-            		response.addCookie(cookie);
-            		
-            		break;
-            		
-        		}
-        		
-        	}
-        	
+        	service.expiryCookie(request, response);
         } catch (Exception e) {
         	exceptionManager.fireSystemException(new Exception(e));
         }
@@ -306,5 +312,5 @@ public class UserResource extends AbstractResource {
         return ResponseElement.newSuccessInstance(true);
         
     }
-
+    
 }
