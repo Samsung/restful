@@ -51,20 +51,19 @@ public class ExceptionManagerImpl implements ExceptionManager {
 		
 	}
 
-	/* 
-	 * @see com.sec.ax.restful.common.ExceptionManager#fireSystemException(java.lang.Object, java.lang.Throwable)
-	 */
-	@Override
-	public void fireSystemException(Object request, Throwable cause) {
-		
+    /* 
+     * @see com.sec.ax.restful.common.ExceptionManager#fireUserException(java.lang.String, java.lang.Object[])
+     */
+    @Override
+    public void fireUserException(String code, Object[] args) {
+    	
 		logger.debug("..");
+		
+		String message = localizationManager.getMessage(code, args);
+        
+        throw new WebApplicationException(Response.status(Response.Status.BAD_REQUEST).entity(ResponseElement.newFailedInstance(message)).type(MediaType.APPLICATION_JSON  + ";charset=utf-8").build());
 
-    	String referenceId = RandomStringUtils.randomAlphanumeric(16);
-        String message = localizationManager.getMessage(Constant.ERR_SYSTEM_ERROR, new String[] {referenceId});
-
-        throw new WebApplicationException(Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ResponseElement.newFailedInstance(request, message)).type(MediaType.APPLICATION_JSON  + ";charset=utf-8").build());
-
-	}
+    }
 
 	/* 
 	 * @see com.sec.ax.restful.common.ExceptionManager#fireValidationException(java.util.List)

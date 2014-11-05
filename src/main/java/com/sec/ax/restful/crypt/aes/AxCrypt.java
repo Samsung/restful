@@ -32,6 +32,15 @@ public class AxCrypt {
 	 * @return
 	 * @throws AxCryptException
 	 */
+	public static final String encrypt(StringBuffer data) throws AxCryptException {
+		return encrypt(data.toString());
+	}
+
+	/**
+	 * @param data
+	 * @return
+	 * @throws AxCryptException
+	 */
 	public static final String encrypt(String data) throws AxCryptException {
 		
 		if (data == null) {
@@ -86,6 +95,15 @@ public class AxCrypt {
 
         return Base64.encodeBase64String(abyte);
 
+	}
+	
+	/**
+	 * @param data
+	 * @return
+	 * @throws AxCryptException
+	 */
+	public static final String decrypt(StringBuffer data) throws AxCryptException {
+		return decrypt(data.toString());
 	}
 
 	/**

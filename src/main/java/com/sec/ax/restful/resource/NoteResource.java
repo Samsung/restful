@@ -60,13 +60,13 @@ public class NoteResource extends AbstractResource {
         try {
         	response = service.getNotes(query, response);
         } catch (Exception e) {
-        	exceptionManager.fireSystemException(null, new Exception(e));
+        	exceptionManager.fireSystemException(new Exception(e));
         }
         
         logger.debug(FormatHelper.printPretty(query));
         logger.debug(FormatHelper.printPretty(response));
         
-        return ResponseElement.newSuccessInstance(query, response);
+        return ResponseElement.newSuccessInstance(response);
 
     }
 
@@ -86,13 +86,13 @@ public class NoteResource extends AbstractResource {
         try {
         	response = service.getNote(idx, response);
         } catch (Exception e) {
-        	exceptionManager.fireSystemException(idx, new Exception(e));
+        	exceptionManager.fireSystemException(new Exception(e));
         }
         
         logger.debug(FormatHelper.printPretty(idx));
         logger.debug(FormatHelper.printPretty(response));
         
-        return ResponseElement.newSuccessInstance(idx, response);
+        return ResponseElement.newSuccessInstance(response);
 
     }
 
@@ -111,16 +111,16 @@ public class NoteResource extends AbstractResource {
         Object response = new Object();
         
         try {
-            note.setWssid(getUserPrincipal().getWssid());
+            note.setWssdi(getUserPrincipal().getWssid());
         	response = service.createNote(note, response);
         } catch (Exception e) {
-        	exceptionManager.fireSystemException(note, new Exception(e));
+        	exceptionManager.fireSystemException(new Exception(e));
         }
 
         logger.debug(FormatHelper.printPretty(note));
         logger.debug(FormatHelper.printPretty(response));
         
-        return ResponseElement.newSuccessInstance(note, response);
+        return ResponseElement.newSuccessInstance(response);
 
     }
 
@@ -139,16 +139,16 @@ public class NoteResource extends AbstractResource {
         Object response = new Object();
 
         try {
-            note.setWssid(getUserPrincipal().getWssid());
+            note.setWssdi(getUserPrincipal().getWssid());
         	response = service.updateNote(note, response);
         } catch (Exception e) {
-        	exceptionManager.fireSystemException(note, new Exception(e));
+        	exceptionManager.fireSystemException(new Exception(e));
         }
 
         logger.debug(FormatHelper.printPretty(note));
         logger.debug(FormatHelper.printPretty(response));
         
-        return ResponseElement.newSuccessInstance(note, response);
+        return ResponseElement.newSuccessInstance(response);
 
     }
 
@@ -167,16 +167,16 @@ public class NoteResource extends AbstractResource {
         Object response = new Object();
 
         try {
-            note.setWssid(getUserPrincipal().getWssid());
+            note.setWssdi(getUserPrincipal().getWssid());
         	response = service.deleteNote(note, response);
         } catch (Exception e) {
-        	exceptionManager.fireSystemException(note, new Exception(e));
+        	exceptionManager.fireSystemException(new Exception(e));
         }
 
         logger.debug(FormatHelper.printPretty(note));
         logger.debug(FormatHelper.printPretty(response));
         
-        return ResponseElement.newSuccessInstance(note, response);
+        return ResponseElement.newSuccessInstance(response);
 
     }
 
