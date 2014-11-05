@@ -10,7 +10,66 @@ You need to install MySQL and create database for this. Please, run a sql file n
 And, please, take a look at [jdbc.properties](https://github.com/Samsung/restful/blob/master/src/main/resources/config/jdbc.properties) in src/main/resources/config and edit url, username and password.
 
 
-##### Usage #####
+#### Usage ####
+
+##### User #####
+```
+// Retrieving a list of user with paging and search query
+GET /user/list
+GET /user/list?pn=1
+GET /user/list?pn=1&q=ax
+Content-Type: application/json
+
+// Retrieving a list of user
+GET /user/list 
+Content-Type: application/json
+
+// Retrieving a user
+GET /user/ax
+Content-Type: application/json
+
+// Creating a user
+POST /user/create
+Content-Type: application/json
+{
+  "name": "axpower",
+  "pwd": "*****",
+  "username": "RESTful"
+}
+
+// Updating a user
+PUT /user/update
+Content-Type: application/json
+{
+  "name": "axpower",
+  "username": "Web service"
+}
+
+// Deleting a user
+DELETE /user/delete
+Content-Type: application/json
+{
+  "name": "axpower"
+}
+
+// Retrieving user's information 
+GET /user/me
+Content-Type: application/json
+
+// Signing in
+POST /user/login
+Content-Type: application/json
+{
+  "name": "axpower",
+  "pwd": "*****"
+}
+
+// Signing out
+GET /user/logout
+Content-Type: application/json
+```
+
+##### Note #####
 ```
 // Retrieving a list of note with paging and search query
 GET /note/list

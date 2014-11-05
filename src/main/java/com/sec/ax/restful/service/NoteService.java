@@ -14,42 +14,42 @@ public interface NoteService {
 
 	/**
 	 * @param query
-	 * @param response
+	 * @param object
 	 * @return
 	 * @throws Exception
 	 */
-	public Object getNotes(Query query, Object response) throws Exception;
+	public Object getNotes(Query query, Object object) throws Exception;
 
 	/**
 	 * @param idx
-	 * @param response
+	 * @param object
 	 * @return
 	 * @throws Exception
 	 */
-	public Object getNote(int idx, Object response) throws Exception;
+	public Object getNote(int idx, Object object) throws Exception;
 
 	/**
 	 * @param note
-	 * @param response
+	 * @param object
 	 * @return
 	 * @throws Exception
 	 */
-	public Object createNote(Note note, Object response) throws Exception;
+	public Object createNote(Note note, Object object) throws Exception;
 
 	/**
 	 * @param note
-	 * @param response
+	 * @param object
 	 * @return
 	 * @throws Exception
 	 */
-	public Object updateNote(Note note, Object response) throws Exception;
+	public Object updateNote(Note note, Object object) throws Exception;
 
 	/**
 	 * @param note
-	 * @param response
+	 * @param object
 	 * @return
 	 * @throws Exception
 	 */
-	public Object deleteNote(Note note, Object response) throws Exception;
+	public Object deleteNote(Note note, Object object) throws Exception;
 	
 }

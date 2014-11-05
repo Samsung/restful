@@ -20,6 +20,7 @@ public class User extends Audit implements Principal {
     
     private String sid;
     private String username; // UserName
+    private int status;
     
     private String wssid;
     private String ip;
@@ -64,6 +65,14 @@ public class User extends Audit implements Principal {
     public void setUsername(String username) {
         this.username = username;
     }
+
+	public int isStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
 
     public String getWssid() {
         return wssid;
