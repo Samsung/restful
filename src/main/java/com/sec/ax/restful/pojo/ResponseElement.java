@@ -12,7 +12,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class ResponseElement {
 
     private String status;
-    private Object request;
     private Object response;
     
     public ResponseElement() {}
@@ -22,26 +21,12 @@ public class ResponseElement {
     	this.response = response;
     }
 
-    public ResponseElement(String status, Object request, Object response) {
-        this.status = status;
-        this.request = request;
-        this.response = response;
-    }
-
 	public String getStatus() {
 		return status;
 	}
 
 	public void setStatus(String status) {
 		this.status = status;
-	}
-
-	public Object getRequest() {
-		return request;
-	}
-
-	public void setRequest(Object request) {
-		this.request = request;
 	}
 
 	public Object getResponse() {
@@ -56,16 +41,8 @@ public class ResponseElement {
         return new ResponseElement("OK", response);
     }
 
-    public static ResponseElement newSuccessInstance(Object request, Object response) {
-        return new ResponseElement("OK", request, response);
-    }
-
     public static ResponseElement newFailedInstance(Object message) {
         return new ResponseElement("FAILED", message);
-    }
-
-    public static ResponseElement newFailedInstance(Object request, Object message) {
-        return new ResponseElement("FAILED", request, message);
     }
 
     public static ResponseElement newWSSIDInstance(Object response) {

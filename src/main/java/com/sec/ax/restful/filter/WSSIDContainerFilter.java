@@ -45,35 +45,16 @@ public class WSSIDContainerFilter extends AbstractResource implements ContainerR
         
     	try {
     		
-    		User user = new User();
+    		User user = getUserPrincipal();
     		
             String wssid = request.getHeaderValue(Constant.USER_WSSID_KEY);
-            
-    		if (StringUtils.isBlank(wssid)) {
-    			
-    			wssid = issue();
-    		
-    		} else {
-    			
-    			wssid = decode(wssid);
-    			
-        		if (request.getUserPrincipal() != null && StringUtils.isNotBlank(request.getUserPrincipal().getName())) {
-        			
-        			user = getUserPrincipal();
-        			
-        			if (!StringUtils.equals(wssid, user.getWssid())) {
-            			wssid = issue();
-            			// TODO remove cookie
-            			throw new WebApplicationException(Response.status(Response.Status.OK).entity(ResponseElement.newWSSIDInstance(wssid)).type(MediaType.APPLICATION_JSON  + ";charset=utf-8").build());
-        			}
-            		
-        		}
 
+    		if (StringUtils.isBlank(wssid) || !isValid(wssid)) {
+    			wssid = issue();
+    			throw new WebApplicationException(Response.status(Response.Status.FORBIDDEN).entity(ResponseElement.newWSSIDInstance(wssid)).type(MediaType.APPLICATION_JSON  + ";charset=utf-8").build());
     		}
     		
         	user.setWssid(wssid);
-        	
-        	logger.debug(user.getWssid());
         	
     		request.setSecurityContext(new SecurityContextWrapper(user, request.getSecurityContext()));
     		
@@ -92,14 +73,15 @@ public class WSSIDContainerFilter extends AbstractResource implements ContainerR
 	protected String issue() throws AxCryptException {
 		return AxCrypt.encrypt(RandomStringUtils.randomAlphanumeric(Constant.USER_WSSID_RAMDOM_COUNT));
 	}
-	
+
 	/**
 	 * @param wssid
 	 * @return
 	 * @throws AxCryptException
 	 */
-	protected String decode(String wssid) throws AxCryptException {
-		return AxCrypt.decrypt(wssid);
+	protected boolean isValid(String wssid) throws AxCryptException {
+		AxCrypt.decrypt(wssid);
+		return true;
 	}
 
 	private class SecurityContextWrapper implements SecurityContext {

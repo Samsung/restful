@@ -51,5 +51,13 @@ public interface UserService {
 	 * @throws Exception
 	 */
 	public Object deleteUser(User user, Object response) throws Exception;
+
+	/**
+	 * @param user
+	 * @param object
+	 * @return
+	 * @throws Exception
+	 */
+	public User loginUser(User user, Object object) throws Exception;
 	
 }

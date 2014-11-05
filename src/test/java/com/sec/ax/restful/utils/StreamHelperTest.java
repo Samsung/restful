@@ -19,5 +19,4 @@ public class StreamHelperTest extends TestCase {
 		logger.setLevel(Level.DEBUG);
 	}
 	
-
 }

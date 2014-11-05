@@ -18,10 +18,10 @@ public interface ExceptionManager {
     public void fireSystemException(Throwable cause);
     
     /**
-     * @param request
-     * @param cause
+     * @param message
+     * @param args
      */
-    public void fireSystemException(Object request, Throwable cause);
+    public void fireUserException(String message, Object[] args);
 
     /**
      * @param error

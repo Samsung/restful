@@ -1,5 +1,10 @@
 package com.sec.ax.restful.resource;
 
+import java.util.Calendar;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
@@ -10,12 +15,17 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.sec.ax.restful.common.Constant;
+import com.sec.ax.restful.crypt.AxCryptException;
+import com.sec.ax.restful.crypt.aes.AxCrypt;
 import com.sec.ax.restful.pojo.Query;
 import com.sec.ax.restful.pojo.ResponseElement;
 import com.sec.ax.restful.pojo.User;
@@ -59,13 +69,13 @@ public class UserResource extends AbstractResource {
         try {
         	response = service.getUsers(query, response);
         } catch (Exception e) {
-        	exceptionManager.fireSystemException(null, new Exception(e));
+        	exceptionManager.fireSystemException(new Exception(e));
         }
         
         logger.debug(FormatHelper.printPretty(query));
         logger.debug(FormatHelper.printPretty(response));
         
-        return ResponseElement.newSuccessInstance(query, response);
+        return ResponseElement.newSuccessInstance(response);
 
     }
 
@@ -85,13 +95,13 @@ public class UserResource extends AbstractResource {
         try {
         	response = service.getUser(name, response);
         } catch (Exception e) {
-        	exceptionManager.fireSystemException(name, new Exception(e));
+        	exceptionManager.fireSystemException(new Exception(e));
         }
         
         logger.debug(FormatHelper.printPretty(name));
         logger.debug(FormatHelper.printPretty(response));
         
-        return ResponseElement.newSuccessInstance(name, response);
+        return ResponseElement.newSuccessInstance(response);
 
     }
 
@@ -111,14 +121,13 @@ public class UserResource extends AbstractResource {
         try {
         	response = service.createUser(user, response);
         } catch (Exception e) {
-        	e.printStackTrace();
-        	exceptionManager.fireSystemException(user, new Exception(e));
+        	exceptionManager.fireSystemException(new Exception(e));
         }
 
         logger.debug(FormatHelper.printPretty(user));
         logger.debug(FormatHelper.printPretty(response));
         
-        return ResponseElement.newSuccessInstance(user, response);
+        return ResponseElement.newSuccessInstance(response);
 
     }
 
@@ -138,13 +147,13 @@ public class UserResource extends AbstractResource {
         try {
         	response = service.updateUser(user, response);
         } catch (Exception e) {
-        	exceptionManager.fireSystemException(user, new Exception(e));
+        	exceptionManager.fireSystemException(new Exception(e));
         }
 
         logger.debug(FormatHelper.printPretty(user));
         logger.debug(FormatHelper.printPretty(response));
         
-        return ResponseElement.newSuccessInstance(user, response);
+        return ResponseElement.newSuccessInstance(response);
 
     }
 
@@ -164,69 +173,138 @@ public class UserResource extends AbstractResource {
         try {
         	response = service.deleteUser(user, response);
         } catch (Exception e) {
-        	exceptionManager.fireSystemException(user, new Exception(e));
+        	exceptionManager.fireSystemException(new Exception(e));
         }
 
         logger.debug(FormatHelper.printPretty(user));
         logger.debug(FormatHelper.printPretty(response));
         
-        return ResponseElement.newSuccessInstance(user, response);
+        return ResponseElement.newSuccessInstance(response);
 
     }
     
     /**
+     * @return
+     */
+    @GET
+    @Path("/me")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public ResponseElement getMe() {
+    	
+        logger.debug("..");
+        
+        Object response = new Object();
+        
+        try {
+        	response = getUserPrincipal();
+        } catch (Exception e) {
+        	exceptionManager.fireSystemException(new Exception(e));
+        }
+        
+        logger.debug(FormatHelper.printPretty(response));
+        
+        return ResponseElement.newSuccessInstance(response);
+
+    }
+    
+    /**
+     * @param request
+     * @param response
      * @param user
      * @return
      */
     @POST
     @Path("/login")
     @Consumes(MediaType.APPLICATION_JSON)
-    public ResponseElement loginUser(User user) {
+    public ResponseElement loginUser(@Context HttpServletRequest request, @Context HttpServletResponse response, User user) {
     	
         logger.debug("..");
         
-        Object response = new Object();
+        try {
+        	user = service.loginUser(user, getUserPrincipal().getWssid());
+        } catch (Exception e) {
+        	exceptionManager.fireSystemException(new Exception(e));
+        }
         
         try {
-        	// TODO response = service.loginUser(user, response);
-        } catch (Exception e) {
-        	e.printStackTrace();
-        	exceptionManager.fireSystemException(user, new Exception(e));
+        	
+        	if (user != null) {
+
+            	StringBuffer Ax = new StringBuffer();
+            	
+            	Ax.append(user.getName()).append("|");
+            	Ax.append(user.getSid()).append("|");
+            	Ax.append(user.getUsername()).append("|");
+            	Ax.append(AxCrypt.decrypt(user.getWssid())).append("|");
+            	Ax.append(request.getRemoteAddr()).append("|");
+        		Calendar c = Calendar.getInstance();
+            	Ax.append(c.getTimeInMillis());
+            	
+            	String crypted = AxCrypt.encrypt(Ax);
+            	
+            	logger.debug(crypted);
+            	
+            	Cookie cookie = new Cookie("Ax", crypted);
+            	
+            	cookie.setDomain(Constant.COOKIE_DOMAIN);
+            	cookie.setMaxAge(Constant.COOKIE_MAX_AGE);
+            	cookie.setPath("/");
+
+            	response.addCookie(cookie);
+
+        	} else {
+        		exceptionManager.fireUserException(Constant.ERR_USER_INVALID, null);
+        	}
+        	
+        } catch (AxCryptException e) {
+        	exceptionManager.fireSystemException(new Exception(e));
         }
-
-        logger.debug(FormatHelper.printPretty(user));
-        logger.debug(FormatHelper.printPretty(response));
         
-        return ResponseElement.newSuccessInstance(user, response);
-
+        logger.debug(FormatHelper.printPretty(user));
+        
+        return ResponseElement.newSuccessInstance(true);
+        
     }
-
+    
     /**
      * @param user
      * @return
      */
-    @POST
+    @GET
     @Path("/logout")
     @Consumes(MediaType.APPLICATION_JSON)
-    public ResponseElement logoutUser(User user) {
+    public ResponseElement logoutUser(@Context HttpServletRequest request, @Context HttpServletResponse response) {
     	
         logger.debug("..");
         
-        Object response = new Object();
-        
         try {
-        	// TODO response = service.logoutUser(user, response);
+
+        	Cookie[] cookies = request.getCookies();
+        	
+        	for(Cookie cookie : cookies) {
+        		
+        		logger.debug(cookie.getName() + ": " + cookie.getValue());
+        		
+        		if (StringUtils.equals(Constant.COOKIE_USER_KEY, cookie.getName())) {
+
+                	cookie.setDomain(Constant.COOKIE_DOMAIN);
+            		cookie.setMaxAge(Constant.COOKIE_EXPIRY);
+                	cookie.setPath("/");
+
+            		response.addCookie(cookie);
+            		
+            		break;
+            		
+        		}
+        		
+        	}
+        	
         } catch (Exception e) {
-        	e.printStackTrace();
-        	exceptionManager.fireSystemException(user, new Exception(e));
+        	exceptionManager.fireSystemException(new Exception(e));
         }
-
-        logger.debug(FormatHelper.printPretty(user));
-        logger.debug(FormatHelper.printPretty(response));
         
-        return ResponseElement.newSuccessInstance(user, response);
-
+        return ResponseElement.newSuccessInstance(true);
+        
     }
-
 
 }

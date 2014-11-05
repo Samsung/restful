@@ -6,12 +6,12 @@
     <typeAlias alias="user" type="com.sec.ax.restful.pojo.User"/>
     <typeAlias alias="query" type="com.sec.ax.restful.pojo.Query"/>
 
-	<resultMap id="list" class="user" extends="audit.list">
+    <resultMap id="list" class="user" extends="audit.list">
         <result property="idx" column="idx" javaType="int" jdbcType="INT"/>
         <result property="name" column="name" javaType="String" jdbcType="VARCHAR"/>
         <result property="sid" column="sid" javaType="String" jdbcType="VARCHAR"/>
         <result property="username" column="username" javaType="String" jdbcType="VARCHAR"/>
-	</resultMap>
+    </resultMap>
 
     <select id="getUsers" parameterClass="query" resultMap="list">
         SELECT
@@ -69,5 +69,14 @@
         WHERE 
             name = #name#
     </delete>
+
+    <select id="loginUser" parameterClass="user" resultClass="user">
+        SELECT
+            idx, name, sid, username
+        FROM
+            user
+        WHERE
+            name = #name# AND pwd = password(#pwd#)
+    </select>
 
 </sqlMap>
