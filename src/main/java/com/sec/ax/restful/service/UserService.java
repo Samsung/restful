@@ -46,14 +46,6 @@ public interface UserService {
 	 * @throws Exception
 	 */
 	public Object updateUser(User user, Object object) throws Exception;
-
-	/**
-	 * @param user
-	 * @param object
-	 * @return
-	 * @throws Exception
-	 */
-	public Object leaveUser(User user, Object object) throws Exception;
 	
 	/**
 	 * @param user

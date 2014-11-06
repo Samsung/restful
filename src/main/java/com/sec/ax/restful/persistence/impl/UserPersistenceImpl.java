@@ -19,7 +19,7 @@ import com.sec.ax.restful.pojo.Query;
 public class UserPersistenceImpl extends SqlMapClientDaoSupport implements UserPersistence {
 
     private static final Logger logger = Logger.getLogger(UserPersistenceImpl.class);
-
+    
 	/* 
 	 * @see com.sec.ax.restful.persistence.UserPersistence#getUsers(com.sec.ax.restful.pojo.Query)
 	 */
@@ -85,18 +85,6 @@ public class UserPersistenceImpl extends SqlMapClientDaoSupport implements UserP
 		logger.debug("..");
 		
 		return getSqlMapClientTemplate().update("user.updateUser", user);
-		
-	}
-	
-	/* 
-	 * @see com.sec.ax.restful.persistence.UserPersistence#updateUser(com.sec.ax.restful.pojo.User)
-	 */
-	@Override
-	public int leaveUser(User user) throws Exception {
-		
-		logger.debug("..");
-		
-		return getSqlMapClientTemplate().update("user.leaveUser", user);
 		
 	}
 	

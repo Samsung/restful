@@ -6,13 +6,13 @@
     <typeAlias alias="note" type="com.sec.ax.restful.pojo.Note"/>
     <typeAlias alias="query" type="com.sec.ax.restful.pojo.Query"/>
 
-	<resultMap id="list" class="note" extends="audit.list">
+	<resultMap id="noteResult" class="note" extends="audit.auditResult">
         <result property="idx" column="idx" javaType="int" jdbcType="INT"/>
         <result property="subject" column="subject" javaType="String" jdbcType="VARCHAR"/>
         <result property="content" column="content" javaType="String" jdbcType="VARCHAR"/>
 	</resultMap>
 
-    <select id="getNotes" parameterClass="query" resultMap="list">
+    <select id="getNotes" parameterClass="query" resultMap="noteResult">
         SELECT
             idx, subject, content, createdate, updatedate
         FROM
@@ -24,7 +24,7 @@
         </dynamic>
     </select>
 
-    <select id="getNote" parameterClass="int" resultMap="list">
+    <select id="getNote" parameterClass="int" resultMap="noteResult">
         SELECT
             idx, subject, content, createdate, updatedate
         FROM

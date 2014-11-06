@@ -5,7 +5,7 @@
 
 	<typeAlias alias="audit" type="com.sec.ax.restful.pojo.Audit"/>
 
-    <resultMap class="audit" id="list">
+    <resultMap id="auditResult" class="audit">
         <result property="createdate" column="createdate" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
         <result property="updatedate" column="updatedate" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
     </resultMap>

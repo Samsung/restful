@@ -6,16 +6,17 @@
     <typeAlias alias="user" type="com.sec.ax.restful.pojo.User"/>
     <typeAlias alias="query" type="com.sec.ax.restful.pojo.Query"/>
 
-    <resultMap id="userResult" class="user" extends="audit.list">
+    <resultMap id="userResult" class="user" extends="audit.auditResult">
         <result property="idx" column="idx" javaType="int" jdbcType="INT"/>
         <result property="name" column="name" javaType="String" jdbcType="VARCHAR"/>
         <result property="sid" column="sid" javaType="String" jdbcType="VARCHAR"/>
         <result property="username" column="username" javaType="String" jdbcType="VARCHAR"/>
+        <result property="role" column="role" javaType="com.sec.ax.restful.pojo.Role" jdbcType="VARCHAR"/>
     </resultMap>
 
     <select id="getUsers" parameterClass="query" resultMap="userResult">
         SELECT
-            idx, name, sid, username, createdate, updatedate
+            idx, name, sid, username, role, createdate, updatedate
         FROM
             user
         WHERE
@@ -29,7 +30,7 @@
 
     <select id="getUser" parameterClass="String" resultMap="userResult">
         SELECT
-            idx, name, sid, username, createdate, updatedate
+            idx, name, sid, username, role, createdate, updatedate
         FROM
             user
         WHERE
@@ -38,9 +39,9 @@
 
     <insert id="createUser" parameterClass="user">
         INSERT INTO
-            user (name, pwd, sid, username)
+            user (name, pwd, sid, username, role)
         VALUES (
-            #name#, PASSWORD(#pwd#), #sid#, #username#
+            #name#, PASSWORD(#pwd#), #sid#, #username#, #role,javaType=com.sec.ax.restful.pojo.Role,jdbcType=VARCHAR#
         )
         <selectKey resultClass="int" keyProperty="idx">
             SELECT LAST_INSERT_ID() AS idx
@@ -65,15 +66,6 @@
             name = #name# AND status = 1
     </update>
 
-    <update id="leaveUser" parameterClass="user">
-        UPDATE
-            user
-        SET
-            status = #status#
-        WHERE
-            name = #name# AND status = 1
-    </update>
-
     <delete id="deleteUser" parameterClass="user">
         DELETE FROM 
             user
@@ -81,9 +73,9 @@
             name = #name# AND status = 1
     </delete>
 
-    <select id="loginUser" parameterClass="user" resultClass="user">
+    <select id="loginUser" parameterClass="user" resultMap="userResult">
         SELECT
-            idx, name, sid, username
+            idx, name, sid, username, role, createdate, updatedate
         FROM
             user
         WHERE

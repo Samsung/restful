@@ -52,10 +52,6 @@ Content-Type: application/json
   "name": "axpower"
 }
 
-// Retrieving user's information 
-GET /user/me
-Content-Type: application/json
-
 // Signing in
 POST /user/login
 Content-Type: application/json
@@ -63,6 +59,10 @@ Content-Type: application/json
   "name": "axpower",
   "pwd": "*****"
 }
+
+// Retrieving my information 
+GET /user/me
+Content-Type: application/json
 
 // Signing out
 GET /user/logout

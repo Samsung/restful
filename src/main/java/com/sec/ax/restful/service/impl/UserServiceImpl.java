@@ -11,8 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.sec.ax.restful.common.Constant;
 import com.sec.ax.restful.persistence.UserPersistence;
-import com.sec.ax.restful.pojo.User;
 import com.sec.ax.restful.pojo.Query;
+import com.sec.ax.restful.pojo.User;
 import com.sec.ax.restful.service.UserService;
 import com.sec.ax.restful.utils.FormatHelper;
 
@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
     
     @Autowired
     private UserPersistence persistence;
-
+    
 	/* 
 	 * @see com.sec.ax.restful.service.UserService#getUsers(com.sec.ax.restful.pojo.Query, java.lang.Object)
 	 */
@@ -85,22 +85,6 @@ public class UserServiceImpl implements UserService {
         logger.debug("..");
         
         object = persistence.updateUser(user);
-        
-		return object;
-		
-	}
-
-	/* 
-	 * @see com.sec.ax.restful.service.UserService#updateUser(com.sec.ax.restful.pojo.User, java.lang.Object)
-	 */
-	@Override
-	public Object leaveUser(User user, Object object) throws Exception {
-
-        logger.debug("..");
-        
-        user.setStatus(0);
-        
-        object = persistence.leaveUser(user);
         
 		return object;
 		
