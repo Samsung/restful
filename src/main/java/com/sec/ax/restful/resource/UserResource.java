@@ -160,10 +160,10 @@ public class UserResource extends AbstractResource {
      * @param user
      * @return
      */
-    @GET
-    @Path("/leave")
+    @DELETE
+    @Path("/delete")
     @Consumes(MediaType.APPLICATION_JSON)
-    public ResponseElement leaveUser(@Context HttpServletRequest request, @Context HttpServletResponse response) {
+    public ResponseElement deleteUser(@Context HttpServletRequest request, @Context HttpServletResponse response, User user) {
     	
         logger.debug("..");
         
@@ -171,32 +171,6 @@ public class UserResource extends AbstractResource {
 
         try {
         	service.expiryCookie(request, response);
-        	object = service.leaveUser(getUserPrincipal(), response);
-        } catch (Exception e) {
-        	exceptionManager.fireSystemException(new Exception(e));
-        }
-
-        logger.debug(FormatHelper.printPretty(getUserPrincipal()));
-        logger.debug(FormatHelper.printPretty(object));
-        
-        return ResponseElement.newSuccessInstance(true);
-
-    }
-
-    /**
-     * @param user
-     * @return
-     */
-    @DELETE
-    @Path("/delete")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public ResponseElement deleteUser(User user) {
-    	
-        logger.debug("..");
-        
-        Object object = new Object();
-
-        try {
         	object = service.deleteUser(user, object);
         } catch (Exception e) {
         	exceptionManager.fireSystemException(new Exception(e));
@@ -205,7 +179,7 @@ public class UserResource extends AbstractResource {
         logger.debug(FormatHelper.printPretty(user));
         logger.debug(FormatHelper.printPretty(object));
         
-        return ResponseElement.newSuccessInstance(true);
+        return ResponseElement.newSuccessInstance(Boolean.valueOf(String.valueOf(object)));
 
     }
     
@@ -249,6 +223,7 @@ public class UserResource extends AbstractResource {
         try {
         	user = service.loginUser(user, getUserPrincipal().getWssid());
         } catch (Exception e) {
+        	e.printStackTrace();
         	exceptionManager.fireSystemException(new Exception(e));
         }
         
@@ -261,6 +236,7 @@ public class UserResource extends AbstractResource {
             	Ax.append(user.getName()).append("|");
             	Ax.append(user.getSid()).append("|");
             	Ax.append(user.getUsername()).append("|");
+            	Ax.append(user.getRole()).append("|");
             	Ax.append(AxCrypt.decrypt(user.getWssid())).append("|");
             	Ax.append(request.getRemoteAddr()).append("|");
         		Calendar c = Calendar.getInstance();

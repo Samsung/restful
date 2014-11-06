@@ -5,6 +5,9 @@ Java: JDK 1.7
 Maven: 3.x
 Tomcat: 7.x
 
+#### Release v0.2.2 ####
+Add Role into user
+
 #### Release v0.2.1 ####
 Add status to user table whether user is an active member or not
 

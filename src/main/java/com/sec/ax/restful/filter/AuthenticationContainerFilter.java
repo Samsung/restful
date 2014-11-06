@@ -16,6 +16,7 @@ import com.sec.ax.restful.common.Constant;
 import com.sec.ax.restful.crypt.AxCryptException;
 import com.sec.ax.restful.crypt.aes.AxCrypt;
 import com.sec.ax.restful.pojo.ResponseElement;
+import com.sec.ax.restful.pojo.Role;
 import com.sec.ax.restful.pojo.User;
 import com.sun.jersey.api.core.HttpRequestContext;
 import com.sun.jersey.spi.container.ContainerRequest;
@@ -76,7 +77,7 @@ public class AuthenticationContainerFilter implements ContainerRequestFilter {
 
 		@Override
 		public boolean isUserInRole(String role) {
-			return false;
+            return user.getRole() == Role.valueOf(role);
 		}
 
 		@Override
@@ -94,8 +95,9 @@ public class AuthenticationContainerFilter implements ContainerRequestFilter {
 	public static final int USER_ARRAY_NAME = 0;
 	public static final int USER_ARRAY_SID = 1;
 	public static final int USER_ARRAY_USERNAME = 2;
-	public static final int USER_ARRAY_WSSID = 3;
-	public static final int USER_ARRAY_IP = 4;
+	public static final int USER_ARRAY_ROLE = 3;
+	public static final int USER_ARRAY_WSSID = 4;
+	public static final int USER_ARRAY_IP = 5;
 	
 	/**
 	 * @param request
@@ -141,6 +143,9 @@ public class AuthenticationContainerFilter implements ContainerRequestFilter {
     					break;
     				case USER_ARRAY_USERNAME:
     					user.setUsername(splitted[i]);
+    					break;
+    				case USER_ARRAY_ROLE:
+    					user.setRole(Role.valueOf(splitted[i]));
     					break;
     				case USER_ARRAY_WSSID:
     					user.setWssid(splitted[i]);

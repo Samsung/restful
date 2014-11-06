@@ -20,6 +20,7 @@ public class User extends Audit implements Principal {
     
     private String sid;
     private String username; // UserName
+    private Role role; 
     private int status;
     
     private String wssid;
@@ -65,6 +66,14 @@ public class User extends Audit implements Principal {
     public void setUsername(String username) {
         this.username = username;
     }
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
 
 	public int isStatus() {
 		return status;
