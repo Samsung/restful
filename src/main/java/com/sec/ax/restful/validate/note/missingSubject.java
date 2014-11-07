@@ -14,7 +14,7 @@ import com.sec.ax.restful.validate.Error;
  *
  */
 
-public class ValidatePUT extends AbstractNoteValidate {
+public class missingSubject extends AbstractNoteValidate {
 
 	/* 
 	 * @see com.sec.ax.restful.validate.note.AbstractNoteValidate#validate(com.sec.ax.restful.pojo.Note, java.util.List)
@@ -22,8 +22,8 @@ public class ValidatePUT extends AbstractNoteValidate {
 	@Override
 	public void validate(Note target, List<Error> error) {
 
-		if (target.getIdx() <= 0 || StringUtils.isBlank(target.getSubject()) || StringUtils.isBlank(target.getContent())) {
-			error.add(new Error(Constant.ERR_MANDATORY_MISSING, null));
+		if (StringUtils.isBlank(target.getSubject())) {
+			error.add(new Error(Constant.ERR_MANDATORY_MISSING, new Object[] {Constant.NOTE_SUBJECT}));
 		}
 		
 	}

@@ -24,8 +24,14 @@ public class Constant {
 
 	public static final int PAGING_MAX_RESULTS = 10;
 	
+	public static final String NOTE_IDX = "idx";
+	public static final String NOTE_SUBJECT = "subject";
+	public static final String NOTE_CONTENT = "content";
+
+	
     public static final String ERR_SYSTEM_ERROR = "err.system.error";
 
+    public static final String ERR_USER_NAME_DUPLICATED = "err.user.name.duplicated";
     public static final String ERR_USER_LOGIN_FAILED = "err.user.login.failed";
     public static final String ERR_USER_AUTHENTICATION_FAILED = "err.user.authentication.failed";
     public static final String ERR_USER_AUTHORIZATION_FAILED = "err.user.authorization.failed";

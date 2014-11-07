@@ -20,9 +20,11 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
 
 import com.sec.ax.restful.annotation.RolesAllowed;
+import com.sec.ax.restful.annotation.ValidatedBy;
 import com.sec.ax.restful.common.Constant;
 import com.sec.ax.restful.crypt.AxCryptException;
 import com.sec.ax.restful.crypt.aes.AxCrypt;
@@ -70,7 +72,7 @@ public class UserResource extends AbstractResource {
         
         try {
         	object = service.getUsers(query, object);
-        } catch (Exception e) {
+        } catch (DataAccessException e) {
         	exceptionManager.fireSystemException(new Exception(e));
         }
         
@@ -97,7 +99,7 @@ public class UserResource extends AbstractResource {
 
         try {
         	object = service.getUser(name, object);
-        } catch (Exception e) {
+        } catch (DataAccessException e) {
         	exceptionManager.fireSystemException(new Exception(e));
         }
         
@@ -115,6 +117,7 @@ public class UserResource extends AbstractResource {
     @POST
     @Path("/create")
     @Consumes(MediaType.APPLICATION_JSON)
+    @ValidatedBy({"duplicatedName"})
     public ResponseElement createUser(User user) {
     	
         logger.debug("..");
@@ -123,7 +126,7 @@ public class UserResource extends AbstractResource {
         
         try {
         	object = service.createUser(user, object);
-        } catch (Exception e) {
+        } catch (DataAccessException e) {
         	exceptionManager.fireSystemException(new Exception(e));
         }
 
@@ -150,7 +153,7 @@ public class UserResource extends AbstractResource {
 
         try {
         	object = service.updateUser(user, object);
-        } catch (Exception e) {
+        } catch (DataAccessException e) {
         	exceptionManager.fireSystemException(new Exception(e));
         }
 
@@ -177,7 +180,7 @@ public class UserResource extends AbstractResource {
 
         try {
         	object = service.deleteUser(user, object);
-        } catch (Exception e) {
+        } catch (DataAccessException e) {
         	exceptionManager.fireSystemException(new Exception(e));
         }
 
@@ -203,7 +206,7 @@ public class UserResource extends AbstractResource {
         
         try {
         	object = getUserPrincipal();
-        } catch (Exception e) {
+        } catch (DataAccessException e) {
         	exceptionManager.fireSystemException(new Exception(e));
         }
         
@@ -228,7 +231,7 @@ public class UserResource extends AbstractResource {
         
         try {
         	user = service.loginUser(user);
-        } catch (Exception e) {
+        } catch (DataAccessException e) {
         	exceptionManager.fireSystemException(new Exception(e));
         }
         

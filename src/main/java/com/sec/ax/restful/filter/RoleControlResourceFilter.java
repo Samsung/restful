@@ -64,7 +64,7 @@ public class RoleControlResourceFilter implements ResourceFilter, ContainerReque
                 	}
                 }
                 
-                exceptionManager.fireUserException(Constant.ERR_USER_AUTHORIZATION_FAILED, new Object[]{user.getName()});
+                exceptionManager.fireUserException(Constant.ERR_USER_AUTHORIZATION_FAILED, new Object[] {user.getName()});
                 
             } else {
                 exceptionManager.fireUserException(Constant.ERR_USER_AUTHENTICATION_FAILED, null);

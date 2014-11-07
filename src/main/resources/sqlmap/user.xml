@@ -23,7 +23,7 @@
             status = 1
             <dynamic>
 	            <isNotNull prepend="AND" property="search">
-	                name LIKE CONCAT('%', #search#, '%') OR username LIKE CONCAT('%', #search#, '%') 
+	                name LIKE CONCAT('%', LOWER(#search#), '%') OR username LIKE CONCAT('%', LOWER(#search#), '%') 
 	            </isNotNull>
             </dynamic>
     </select>
@@ -34,14 +34,14 @@
         FROM
             user
         WHERE
-            name = #name# AND status = 1
+            name = LOWER(#name#) AND status = 1
     </select>
 
     <insert id="createUser" parameterClass="user">
         INSERT INTO
             user (name, pwd, sid, username, role)
         VALUES (
-            #name#, PASSWORD(#pwd#), #sid#, #username#, #role,javaType=com.sec.ax.restful.pojo.Role,jdbcType=VARCHAR#
+            LOWER(#name#), PASSWORD(#pwd#), #sid#, #username#, #role,javaType=com.sec.ax.restful.pojo.Role,jdbcType=VARCHAR#
         )
         <selectKey resultClass="int" keyProperty="idx">
             SELECT LAST_INSERT_ID() AS idx
@@ -63,14 +63,14 @@
         SET
             username = #username#
         WHERE
-            name = #name# AND status = 1
+            name = LOWER(#name#) AND status = 1
     </update>
 
     <delete id="deleteUser" parameterClass="user">
         DELETE FROM 
             user
         WHERE 
-            name = #name# AND status = 1
+            name = LOWER(#name#) AND status = 1
     </delete>
 
     <select id="loginUser" parameterClass="user" resultMap="userResult">
@@ -79,7 +79,7 @@
         FROM
             user
         WHERE
-            name = #name# AND pwd = password(#pwd#) AND status = 1
+            name = LOWER(#name#) AND pwd = password(#pwd#) AND status = 1
     </select>
 
 </sqlMap>

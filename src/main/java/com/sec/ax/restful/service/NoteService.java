@@ -1,5 +1,7 @@
 package com.sec.ax.restful.service;
 
+import org.springframework.dao.DataAccessException;
+
 import com.sec.ax.restful.pojo.Note;
 import com.sec.ax.restful.pojo.Query;
 
@@ -16,40 +18,40 @@ public interface NoteService {
 	 * @param query
 	 * @param object
 	 * @return
-	 * @throws Exception
+	 * @throws DataAccessException
 	 */
-	public Object getNotes(Query query, Object object) throws Exception;
+	public Object getNotes(Query query, Object object) throws DataAccessException;
 
 	/**
 	 * @param idx
 	 * @param object
 	 * @return
-	 * @throws Exception
+	 * @throws DataAccessException
 	 */
-	public Object getNote(int idx, Object object) throws Exception;
+	public Object getNote(int idx, Object object) throws DataAccessException;
 
 	/**
 	 * @param note
 	 * @param object
 	 * @return
-	 * @throws Exception
+	 * @throws DataAccessException
 	 */
-	public Object createNote(Note note, Object object) throws Exception;
+	public Object createNote(Note note, Object object) throws DataAccessException;
 
 	/**
 	 * @param note
 	 * @param object
 	 * @return
-	 * @throws Exception
+	 * @throws DataAccessException
 	 */
-	public Object updateNote(Note note, Object object) throws Exception;
+	public Object updateNote(Note note, Object object) throws DataAccessException;
 
 	/**
 	 * @param note
 	 * @param object
 	 * @return
-	 * @throws Exception
+	 * @throws DataAccessException
 	 */
-	public Object deleteNote(Note note, Object object) throws Exception;
+	public Object deleteNote(Note note, Object object) throws DataAccessException;
 	
 }

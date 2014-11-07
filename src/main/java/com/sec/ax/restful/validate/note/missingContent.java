@@ -14,7 +14,7 @@ import com.sec.ax.restful.validate.Error;
  *
  */
 
-public class ValidatePOST extends AbstractNoteValidate {
+public class missingContent extends AbstractNoteValidate {
 
 	/* 
 	 * @see com.sec.ax.restful.validate.note.AbstractNoteValidate#validate(com.sec.ax.restful.pojo.Note, java.util.List)
@@ -22,8 +22,8 @@ public class ValidatePOST extends AbstractNoteValidate {
 	@Override
 	public void validate(Note target, List<Error> error) {
 
-		if (StringUtils.isBlank(target.getSubject()) || StringUtils.isBlank(target.getContent())) {
-			error.add(new Error(Constant.ERR_MANDATORY_MISSING, null));
+		if (StringUtils.isBlank(target.getContent())) {
+			error.add(new Error(Constant.ERR_MANDATORY_MISSING, new Object[] {Constant.NOTE_CONTENT}));
 		}
 		
 	}

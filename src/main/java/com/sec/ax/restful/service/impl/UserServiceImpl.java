@@ -8,6 +8,7 @@ import javax.ws.rs.core.Context;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 
 import com.sec.ax.restful.common.Constant;
 import com.sec.ax.restful.persistence.UserPersistence;
@@ -33,7 +34,7 @@ public class UserServiceImpl implements UserService {
 	 * @see com.sec.ax.restful.service.UserService#getUsers(com.sec.ax.restful.pojo.Query, java.lang.Object)
 	 */
 	@Override
-	public Object getUsers(Query query, Object object) throws Exception {
+	public Object getUsers(Query query, Object object) throws DataAccessException {
 
         logger.debug("..");
         
@@ -47,7 +48,7 @@ public class UserServiceImpl implements UserService {
 	 * @see com.sec.ax.restful.service.UserService#getUser(java.lang.String, java.lang.Object)
 	 */
 	@Override
-	public Object getUser(String name, Object object) throws Exception {
+	public Object getUser(String name, Object object) throws DataAccessException {
 
         logger.debug("..");
         
@@ -61,7 +62,7 @@ public class UserServiceImpl implements UserService {
 	 * @see com.sec.ax.restful.service.UserService#createUser(com.sec.ax.restful.pojo.User, java.lang.Object)
 	 */
 	@Override
-	public Object createUser(User user, Object object) throws Exception {
+	public Object createUser(User user, Object object) throws DataAccessException {
 
         logger.debug("..");
         
@@ -80,7 +81,7 @@ public class UserServiceImpl implements UserService {
 	 * @see com.sec.ax.restful.service.UserService#updateUser(com.sec.ax.restful.pojo.User, java.lang.Object)
 	 */
 	@Override
-	public Object updateUser(User user, Object object) throws Exception {
+	public Object updateUser(User user, Object object) throws DataAccessException {
 
         logger.debug("..");
         
@@ -94,7 +95,7 @@ public class UserServiceImpl implements UserService {
 	 * @see com.sec.ax.restful.service.UserService#deleteUser(com.sec.ax.restful.pojo.User, java.lang.Object)
 	 */
 	@Override
-	public Object deleteUser(User user, Object object) throws Exception {
+	public Object deleteUser(User user, Object object) throws DataAccessException {
 
         logger.debug("..");
         
@@ -108,7 +109,7 @@ public class UserServiceImpl implements UserService {
 	 * @see com.sec.ax.restful.service.UserService#loginUser(com.sec.ax.restful.pojo.User, java.lang.Object)
 	 */
 	@Override
-	public User loginUser(User user) throws Exception {
+	public User loginUser(User user) throws DataAccessException {
 
         logger.debug("..");
         

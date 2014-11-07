@@ -40,13 +40,15 @@ public class ExceptionManagerImpl implements ExceptionManager {
     }
 
 	@Override
-	public void fireSystemException(Throwable cause) {
+	public void fireSystemException(Exception e) {
 
-		logger.debug("..");
+		logger.error("..");
 
     	String referenceId = RandomStringUtils.randomAlphanumeric(16);
         String message = localizationManager.getMessage(Constant.ERR_SYSTEM_ERROR, new String[] {referenceId});
-
+        
+        logger.error(referenceId + "\n" + e);
+        
         throw new WebApplicationException(Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ResponseElement.newFailedInstance(message)).type(MediaType.APPLICATION_JSON  + ";charset=utf-8").build());
 		
 	}
@@ -70,6 +72,8 @@ public class ExceptionManagerImpl implements ExceptionManager {
 	 */
 	@Override
 	public void fireValidationException(List<Error> error) {
+		
+		logger.debug("..");
 		
 		String[] messages = new String[error.size()];
 		

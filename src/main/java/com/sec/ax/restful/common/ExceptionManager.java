@@ -13,9 +13,9 @@ import com.sec.ax.restful.validate.Error;
 public interface ExceptionManager {
 
     /**
-     * @param cause
+     * @param e
      */
-    public void fireSystemException(Throwable cause);
+    public void fireSystemException(Exception e);
     
     /**
      * @param message
