@@ -33,9 +33,6 @@ public class AuthenticationContainerFilter implements ContainerRequestFilter {
 
 	private static final Logger logger = Logger.getLogger(AuthenticationContainerFilter.class);
 	
-	static {
-	}
-
 	/* 
 	 * @see com.sun.jersey.spi.container.ContainerRequestFilter#filter(com.sun.jersey.spi.container.ContainerRequest)
 	 */
@@ -96,8 +93,7 @@ public class AuthenticationContainerFilter implements ContainerRequestFilter {
 	public static final int USER_ARRAY_SID = 1;
 	public static final int USER_ARRAY_USERNAME = 2;
 	public static final int USER_ARRAY_ROLE = 3;
-	public static final int USER_ARRAY_WSSID = 4;
-	public static final int USER_ARRAY_IP = 5;
+	public static final int USER_ARRAY_IP = 4;
 	
 	/**
 	 * @param request
@@ -146,9 +142,6 @@ public class AuthenticationContainerFilter implements ContainerRequestFilter {
     					break;
     				case USER_ARRAY_ROLE:
     					user.setRole(Role.valueOf(splitted[i]));
-    					break;
-    				case USER_ARRAY_WSSID:
-    					user.setWssid(splitted[i]);
     					break;
     				case USER_ARRAY_IP:
     					user.setIp(splitted[i]);

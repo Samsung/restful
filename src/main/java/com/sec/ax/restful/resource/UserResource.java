@@ -22,11 +22,13 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.sec.ax.restful.annotation.RolesAllowed;
 import com.sec.ax.restful.common.Constant;
 import com.sec.ax.restful.crypt.AxCryptException;
 import com.sec.ax.restful.crypt.aes.AxCrypt;
 import com.sec.ax.restful.pojo.Query;
 import com.sec.ax.restful.pojo.ResponseElement;
+import com.sec.ax.restful.pojo.Role;
 import com.sec.ax.restful.pojo.User;
 import com.sec.ax.restful.resource.utils.QueryUtils;
 import com.sec.ax.restful.service.UserService;
@@ -57,6 +59,7 @@ public class UserResource extends AbstractResource {
     @GET
     @Path("/list")
     @Consumes(MediaType.APPLICATION_JSON)
+    @RolesAllowed({Role.Admin})
     public ResponseElement getUsers(@DefaultValue("1") @QueryParam("pn") int pn, @QueryParam("q") String search) {
     	
         logger.debug("..");
@@ -85,6 +88,7 @@ public class UserResource extends AbstractResource {
     @GET
     @Path("/{name}")
     @Consumes(MediaType.APPLICATION_JSON)
+    @RolesAllowed({Role.Admin})
     public ResponseElement getUser(@PathParam("name") String name) {
     	
         logger.debug("..");
@@ -126,7 +130,7 @@ public class UserResource extends AbstractResource {
         logger.debug(FormatHelper.printPretty(user));
         logger.debug(FormatHelper.printPretty(object));
         
-        return ResponseElement.newSuccessInstance(true);
+        return ResponseElement.newSuccessInstance(object);
 
     }
 
@@ -137,6 +141,7 @@ public class UserResource extends AbstractResource {
     @PUT
     @Path("/update")
     @Consumes(MediaType.APPLICATION_JSON)
+    @RolesAllowed({Role.Admin,Role.User})
     public ResponseElement updateUser(User user) {
     	
         logger.debug("..");
@@ -152,7 +157,7 @@ public class UserResource extends AbstractResource {
         logger.debug(FormatHelper.printPretty(user));
         logger.debug(FormatHelper.printPretty(object));
         
-        return ResponseElement.newSuccessInstance(true);
+        return ResponseElement.newSuccessInstance(object);
 
     }
     
@@ -163,6 +168,7 @@ public class UserResource extends AbstractResource {
     @DELETE
     @Path("/delete")
     @Consumes(MediaType.APPLICATION_JSON)
+    @RolesAllowed({Role.Admin,Role.User})
     public ResponseElement deleteUser(@Context HttpServletRequest request, @Context HttpServletResponse response, User user) {
     	
         logger.debug("..");
@@ -170,7 +176,6 @@ public class UserResource extends AbstractResource {
         Object object = new Object();
 
         try {
-        	service.expiryCookie(request, response);
         	object = service.deleteUser(user, object);
         } catch (Exception e) {
         	exceptionManager.fireSystemException(new Exception(e));
@@ -179,7 +184,7 @@ public class UserResource extends AbstractResource {
         logger.debug(FormatHelper.printPretty(user));
         logger.debug(FormatHelper.printPretty(object));
         
-        return ResponseElement.newSuccessInstance(Boolean.valueOf(String.valueOf(object)));
+        return ResponseElement.newSuccessInstance(object);
 
     }
     
@@ -189,6 +194,7 @@ public class UserResource extends AbstractResource {
     @GET
     @Path("/me")
     @Consumes(MediaType.APPLICATION_JSON)
+    @RolesAllowed({Role.Admin,Role.User})
     public ResponseElement getMe() {
     	
         logger.debug("..");
@@ -221,9 +227,8 @@ public class UserResource extends AbstractResource {
         logger.debug("..");
         
         try {
-        	user = service.loginUser(user, getUserPrincipal().getWssid());
+        	user = service.loginUser(user);
         } catch (Exception e) {
-        	e.printStackTrace();
         	exceptionManager.fireSystemException(new Exception(e));
         }
         
@@ -237,8 +242,8 @@ public class UserResource extends AbstractResource {
             	Ax.append(user.getSid()).append("|");
             	Ax.append(user.getUsername()).append("|");
             	Ax.append(user.getRole()).append("|");
-            	Ax.append(AxCrypt.decrypt(user.getWssid())).append("|");
             	Ax.append(request.getRemoteAddr()).append("|");
+            	
         		Calendar c = Calendar.getInstance();
             	Ax.append(c.getTimeInMillis());
             	
@@ -255,7 +260,7 @@ public class UserResource extends AbstractResource {
             	response.addCookie(cookie);
 
         	} else {
-        		exceptionManager.fireUserException(Constant.ERR_USER_INVALID, null);
+        		exceptionManager.fireUserException(Constant.ERR_USER_LOGIN_FAILED, null);
         	}
         	
         } catch (AxCryptException e) {

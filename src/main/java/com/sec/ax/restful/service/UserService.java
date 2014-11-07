@@ -61,7 +61,7 @@ public interface UserService {
 	 * @return
 	 * @throws Exception
 	 */
-	public User loginUser(User user, Object object) throws Exception;
+	public User loginUser(User user) throws Exception;
 
 	/**
 	 * @param request

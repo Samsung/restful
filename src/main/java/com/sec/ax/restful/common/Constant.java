@@ -25,8 +25,11 @@ public class Constant {
 	public static final int PAGING_MAX_RESULTS = 10;
 	
     public static final String ERR_SYSTEM_ERROR = "err.system.error";
-    public static final String ERR_MANDATORY_MISSING = "err.mandatory.missing";
 
-    public static final String ERR_USER_INVALID = "err.user.invalid";
+    public static final String ERR_USER_LOGIN_FAILED = "err.user.login.failed";
+    public static final String ERR_USER_AUTHENTICATION_FAILED = "err.user.authentication.failed";
+    public static final String ERR_USER_AUTHORIZATION_FAILED = "err.user.authorization.failed";
+    
+    public static final String ERR_MANDATORY_MISSING = "err.mandatory.missing";
 
 }

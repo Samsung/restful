@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.sec.ax.restful.annotation.RolesAllowed;
 import com.sec.ax.restful.annotation.ValidatedBy;
 import com.sec.ax.restful.common.ExceptionManager;
 import com.sec.ax.restful.validate.Validate;
@@ -42,7 +43,12 @@ public class ResourceFilterFactoryImpl implements ResourceFilterFactory {
         logger.debug("..");
         
         ArrayList<ResourceFilter> filter = new ArrayList<ResourceFilter>();
-
+        
+        if (am.isAnnotationPresent(RolesAllowed.class)) {
+            RolesAllowed rolesAllowed = am.getAnnotation(RolesAllowed.class);
+            filter.add(new RoleControlResourceFilter(rolesAllowed.value(), exceptionManager));
+        }
+        
         if (am.isAnnotationPresent(ValidatedBy.class)) {
 
             List<Validate> list = new ArrayList<Validate>();
