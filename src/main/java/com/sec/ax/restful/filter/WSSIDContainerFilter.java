@@ -1,11 +1,8 @@
 package com.sec.ax.restful.filter;
 
-import java.security.Principal;
-
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.SecurityContext;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
@@ -16,7 +13,6 @@ import com.sec.ax.restful.common.Constant;
 import com.sec.ax.restful.crypt.AxCryptException;
 import com.sec.ax.restful.crypt.aes.AxCrypt;
 import com.sec.ax.restful.pojo.ResponseElement;
-import com.sec.ax.restful.pojo.User;
 import com.sec.ax.restful.resource.AbstractResource;
 import com.sun.jersey.spi.container.ContainerRequest;
 import com.sun.jersey.spi.container.ContainerRequestFilter;
@@ -45,18 +41,12 @@ public class WSSIDContainerFilter extends AbstractResource implements ContainerR
         
     	try {
     		
-    		User user = getUserPrincipal();
-    		
             String wssid = request.getHeaderValue(Constant.USER_WSSID_KEY);
 
     		if (StringUtils.isBlank(wssid) || !isValid(wssid)) {
     			wssid = issue();
     			throw new WebApplicationException(Response.status(Response.Status.FORBIDDEN).entity(ResponseElement.newWSSIDInstance(wssid)).type(MediaType.APPLICATION_JSON  + ";charset=utf-8").build());
     		}
-    		
-        	user.setWssid(wssid);
-        	
-    		request.setSecurityContext(new SecurityContextWrapper(user, request.getSecurityContext()));
     		
 		} catch (AxCryptException e) {
 			throw new WebApplicationException(Response.status(Response.Status.BAD_REQUEST).entity(ResponseElement.newFailedInstance(e.getMessage())).type(MediaType.APPLICATION_JSON  + ";charset=utf-8").build());
@@ -82,38 +72,6 @@ public class WSSIDContainerFilter extends AbstractResource implements ContainerR
 	protected boolean isValid(String wssid) throws AxCryptException {
 		AxCrypt.decrypt(wssid);
 		return true;
-	}
-
-	private class SecurityContextWrapper implements SecurityContext {
-
-		private final User user;
-		private final SecurityContext context;
-
-		public SecurityContextWrapper(User user, SecurityContext context) {
-			this.user = user;
-			this.context = context;
-		}
-
-		@Override
-		public Principal getUserPrincipal() {
-			return user;
-		}
-
-		@Override
-		public boolean isUserInRole(String role) {
-			return false;
-		}
-
-		@Override
-		public boolean isSecure() {
-			return context.isSecure();
-		}
-
-		@Override
-		public String getAuthenticationScheme() {
-			return context.getAuthenticationScheme();
-		}
-		
 	}
 
 }

@@ -111,7 +111,6 @@ public class NoteResource extends AbstractResource {
         Object object = new Object();
         
         try {
-            note.setWssdi(getUserPrincipal().getWssid());
         	object = service.createNote(note, object);
         } catch (Exception e) {
         	exceptionManager.fireSystemException(new Exception(e));
@@ -120,7 +119,7 @@ public class NoteResource extends AbstractResource {
         logger.debug(FormatHelper.printPretty(note));
         logger.debug(FormatHelper.printPretty(object));
         
-        return ResponseElement.newSuccessInstance(true);
+        return ResponseElement.newSuccessInstance(object);
 
     }
 
@@ -139,7 +138,6 @@ public class NoteResource extends AbstractResource {
         Object object = new Object();
 
         try {
-            note.setWssdi(getUserPrincipal().getWssid());
         	object = service.updateNote(note, object);
         } catch (Exception e) {
         	exceptionManager.fireSystemException(new Exception(e));
@@ -148,7 +146,7 @@ public class NoteResource extends AbstractResource {
         logger.debug(FormatHelper.printPretty(note));
         logger.debug(FormatHelper.printPretty(object));
         
-        return ResponseElement.newSuccessInstance(true);
+        return ResponseElement.newSuccessInstance(object);
 
     }
 
@@ -167,7 +165,6 @@ public class NoteResource extends AbstractResource {
         Object object = new Object();
 
         try {
-            note.setWssdi(getUserPrincipal().getWssid());
         	object = service.deleteNote(note, object);
         } catch (Exception e) {
         	exceptionManager.fireSystemException(new Exception(e));
@@ -176,7 +173,7 @@ public class NoteResource extends AbstractResource {
         logger.debug(FormatHelper.printPretty(note));
         logger.debug(FormatHelper.printPretty(object));
         
-        return ResponseElement.newSuccessInstance(true);
+        return ResponseElement.newSuccessInstance(object);
 
     }
 

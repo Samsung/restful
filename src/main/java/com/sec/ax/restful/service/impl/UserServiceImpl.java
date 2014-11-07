@@ -108,15 +108,11 @@ public class UserServiceImpl implements UserService {
 	 * @see com.sec.ax.restful.service.UserService#loginUser(com.sec.ax.restful.pojo.User, java.lang.Object)
 	 */
 	@Override
-	public User loginUser(User user, Object object) throws Exception {
+	public User loginUser(User user) throws Exception {
 
         logger.debug("..");
         
         user = persistence.loginUser(user);
-        
-        if (user != null) {
-        	user.setWssid(String.valueOf(object));
-        }
         
 		return user;
 

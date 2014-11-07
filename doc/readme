@@ -5,11 +5,14 @@ Java: JDK 1.7
 Maven: 3.x
 Tomcat: 7.x
 
+#### Release v0.2.3 ####
+Add @RolesAllowed to allow/restrict user access
+
 #### Release v0.2.2 ####
-Add Role into user
+Add role into user table
 
 #### Release v0.2.1 ####
-Add status to user table whether user is an active member or not
+Add status into user table
 
 #### Release v0.2.0 ####
 Add login/logout
@@ -43,7 +46,7 @@ Add util to enable json pretty print
 Add util to get a file from classpath
 
 #### Release v0.1.0 ####
-Add customized resource filter to validate data from client and related works
+Add @ValidatedBy to validate data from client
 
 #### Release v0.0.9 ####
 Prepare adding customized filter

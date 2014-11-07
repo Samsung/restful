@@ -23,7 +23,6 @@ public class User extends Audit implements Principal {
     private Role role; 
     private int status;
     
-    private String wssid;
     private String ip;
 
     public int getIdx() {
@@ -82,14 +81,6 @@ public class User extends Audit implements Principal {
 	public void setStatus(int status) {
 		this.status = status;
 	}
-
-    public String getWssid() {
-        return wssid;
-    }
-
-    public void setWssid(String wssid) {
-        this.wssid = wssid;
-    }
 
 	public String getIp() {
 		return ip;
