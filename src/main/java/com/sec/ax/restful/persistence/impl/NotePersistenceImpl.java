@@ -3,6 +3,7 @@ package com.sec.ax.restful.persistence.impl;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.dao.DataAccessException;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 
 import com.sec.ax.restful.persistence.NotePersistence;
@@ -24,7 +25,7 @@ public class NotePersistenceImpl extends SqlMapClientDaoSupport implements NoteP
 	 * @see com.sec.ax.restful.persistence.NotePersistence#getNotes(com.sec.ax.restful.pojo.Query)
 	 */
 	@Override
-	public List<Note> getNotes(Query query) throws Exception {
+	public List<Note> getNotes(Query query) throws DataAccessException {
 
         logger.debug("..");
 
@@ -41,7 +42,7 @@ public class NotePersistenceImpl extends SqlMapClientDaoSupport implements NoteP
 	 * @see com.sec.ax.restful.persistence.NotePersistence#getNote(int)
 	 */
 	@Override
-	public List<Note> getNote(int idx) throws Exception {
+	public List<Note> getNote(int idx) throws DataAccessException {
 
         logger.debug("..");
         
@@ -56,7 +57,7 @@ public class NotePersistenceImpl extends SqlMapClientDaoSupport implements NoteP
 	 * @see com.sec.ax.restful.persistence.NotePersistence#createNote(com.sec.ax.restful.pojo.Note)
 	 */
 	@Override
-	public Integer createNote(Note note) throws Exception {
+	public Integer createNote(Note note) throws DataAccessException {
 
         logger.debug("..");
         
@@ -68,7 +69,7 @@ public class NotePersistenceImpl extends SqlMapClientDaoSupport implements NoteP
 	 * @see com.sec.ax.restful.persistence.NotePersistence#updateNote(com.sec.ax.restful.pojo.Note)
 	 */
 	@Override
-	public int updateNote(Note note) throws Exception {
+	public int updateNote(Note note) throws DataAccessException {
 		
 		logger.debug("..");
 		
@@ -80,7 +81,7 @@ public class NotePersistenceImpl extends SqlMapClientDaoSupport implements NoteP
 	 * @see com.sec.ax.restful.persistence.NotePersistence#deleteNote(com.sec.ax.restful.pojo.Note)
 	 */
 	@Override
-	public int deleteNote(Note note) throws Exception {
+	public int deleteNote(Note note) throws DataAccessException {
 		
 		logger.debug("..");
 		

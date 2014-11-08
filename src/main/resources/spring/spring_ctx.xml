@@ -62,13 +62,16 @@
     </bean>
 
     <util:map id="validateMap" map-class="java.util.HashMap">
-        <entry key="validateNotePOST" value-ref="validateNotePOST"/>
-        <entry key="validateNotePUT" value-ref="validateNotePUT"/>
-        <entry key="validateNoteDELETE" value-ref="validateNoteDELETE"/>
+        <entry key="missingIdx" value-ref="missingIdx"/>
+        <entry key="missingSubject" value-ref="missingSubject"/>
+        <entry key="missingContent" value-ref="missingContent"/>
+        <entry key="validatingName" value-ref="validatingName"/>
     </util:map>
     
-    <bean id="validateNotePOST" class="com.sec.ax.restful.validate.note.ValidatePOST"/>
-    <bean id="validateNotePUT" class="com.sec.ax.restful.validate.note.ValidatePUT"/>
-    <bean id="validateNoteDELETE" class="com.sec.ax.restful.validate.note.ValidateDELETE"/>
+    <bean id="missingIdx" class="com.sec.ax.restful.validate.note.MissingIdx"/>
+    <bean id="missingSubject" class="com.sec.ax.restful.validate.note.missingSubject"/>
+    <bean id="missingContent" class="com.sec.ax.restful.validate.note.missingContent"/>
 
+    <bean id="validatingName" class="com.sec.ax.restful.validate.user.ValidatingName"/>
+    
 </beans>

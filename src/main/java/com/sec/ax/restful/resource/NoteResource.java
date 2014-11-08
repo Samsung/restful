@@ -14,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
 
 import com.sec.ax.restful.annotation.ValidatedBy;
@@ -59,7 +60,7 @@ public class NoteResource extends AbstractResource {
         
         try {
         	object = service.getNotes(query, object);
-        } catch (Exception e) {
+        } catch (DataAccessException e) {
         	exceptionManager.fireSystemException(new Exception(e));
         }
         
@@ -85,7 +86,7 @@ public class NoteResource extends AbstractResource {
 
         try {
         	object = service.getNote(idx, object);
-        } catch (Exception e) {
+        } catch (DataAccessException e) {
         	exceptionManager.fireSystemException(new Exception(e));
         }
         
@@ -103,7 +104,7 @@ public class NoteResource extends AbstractResource {
     @POST
     @Path("/create")
     @Consumes(MediaType.APPLICATION_JSON)
-    @ValidatedBy({"validateNotePOST"})
+    @ValidatedBy({"missingSubject","missingContent"})
     public ResponseElement createNote(Note note) {
     	
         logger.debug("..");
@@ -112,7 +113,7 @@ public class NoteResource extends AbstractResource {
         
         try {
         	object = service.createNote(note, object);
-        } catch (Exception e) {
+        } catch (DataAccessException e) {
         	exceptionManager.fireSystemException(new Exception(e));
         }
 
@@ -130,7 +131,7 @@ public class NoteResource extends AbstractResource {
     @PUT
     @Path("/update")
     @Consumes(MediaType.APPLICATION_JSON)
-    @ValidatedBy({"validateNotePUT"})
+    @ValidatedBy({"missingIdx","missingSubject","missingContent"})
     public ResponseElement updateNote(Note note) {
     	
         logger.debug("..");
@@ -139,7 +140,7 @@ public class NoteResource extends AbstractResource {
 
         try {
         	object = service.updateNote(note, object);
-        } catch (Exception e) {
+        } catch (DataAccessException e) {
         	exceptionManager.fireSystemException(new Exception(e));
         }
 
@@ -157,7 +158,7 @@ public class NoteResource extends AbstractResource {
     @DELETE
     @Path("/delete")
     @Consumes(MediaType.APPLICATION_JSON)
-    @ValidatedBy({"validateNoteDELETE"})
+    @ValidatedBy({"missingIdx"})
     public ResponseElement deleteNote(Note note) {
     	
         logger.debug("..");
@@ -166,7 +167,7 @@ public class NoteResource extends AbstractResource {
 
         try {
         	object = service.deleteNote(note, object);
-        } catch (Exception e) {
+        } catch (DataAccessException e) {
         	exceptionManager.fireSystemException(new Exception(e));
         }
 

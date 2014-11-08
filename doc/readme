@@ -5,8 +5,14 @@ Java: JDK 1.7
 Maven: 3.x
 Tomcat: 7.x
 
+#### Release v0.2.5 ####
+Check whether inputted ID is 3-15 characters long and contains only letters(a-z), numbers, period(.) and hyphen(-)
+
+#### Release v0.2.4 ####
+Check whether inputted ID is duplicated or not when registering
+
 #### Release v0.2.3 ####
-Add @RolesAllowed to allow/restrict user access
+Add @RolesAllowed to allow/deny user access
 
 #### Release v0.2.2 ####
 Add role into user table

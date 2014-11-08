@@ -2,6 +2,8 @@ package com.sec.ax.restful.persistence;
 
 import java.util.List;
 
+import org.springframework.dao.DataAccessException;
+
 import com.sec.ax.restful.pojo.Note;
 import com.sec.ax.restful.pojo.Query;
 
@@ -16,36 +18,36 @@ public interface NotePersistence {
 	/**
 	 * @param query
 	 * @return
-	 * @throws Exception
+	 * @throws DataAccessException
 	 */
-	public List<Note> getNotes(Query query) throws Exception;
+	public List<Note> getNotes(Query query) throws DataAccessException;
 
 	/**
 	 * @param idx
 	 * @return
-	 * @throws Exception
+	 * @throws DataAccessException
 	 */
-	public List<Note> getNote(int idx) throws Exception;
+	public List<Note> getNote(int idx) throws DataAccessException;
 
 	/**
 	 * @param note
 	 * @return
-	 * @throws Exception
+	 * @throws DataAccessException
 	 */
-	public Integer createNote(Note note) throws Exception;
+	public Integer createNote(Note note) throws DataAccessException;
 
 	/**
 	 * @param note
 	 * @return
-	 * @throws Exception
+	 * @throws DataAccessException
 	 */
-	public int updateNote(Note note) throws Exception;
+	public int updateNote(Note note) throws DataAccessException;
 	
 	/**
 	 * @param note
 	 * @return
-	 * @throws Exception
+	 * @throws DataAccessException
 	 */
-	public int deleteNote(Note note) throws Exception;
+	public int deleteNote(Note note) throws DataAccessException;
 
 }

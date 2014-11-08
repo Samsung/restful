@@ -2,6 +2,7 @@ package com.sec.ax.restful.service.impl;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 
 import com.sec.ax.restful.persistence.NotePersistence;
 import com.sec.ax.restful.pojo.Note;
@@ -25,7 +26,7 @@ public class NoteServiceImpl implements NoteService {
 	 * @see com.sec.ax.restful.service.NoteService#getNotes(com.sec.ax.restful.pojo.Query, java.lang.Object)
 	 */
 	@Override
-	public Object getNotes(Query query, Object object) throws Exception {
+	public Object getNotes(Query query, Object object) throws DataAccessException {
 
         logger.debug("..");
         
@@ -39,7 +40,7 @@ public class NoteServiceImpl implements NoteService {
 	 * @see com.sec.ax.restful.service.NoteService#getNote(int, java.lang.Object)
 	 */
 	@Override
-	public Object getNote(int idx, Object object) throws Exception {
+	public Object getNote(int idx, Object object) throws DataAccessException {
 
         logger.debug("..");
         
@@ -53,7 +54,7 @@ public class NoteServiceImpl implements NoteService {
 	 * @see com.sec.ax.restful.service.NoteService#createNote(com.sec.ax.restful.pojo.Note, java.lang.Object)
 	 */
 	@Override
-	public Object createNote(Note note, Object object) throws Exception {
+	public Object createNote(Note note, Object object) throws DataAccessException {
 
         logger.debug("..");
         
@@ -67,7 +68,7 @@ public class NoteServiceImpl implements NoteService {
 	 * @see com.sec.ax.restful.service.NoteService#updateNote(com.sec.ax.restful.pojo.Note, java.lang.Object)
 	 */
 	@Override
-	public Object updateNote(Note note, Object object) throws Exception {
+	public Object updateNote(Note note, Object object) throws DataAccessException {
 
         logger.debug("..");
         
@@ -81,7 +82,7 @@ public class NoteServiceImpl implements NoteService {
 	 * @see com.sec.ax.restful.service.NoteService#deleteNote(com.sec.ax.restful.pojo.Note, java.lang.Object)
 	 */
 	@Override
-	public Object deleteNote(Note note, Object object) throws Exception {
+	public Object deleteNote(Note note, Object object) throws DataAccessException {
 
         logger.debug("..");
         

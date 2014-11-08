@@ -3,12 +3,13 @@ package com.sec.ax.restful.persistence.impl;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.dao.DataAccessException;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 
 import com.sec.ax.restful.persistence.UserPersistence;
-import com.sec.ax.restful.pojo.User;
 import com.sec.ax.restful.pojo.Paging;
 import com.sec.ax.restful.pojo.Query;
+import com.sec.ax.restful.pojo.User;
 
 /**
  * 
@@ -24,7 +25,7 @@ public class UserPersistenceImpl extends SqlMapClientDaoSupport implements UserP
 	 * @see com.sec.ax.restful.persistence.UserPersistence#getUsers(com.sec.ax.restful.pojo.Query)
 	 */
 	@Override
-	public List<User> getUsers(Query query) throws Exception {
+	public List<User> getUsers(Query query) throws DataAccessException {
 
         logger.debug("..");
 
@@ -41,14 +42,13 @@ public class UserPersistenceImpl extends SqlMapClientDaoSupport implements UserP
 	 * @see com.sec.ax.restful.persistence.UserPersistence#getUser(String)
 	 */
 	@Override
-	public List<User> getUser(String name) throws Exception {
+	public User getUser(String name) throws DataAccessException {
 
         logger.debug("..");
         
-    	@SuppressWarnings("unchecked")
-        List<User> list = getSqlMapClientTemplate().queryForList("user.getUser", name);
+    	User user = (User) getSqlMapClientTemplate().queryForObject("user.getUser", name);
         
-		return list;
+		return user;
 		
 	}
 
@@ -56,7 +56,7 @@ public class UserPersistenceImpl extends SqlMapClientDaoSupport implements UserP
 	 * @see com.sec.ax.restful.persistence.UserPersistence#createUser(com.sec.ax.restful.pojo.User)
 	 */
 	@Override
-	public int createUser(User user) throws Exception {
+	public int createUser(User user) throws DataAccessException {
 
         logger.debug("..");
         
@@ -68,7 +68,7 @@ public class UserPersistenceImpl extends SqlMapClientDaoSupport implements UserP
 	 * @see com.sec.ax.restful.persistence.UserPersistence#updateSid(int)
 	 */
 	@Override
-	public int updateSid(User user) throws Exception {
+	public int updateSid(User user) throws DataAccessException {
 
         logger.debug("..");
         
@@ -80,7 +80,7 @@ public class UserPersistenceImpl extends SqlMapClientDaoSupport implements UserP
 	 * @see com.sec.ax.restful.persistence.UserPersistence#updateUser(com.sec.ax.restful.pojo.User)
 	 */
 	@Override
-	public int updateUser(User user) throws Exception {
+	public int updateUser(User user) throws DataAccessException {
 		
 		logger.debug("..");
 		
@@ -92,7 +92,7 @@ public class UserPersistenceImpl extends SqlMapClientDaoSupport implements UserP
 	 * @see com.sec.ax.restful.persistence.UserPersistence#deleteUser(com.sec.ax.restful.pojo.User)
 	 */
 	@Override
-	public int deleteUser(User user) throws Exception {
+	public int deleteUser(User user) throws DataAccessException {
 		
 		logger.debug("..");
 		
@@ -104,7 +104,7 @@ public class UserPersistenceImpl extends SqlMapClientDaoSupport implements UserP
 	 * @see com.sec.ax.restful.persistence.UserPersistence#loginUser(com.sec.ax.restful.pojo.User)
 	 */
 	@Override
-	public User loginUser(User user) throws Exception {
+	public User loginUser(User user) throws DataAccessException {
 
         logger.debug("..");
         
