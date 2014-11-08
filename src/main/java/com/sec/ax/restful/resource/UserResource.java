@@ -117,7 +117,7 @@ public class UserResource extends AbstractResource {
     @POST
     @Path("/create")
     @Consumes(MediaType.APPLICATION_JSON)
-    @ValidatedBy({"duplicatedName"})
+    @ValidatedBy({"validatingName"})
     public ResponseElement createUser(User user) {
     	
         logger.debug("..");
