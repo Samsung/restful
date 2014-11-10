@@ -28,6 +28,15 @@
             </dynamic>
     </select>
 
+    <select id="cntUser" parameterClass="int" resultClass="int">
+        SELECT
+            COUNT(idx)
+        FROM
+            user
+        WHERE
+            status = 1
+    </select>
+
     <select id="getUser" parameterClass="String" resultMap="userResult">
         SELECT
             idx, name, sid, username, role, createdate, updatedate

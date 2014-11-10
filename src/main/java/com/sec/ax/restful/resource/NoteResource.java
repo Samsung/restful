@@ -18,7 +18,9 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
 
 import com.sec.ax.restful.annotation.ValidatedBy;
+import com.sec.ax.restful.pojo.List;
 import com.sec.ax.restful.pojo.Note;
+import com.sec.ax.restful.pojo.Paging;
 import com.sec.ax.restful.pojo.Query;
 import com.sec.ax.restful.pojo.ResponseElement;
 import com.sec.ax.restful.resource.utils.QueryUtils;
@@ -54,12 +56,23 @@ public class NoteResource extends AbstractResource {
     	
         logger.debug("..");
         
-        Query query = QueryUtils.setQuery(pn, search);
-        
         Object object = new Object();
         
+        Query query = QueryUtils.setQuery(pn, search);
+        
         try {
-        	object = service.getNotes(query, object);
+        	
+        	Paging paging = query.getPaging();
+        	
+        	paging.setTotalResults(service.cntNote());
+        	
+            List list = new List();
+        	
+        	list.setQuery(query);
+        	list.setObject(service.getNotes(query, object));
+        	
+        	object = list;
+        	
         } catch (DataAccessException e) {
         	exceptionManager.fireSystemException(new Exception(e));
         }

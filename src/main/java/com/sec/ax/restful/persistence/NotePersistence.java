@@ -23,18 +23,24 @@ public interface NotePersistence {
 	public List<Note> getNotes(Query query) throws DataAccessException;
 
 	/**
+	 * @return
+	 * @throws DataAccessException
+	 */
+	public int cntNote() throws DataAccessException;
+
+	/**
 	 * @param idx
 	 * @return
 	 * @throws DataAccessException
 	 */
-	public List<Note> getNote(int idx) throws DataAccessException;
+	public Note getNote(int idx) throws DataAccessException;
 
 	/**
 	 * @param note
 	 * @return
 	 * @throws DataAccessException
 	 */
-	public Integer createNote(Note note) throws DataAccessException;
+	public int createNote(Note note) throws DataAccessException;
 
 	/**
 	 * @param note

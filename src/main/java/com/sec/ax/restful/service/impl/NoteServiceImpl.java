@@ -37,6 +37,20 @@ public class NoteServiceImpl implements NoteService {
 	}
 
 	/* 
+	 * @see com.sec.ax.restful.service.NoteService#cntNote(java.lang.Object)
+	 */
+	@Override
+	public int cntNote() throws DataAccessException {
+
+        logger.debug("..");
+        
+        int cnt = persistence.cntNote();
+        
+		return cnt;
+		
+	}
+
+	/* 
 	 * @see com.sec.ax.restful.service.NoteService#getNote(int, java.lang.Object)
 	 */
 	@Override

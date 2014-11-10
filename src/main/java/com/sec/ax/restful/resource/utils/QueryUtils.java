@@ -10,7 +10,7 @@ import com.sec.ax.restful.pojo.Query;
  */
 
 public class QueryUtils {
-	
+    
 	/**
 	 * @param pn
 	 * @param search
