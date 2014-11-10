@@ -28,6 +28,8 @@ import com.sec.ax.restful.annotation.ValidatedBy;
 import com.sec.ax.restful.common.Constant;
 import com.sec.ax.restful.crypt.AxCryptException;
 import com.sec.ax.restful.crypt.aes.AxCrypt;
+import com.sec.ax.restful.pojo.List;
+import com.sec.ax.restful.pojo.Paging;
 import com.sec.ax.restful.pojo.Query;
 import com.sec.ax.restful.pojo.ResponseElement;
 import com.sec.ax.restful.pojo.Role;
@@ -66,12 +68,23 @@ public class UserResource extends AbstractResource {
     	
         logger.debug("..");
         
-        Query query = QueryUtils.setQuery(pn, search);
-        
         Object object = new Object();
         
+        Query query = QueryUtils.setQuery(pn, search);
+        
         try {
-        	object = service.getUsers(query, object);
+
+        	Paging paging = query.getPaging();
+        	
+        	paging.setTotalResults(service.cntUser());
+        	
+            List list = new List();
+        	
+        	list.setQuery(query);
+        	list.setObject(service.getUsers(query, object));
+        	
+        	object = list;
+
         } catch (DataAccessException e) {
         	exceptionManager.fireSystemException(new Exception(e));
         }

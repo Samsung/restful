@@ -23,6 +23,12 @@ public interface UserPersistence {
 	public List<User> getUsers(Query query) throws DataAccessException;
 
 	/**
+	 * @return
+	 * @throws DataAccessException
+	 */
+	public int cntUser() throws DataAccessException;
+
+	/**
 	 * @param name
 	 * @return
 	 * @throws DataAccessException

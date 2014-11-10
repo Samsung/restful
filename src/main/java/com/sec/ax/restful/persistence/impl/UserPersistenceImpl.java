@@ -39,6 +39,18 @@ public class UserPersistenceImpl extends SqlMapClientDaoSupport implements UserP
 	}
 
 	/* 
+	 * @see com.sec.ax.restful.persistence.UserPersistence#cntUser()
+	 */
+	@Override
+	public int cntUser() throws DataAccessException {
+		
+        logger.debug("..");
+		
+        return (int) getSqlMapClientTemplate().queryForObject("user.cntUser");
+		
+	}
+
+	/* 
 	 * @see com.sec.ax.restful.persistence.UserPersistence#getUser(String)
 	 */
 	@Override
@@ -60,7 +72,7 @@ public class UserPersistenceImpl extends SqlMapClientDaoSupport implements UserP
 
         logger.debug("..");
         
-        return (Integer) getSqlMapClientTemplate().insert("user.createUser", user);
+        return (int) getSqlMapClientTemplate().insert("user.createUser", user);
 		
 	}
 

@@ -39,17 +39,28 @@ public class NotePersistenceImpl extends SqlMapClientDaoSupport implements NoteP
 	}
 
 	/* 
+	 * @see com.sec.ax.restful.persistence.NotePersistence#cntNote()
+	 */
+	@Override
+	public int cntNote() throws DataAccessException {
+		
+        logger.debug("..");
+		
+        return (int) getSqlMapClientTemplate().queryForObject("note.cntNote");
+		
+	}
+
+	/* 
 	 * @see com.sec.ax.restful.persistence.NotePersistence#getNote(int)
 	 */
 	@Override
-	public List<Note> getNote(int idx) throws DataAccessException {
+	public Note getNote(int idx) throws DataAccessException {
 
         logger.debug("..");
         
-    	@SuppressWarnings("unchecked")
-        List<Note> list = getSqlMapClientTemplate().queryForList("note.getNote", idx);
+        Note note= (Note) getSqlMapClientTemplate().queryForObject("note.getNote", idx);
         
-		return list;
+		return note;
 		
 	}
 
@@ -57,11 +68,11 @@ public class NotePersistenceImpl extends SqlMapClientDaoSupport implements NoteP
 	 * @see com.sec.ax.restful.persistence.NotePersistence#createNote(com.sec.ax.restful.pojo.Note)
 	 */
 	@Override
-	public Integer createNote(Note note) throws DataAccessException {
+	public int createNote(Note note) throws DataAccessException {
 
         logger.debug("..");
         
-		return (Integer) getSqlMapClientTemplate().insert("note.createNote", note);
+		return (int) getSqlMapClientTemplate().insert("note.createNote", note);
 		
 	}
 

@@ -23,6 +23,12 @@ public interface NoteService {
 	public Object getNotes(Query query, Object object) throws DataAccessException;
 
 	/**
+	 * @return
+	 * @throws DataAccessException
+	 */
+	public int cntNote() throws DataAccessException;
+	
+	/**
 	 * @param idx
 	 * @param object
 	 * @return
@@ -53,5 +59,5 @@ public interface NoteService {
 	 * @throws DataAccessException
 	 */
 	public Object deleteNote(Note note, Object object) throws DataAccessException;
-	
+
 }

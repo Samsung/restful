@@ -26,6 +26,12 @@ public interface UserService {
 	public Object getUsers(Query query, Object object) throws DataAccessException;
 
 	/**
+	 * @return
+	 * @throws DataAccessException
+	 */
+	public int cntUser() throws DataAccessException;
+
+	/**
 	 * @param name
 	 * @param object
 	 * @return

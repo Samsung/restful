@@ -44,6 +44,21 @@ public class UserServiceImpl implements UserService {
 		
 	}
 
+	/**
+	 * @return
+	 * @throws DataAccessException
+	 */
+	@Override
+	public int cntUser() throws DataAccessException {
+
+        logger.debug("..");
+        
+        int cnt = persistence.cntUser();
+        
+		return cnt;
+		
+	}
+
 	/* 
 	 * @see com.sec.ax.restful.service.UserService#getUser(java.lang.String, java.lang.Object)
 	 */
@@ -146,6 +161,5 @@ public class UserServiceImpl implements UserService {
     	}
 
     }
-
 
 }

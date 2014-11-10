@@ -24,6 +24,13 @@
         </dynamic>
     </select>
 
+    <select id="cntNote" parameterClass="int" resultClass="int">
+        SELECT
+            COUNT(idx)
+        FROM
+            note
+    </select>
+
     <select id="getNote" parameterClass="int" resultMap="noteResult">
         SELECT
             idx, subject, content, createdate, updatedate
