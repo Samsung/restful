@@ -14,7 +14,7 @@ import com.sec.ax.restful.validate.Error;
  *
  */
 
-public class missingSubject extends AbstractNoteValidate {
+public class MissingSubject extends AbstractNoteValidate {
 
 	/* 
 	 * @see com.sec.ax.restful.validate.note.AbstractNoteValidate#validate(com.sec.ax.restful.pojo.Note, java.util.List)

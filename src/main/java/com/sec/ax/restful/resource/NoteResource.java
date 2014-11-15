@@ -17,12 +17,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
 
+import com.sec.ax.restful.annotation.RolesAllowed;
 import com.sec.ax.restful.annotation.ValidatedBy;
 import com.sec.ax.restful.pojo.List;
 import com.sec.ax.restful.pojo.Note;
 import com.sec.ax.restful.pojo.Paging;
 import com.sec.ax.restful.pojo.Query;
 import com.sec.ax.restful.pojo.ResponseElement;
+import com.sec.ax.restful.pojo.Role;
 import com.sec.ax.restful.resource.utils.QueryUtils;
 import com.sec.ax.restful.service.NoteService;
 import com.sec.ax.restful.utils.FormatHelper;
@@ -117,6 +119,7 @@ public class NoteResource extends AbstractResource {
     @POST
     @Path("/create")
     @Consumes(MediaType.APPLICATION_JSON)
+    @RolesAllowed({Role.Admin,Role.User})
     @ValidatedBy({"missingSubject","missingContent"})
     public ResponseElement createNote(Note note) {
     	
@@ -125,7 +128,7 @@ public class NoteResource extends AbstractResource {
         Object object = new Object();
         
         try {
-        	object = service.createNote(note, object);
+        	object = service.createNote(note, getUserPrincipal().getSid(), object);
         } catch (DataAccessException e) {
         	exceptionManager.fireSystemException(new Exception(e));
         }
@@ -144,6 +147,7 @@ public class NoteResource extends AbstractResource {
     @PUT
     @Path("/update")
     @Consumes(MediaType.APPLICATION_JSON)
+    @RolesAllowed({Role.Admin,Role.User})
     @ValidatedBy({"missingIdx","missingSubject","missingContent"})
     public ResponseElement updateNote(Note note) {
     	
@@ -171,6 +175,7 @@ public class NoteResource extends AbstractResource {
     @DELETE
     @Path("/delete")
     @Consumes(MediaType.APPLICATION_JSON)
+    @RolesAllowed({Role.Admin,Role.User})
     @ValidatedBy({"missingIdx"})
     public ResponseElement deleteNote(Note note) {
     	

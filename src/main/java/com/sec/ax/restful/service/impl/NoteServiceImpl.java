@@ -65,12 +65,14 @@ public class NoteServiceImpl implements NoteService {
 	}
 
 	/* 
-	 * @see com.sec.ax.restful.service.NoteService#createNote(com.sec.ax.restful.pojo.Note, java.lang.Object)
+	 * @see com.sec.ax.restful.service.NoteService#createNote(com.sec.ax.restful.pojo.Note, java.lang.String, java.lang.Object)
 	 */
 	@Override
-	public Object createNote(Note note, Object object) throws DataAccessException {
+	public Object createNote(Note note, String sid, Object object) throws DataAccessException {
 
         logger.debug("..");
+        
+        note.setSid(sid);
         
         object = persistence.createNote(note);
 

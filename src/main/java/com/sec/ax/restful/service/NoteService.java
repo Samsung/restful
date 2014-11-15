@@ -38,11 +38,12 @@ public interface NoteService {
 
 	/**
 	 * @param note
+	 * @param sid
 	 * @param object
 	 * @return
 	 * @throws DataAccessException
 	 */
-	public Object createNote(Note note, Object object) throws DataAccessException;
+	public Object createNote(Note note, String sid, Object object) throws DataAccessException;
 
 	/**
 	 * @param note

@@ -29,13 +29,13 @@ public class RoleControlResourceFilter implements ResourceFilter, ContainerReque
     private ExceptionManager exceptionManager;
 
     protected RoleControlResourceFilter(ExceptionManager exceptionManager) {
-        this.exceptionManager = exceptionManager;
         this.rolesAllowed = null;
+        this.exceptionManager = exceptionManager;
     }
 
     protected RoleControlResourceFilter(Role[] rolesAllowed, ExceptionManager exceptionManager) {
-        this.exceptionManager = exceptionManager;
         this.rolesAllowed = (rolesAllowed != null) ? rolesAllowed : new Role[] {};
+        this.exceptionManager = exceptionManager;
     }
 
 	/* 
@@ -46,12 +46,12 @@ public class RoleControlResourceFilter implements ResourceFilter, ContainerReque
 		
         logger.debug("..");
         
-        if (request.getUserPrincipal() == null) {
+        Principal principal = request.getUserPrincipal();
+        
+        if (principal == null) {
             exceptionManager.fireSystemException(new NullPointerException(Constant.ERR_USER_AUTHENTICATION_FAILED));
         }
 
-        Principal principal = request.getUserPrincipal();
-        
         if (principal instanceof User) {
         	
             User user = (User) principal;

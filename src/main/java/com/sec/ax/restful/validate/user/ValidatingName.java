@@ -17,7 +17,7 @@ import com.sec.ax.restful.validate.Error;
  *
  */
 
-public class ValidatingName extends AbstractValidatedByUser {
+public class ValidatingName extends AbstractUserValidate {
 	
 
     @Autowired
@@ -33,13 +33,13 @@ public class ValidatingName extends AbstractValidatedByUser {
 			error.add(new Error(Constant.ERR_USER_NAME_DUPLICATED, new Object[] {target.getName()}));
     	} else if (target.getName().length() < Constant.USER_NAME_MIN_LENGTH || target.getName().length() > Constant.USER_NAME_MAX_LENGTH) {
 			error.add(new Error(Constant.ERR_USER_NAME_LENGTH, new Object[] {Constant.USER_NAME_MIN_LENGTH, Constant.USER_NAME_MAX_LENGTH}));
-    	} else if (!chkPatternName(target.getName())) {
+    	} else if (!isNamePattern(target.getName())) {
 			error.add(new Error(Constant.ERR_USER_NAME_PATTERN, null));
     	}
     	
 	}
 	
-	private boolean chkPatternName(String name) {
+	private boolean isNamePattern(String name) {
 		
 		String regex = "^[a-z0-9.-]{3,15}+$";
 		

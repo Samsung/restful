@@ -10,6 +10,7 @@ public class Note extends Audit {
 	
 	private int idx;
 	
+    private String sid;
 	private String subject;
 	private String content;
 	
@@ -22,6 +23,14 @@ public class Note extends Audit {
 
 	public void setIdx(int idx) {
 		this.idx = idx;
+	}
+
+	public String getSid() {
+		return sid;
+	}
+
+	public void setSid(String sid) {
+		this.sid = sid;
 	}
 
 	public String getSubject() {

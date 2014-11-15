@@ -6,6 +6,10 @@ Maven: 3.x
 Tomcat: 7.x
 
 #### Release v0.2.6 ####
+Prepare authorization for note
+Minor update such as changing names
+
+#### Release v0.2.6 ####
 Add query including paging into response for page navigation
 
 #### Release v0.2.5 ####
