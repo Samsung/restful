@@ -45,15 +45,18 @@ public class ResourceFilterFactoryImpl implements ResourceFilterFactory {
         ArrayList<ResourceFilter> filter = new ArrayList<ResourceFilter>();
         
         if (am.isAnnotationPresent(RolesAllowed.class)) {
+        	
             RolesAllowed rolesAllowed = am.getAnnotation(RolesAllowed.class);
+            
             filter.add(new RoleControlResourceFilter(rolesAllowed.value(), exceptionManager));
+            
         }
         
         if (am.isAnnotationPresent(ValidatedBy.class)) {
 
-            List<Validate> list = new ArrayList<Validate>();
-            
             ValidatedBy validated = am.getAnnotation(ValidatedBy.class);
+            
+            List<Validate> list = new ArrayList<Validate>();
             
             String[] validatedValue = validated.value();
             

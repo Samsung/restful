@@ -13,7 +13,6 @@ import com.sec.ax.restful.common.Constant;
 import com.sec.ax.restful.crypt.AxCryptException;
 import com.sec.ax.restful.crypt.aes.AxCrypt;
 import com.sec.ax.restful.pojo.ResponseElement;
-import com.sec.ax.restful.resource.AbstractResource;
 import com.sun.jersey.spi.container.ContainerRequest;
 import com.sun.jersey.spi.container.ContainerRequestFilter;
 
@@ -24,7 +23,7 @@ import com.sun.jersey.spi.container.ContainerRequestFilter;
  */
 
 @Component
-public class WSSIDContainerFilter extends AbstractResource implements ContainerRequestFilter {
+public class WSSIDContainerFilter implements ContainerRequestFilter {
 
 	private static final Logger logger = Logger.getLogger(WSSIDContainerFilter.class);
 	

@@ -14,6 +14,9 @@ import com.sec.ax.restful.validate.Validate;
 
 public abstract class AbstractNoteValidate implements Validate {
 	
+	/* 
+	 * @see com.sec.ax.restful.validate.Validate#validate(java.lang.Object, java.util.List)
+	 */
 	@Override
 	public void validate(Object target, List<Error> error) {
 		validate((Note) target, error);

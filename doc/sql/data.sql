@@ -30,8 +30,8 @@ CREATE TABLE `user` (
   `pwd` varchar(45) DEFAULT NULL,
   `sid` varchar(7) DEFAULT NULL,
   `username` varchar(45) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1',
   `role` varchar(12) NOT NULL DEFAULT 'User',
+  `status` tinyint(1) NOT NULL DEFAULT '1',
   `createdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedate` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`idx`),
@@ -63,12 +63,15 @@ DROP TABLE IF EXISTS `note`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `note` (
   `idx` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `sid` varchar(7) DEFAULT NULL,
   `subject` varchar(255) NOT NULL,
   `content` text NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
   `createdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedate` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`idx`),
-  UNIQUE KEY `idx_UNIQUE` (`idx`)
+  UNIQUE KEY `idx_UNIQUE` (`idx`),
+  KEY `status` (`status`),
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

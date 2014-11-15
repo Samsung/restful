@@ -62,16 +62,15 @@
     </bean>
 
     <util:map id="validateMap" map-class="java.util.HashMap">
+        <entry key="validatingName" value-ref="validatingName"/>
         <entry key="missingIdx" value-ref="missingIdx"/>
         <entry key="missingSubject" value-ref="missingSubject"/>
         <entry key="missingContent" value-ref="missingContent"/>
-        <entry key="validatingName" value-ref="validatingName"/>
     </util:map>
     
-    <bean id="missingIdx" class="com.sec.ax.restful.validate.note.MissingIdx"/>
-    <bean id="missingSubject" class="com.sec.ax.restful.validate.note.missingSubject"/>
-    <bean id="missingContent" class="com.sec.ax.restful.validate.note.missingContent"/>
-
     <bean id="validatingName" class="com.sec.ax.restful.validate.user.ValidatingName"/>
+    <bean id="missingIdx" class="com.sec.ax.restful.validate.note.MissingIdx"/>
+    <bean id="missingSubject" class="com.sec.ax.restful.validate.note.MissingSubject"/>
+    <bean id="missingContent" class="com.sec.ax.restful.validate.note.MissingContent"/>
     
 </beans>
