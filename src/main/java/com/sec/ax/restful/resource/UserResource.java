@@ -18,6 +18,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -165,7 +166,16 @@ public class UserResource extends AbstractResource {
         Object object = new Object();
 
         try {
+        	
+        	User me = getUserPrincipal();
+        	User target = (User) service.getUser(user.getName(), object);
+
+        	if (Role.User.equals(me.getRole()) && target != null && !StringUtils.equals(me.getSid(), target.getSid())) {
+                exceptionManager.fireUserException(Constant.ERR_USER_AUTHORIZATION_FAILED, new Object[] {me.getName()});
+        	}
+        	
         	object = service.updateUser(user, object);
+        	
         } catch (DataAccessException e) {
         	exceptionManager.fireSystemException(new Exception(e));
         }
@@ -192,7 +202,16 @@ public class UserResource extends AbstractResource {
         Object object = new Object();
 
         try {
+        	
+        	User me = getUserPrincipal();
+        	User target = (User) service.getUser(user.getName(), object);
+
+        	if (Role.User.equals(me.getRole()) && target != null && !StringUtils.equals(me.getSid(), target.getSid())) {
+                exceptionManager.fireUserException(Constant.ERR_USER_AUTHORIZATION_FAILED, new Object[] {me.getName()});
+        	}
+
         	object = service.deleteUser(user, object);
+        	
         } catch (DataAccessException e) {
         	exceptionManager.fireSystemException(new Exception(e));
         }

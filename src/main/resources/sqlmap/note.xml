@@ -55,6 +55,15 @@
         </selectKey> 
     </insert>
 
+    <select id="getSid" parameterClass="int" resultClass="String">
+        SELECT
+            sid
+        FROM
+            note
+        WHERE
+            idx = #idx# AND status = 1
+    </select>
+
     <update id="updateNote" parameterClass="note">
         UPDATE
             note
