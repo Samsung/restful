@@ -12,6 +12,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -19,12 +20,14 @@ import org.springframework.stereotype.Component;
 
 import com.sec.ax.restful.annotation.RolesAllowed;
 import com.sec.ax.restful.annotation.ValidatedBy;
+import com.sec.ax.restful.common.Constant;
 import com.sec.ax.restful.pojo.List;
 import com.sec.ax.restful.pojo.Note;
 import com.sec.ax.restful.pojo.Paging;
 import com.sec.ax.restful.pojo.Query;
 import com.sec.ax.restful.pojo.ResponseElement;
 import com.sec.ax.restful.pojo.Role;
+import com.sec.ax.restful.pojo.User;
 import com.sec.ax.restful.resource.utils.QueryUtils;
 import com.sec.ax.restful.service.NoteService;
 import com.sec.ax.restful.utils.FormatHelper;
@@ -156,7 +159,16 @@ public class NoteResource extends AbstractResource {
         Object object = new Object();
 
         try {
+        	
+        	User me = getUserPrincipal();
+        	String sid = service.getSid(note.getIdx(), object);
+
+        	if (Role.User.equals(me.getRole()) && sid != null && !StringUtils.equals(me.getSid(), sid)) {
+                exceptionManager.fireUserException(Constant.ERR_USER_AUTHORIZATION_FAILED, new Object[] {me.getName()});
+        	}
+        	
         	object = service.updateNote(note, object);
+        	
         } catch (DataAccessException e) {
         	exceptionManager.fireSystemException(new Exception(e));
         }
@@ -184,7 +196,16 @@ public class NoteResource extends AbstractResource {
         Object object = new Object();
 
         try {
+        	
+        	User me = getUserPrincipal();
+        	String sid = service.getSid(note.getIdx(), object);
+
+        	if (Role.User.equals(me.getRole()) && sid != null && !StringUtils.equals(me.getSid(), sid)) {
+                exceptionManager.fireUserException(Constant.ERR_USER_AUTHORIZATION_FAILED, new Object[] {me.getName()});
+        	}
+
         	object = service.deleteNote(note, object);
+        	
         } catch (DataAccessException e) {
         	exceptionManager.fireSystemException(new Exception(e));
         }

@@ -81,6 +81,20 @@ public class NoteServiceImpl implements NoteService {
 	}
 
 	/* 
+	 * @see com.sec.ax.restful.service.NoteService#getNote(int, java.lang.Object)
+	 */
+	@Override
+	public String getSid(int idx, Object object) throws DataAccessException {
+
+        logger.debug("..");
+        
+        object = persistence.getSid(idx);
+        
+		return (String) object;
+		
+	}
+
+	/* 
 	 * @see com.sec.ax.restful.service.NoteService#updateNote(com.sec.ax.restful.pojo.Note, java.lang.Object)
 	 */
 	@Override

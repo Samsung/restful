@@ -43,6 +43,13 @@ public interface NotePersistence {
 	public int createNote(Note note) throws DataAccessException;
 
 	/**
+	 * @param idx
+	 * @return
+	 * @throws DataAccessException
+	 */
+	public String getSid(int idx) throws DataAccessException;
+
+	/**
 	 * @param note
 	 * @return
 	 * @throws DataAccessException

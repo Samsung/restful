@@ -77,6 +77,18 @@ public class NotePersistenceImpl extends SqlMapClientDaoSupport implements NoteP
 	}
 
 	/* 
+	 * @see com.sec.ax.restful.persistence.NotePersistence#getNote(int)
+	 */
+	@Override
+	public String getSid(int idx) throws DataAccessException {
+
+        logger.debug("..");
+        
+		return (String) getSqlMapClientTemplate().queryForObject("note.getSid", idx);
+		
+	}
+
+	/* 
 	 * @see com.sec.ax.restful.persistence.NotePersistence#updateNote(com.sec.ax.restful.pojo.Note)
 	 */
 	@Override

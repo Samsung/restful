@@ -46,6 +46,14 @@ public interface NoteService {
 	public Object createNote(Note note, String sid, Object object) throws DataAccessException;
 
 	/**
+	 * @param idx
+	 * @param object
+	 * @return
+	 * @throws DataAccessException
+	 */
+	public String getSid(int idx, Object object) throws DataAccessException;
+
+	/**
 	 * @param note
 	 * @param object
 	 * @return
