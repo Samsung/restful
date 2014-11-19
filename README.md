@@ -33,7 +33,8 @@ Content-Type: application/json
 {
   "name": "axpower",
   "pwd": "*****",
-  "username": "RESTful"
+  "username": "RESTful",
+  "role": "User"
 }
 
 // Updating a user
