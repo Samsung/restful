@@ -5,8 +5,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.dao.DataAccessException;
 
-import com.sec.ax.restful.pojo.User;
 import com.sec.ax.restful.pojo.Query;
+import com.sec.ax.restful.pojo.User;
 
 
 /**

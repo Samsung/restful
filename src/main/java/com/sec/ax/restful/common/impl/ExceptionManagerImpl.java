@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
@@ -49,7 +50,7 @@ public class ExceptionManagerImpl implements ExceptionManager {
         
         logger.error(referenceId + "\n" + e);
         
-        throw new WebApplicationException(Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ResponseElement.newFailedInstance(message)).type(MediaType.APPLICATION_JSON  + ";charset=utf-8").build());
+        throw new WebApplicationException(Response.status(Status.INTERNAL_SERVER_ERROR).entity(ResponseElement.newFailedInstance(message)).type(MediaType.APPLICATION_JSON  + ";charset=utf-8").build());
 		
 	}
 
@@ -63,7 +64,7 @@ public class ExceptionManagerImpl implements ExceptionManager {
 		
 		String message = localizationManager.getMessage(code, args);
         
-        throw new WebApplicationException(Response.status(Response.Status.BAD_REQUEST).entity(ResponseElement.newFailedInstance(message)).type(MediaType.APPLICATION_JSON  + ";charset=utf-8").build());
+        throw new WebApplicationException(Response.status(Status.BAD_REQUEST).entity(ResponseElement.newFailedInstance(message)).type(MediaType.APPLICATION_JSON  + ";charset=utf-8").build());
 
     }
 
@@ -82,7 +83,7 @@ public class ExceptionManagerImpl implements ExceptionManager {
             messages[i] = localizationManager.getMessage(err.getCode(), err.getArgs());
         }
 
-        throw new WebApplicationException(Response.status(Response.Status.BAD_REQUEST).entity(ResponseElement.newFailedInstance(StringUtils.join(messages, ", "))).type(MediaType.APPLICATION_JSON  + ";charset=utf-8").build());
+        throw new WebApplicationException(Response.status(Status.BAD_REQUEST).entity(ResponseElement.newFailedInstance(StringUtils.join(messages, ", "))).type(MediaType.APPLICATION_JSON  + ";charset=utf-8").build());
 
 	}
 

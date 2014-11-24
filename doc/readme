@@ -5,6 +5,9 @@ Java: JDK 1.7
 Maven: 3.x
 Tomcat: 7.x
 
+#### Release v0.2.9 ####
+Add file upload/download
+
 #### Release v0.2.8 ####
 Add authorization to resources
 

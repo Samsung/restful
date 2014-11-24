@@ -73,6 +73,7 @@ public class UserServiceImpl implements UserService {
 		
 	}
 
+
 	/* 
 	 * @see com.sec.ax.restful.service.UserService#createUser(com.sec.ax.restful.pojo.User, java.lang.Object)
 	 */
@@ -80,8 +81,6 @@ public class UserServiceImpl implements UserService {
 	public Object createUser(User user, Object object) throws DataAccessException {
 
         logger.debug("..");
-        
-        // TODO Check duplicate entry
         
         user.setIdx(persistence.createUser(user));
         user.setSid(FormatHelper.getNumConverter(Constant.USER_BASE_NUMERAL_SYSTEM, user.getIdx()+Constant.USER_SID_BASE_VALUE));

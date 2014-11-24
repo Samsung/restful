@@ -31,6 +31,9 @@ public class Constant {
 	public static final String NOTE_SUBJECT = "subject";
 	public static final String NOTE_CONTENT = "content";
 
+    public static final String FILE_BASE_PATH = "/usr/local/share/bbs/";
+    public static final int FILE_BASE_DEPTH = 2;
+    
 	
     public static final String ERR_SYSTEM_ERROR = "err.system.error";
 
@@ -42,6 +45,8 @@ public class Constant {
     public static final String ERR_USER_AUTHENTICATION_FAILED = "err.user.authentication.failed";
     public static final String ERR_USER_AUTHORIZATION_FAILED = "err.user.authorization.failed";
     
+    public static final String ERR_FILE_MISSING = "err.file.missing";
+
     public static final String ERR_MANDATORY_MISSING = "err.mandatory.missing";
 
 }
