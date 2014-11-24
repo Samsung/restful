@@ -55,6 +55,12 @@
         <property name="sqlMapClient" ref="sqlMapClient"/>
     </bean>
 
+    <bean name="bbsResource" class="com.sec.ax.restful.resource.BBSResource"/>
+    <bean name="bbsService" class="com.sec.ax.restful.service.impl.BBSServiceImpl"/>
+    <bean name="bbsPersistence" class="com.sec.ax.restful.persistence.impl.BBSPersistenceImpl">
+        <property name="sqlMapClient" ref="sqlMapClient"/>
+    </bean>
+    
     <bean name="noteResource" class="com.sec.ax.restful.resource.NoteResource"/>
     <bean name="noteService" class="com.sec.ax.restful.service.impl.NoteServiceImpl"/>
     <bean name="notePersistence" class="com.sec.ax.restful.persistence.impl.NotePersistenceImpl">

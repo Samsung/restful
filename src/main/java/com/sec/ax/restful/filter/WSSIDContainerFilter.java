@@ -42,6 +42,10 @@ public class WSSIDContainerFilter implements ContainerRequestFilter {
     		
             String wssid = request.getHeaderValue(Constant.USER_WSSID_KEY);
 
+        	if (wssid == null) {
+        		wssid = request.getQueryParameters().getFirst(Constant.USER_WSSID_KEY);
+        	}
+
     		if (StringUtils.isBlank(wssid) || !isValid(wssid)) {
     			wssid = issue();
     			throw new WebApplicationException(Response.status(Response.Status.FORBIDDEN).entity(ResponseElement.newWSSIDInstance(wssid)).type(MediaType.APPLICATION_JSON  + ";charset=utf-8").build());
