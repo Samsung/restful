@@ -21,109 +21,109 @@ public class UserPersistenceImpl extends SqlMapClientDaoSupport implements UserP
 
     private static final Logger logger = Logger.getLogger(UserPersistenceImpl.class);
     
-	/* 
-	 * @see com.sec.ax.restful.persistence.UserPersistence#getUsers(com.sec.ax.restful.pojo.Query)
-	 */
-	@Override
-	public List<User> getUsers(Query query) throws DataAccessException {
+    /* 
+     * @see com.sec.ax.restful.persistence.UserPersistence#getUsers(com.sec.ax.restful.pojo.Query)
+     */
+    @Override
+    public List<User> getUsers(Query query) throws DataAccessException {
 
         logger.debug("..");
 
         Paging paging = query.getPaging();
         
-    	@SuppressWarnings("unchecked")
+        @SuppressWarnings("unchecked")
         List<User> list = getSqlMapClientTemplate().queryForList("user.getUsers", query, paging.getSkipResults(), paging.getMaxResults());
-    	
-		return list;
-		
-	}
+        
+        return list;
+        
+    }
 
-	/* 
-	 * @see com.sec.ax.restful.persistence.UserPersistence#cntUser()
-	 */
-	@Override
-	public int cntUser() throws DataAccessException {
-		
+    /* 
+     * @see com.sec.ax.restful.persistence.UserPersistence#cntUser()
+     */
+    @Override
+    public int cntUser() throws DataAccessException {
+        
         logger.debug("..");
-		
+        
         return (int) getSqlMapClientTemplate().queryForObject("user.cntUser");
-		
-	}
+        
+    }
 
-	/* 
-	 * @see com.sec.ax.restful.persistence.UserPersistence#getUser(String)
-	 */
-	@Override
-	public User getUser(String name) throws DataAccessException {
+    /* 
+     * @see com.sec.ax.restful.persistence.UserPersistence#getUser(String)
+     */
+    @Override
+    public User getUser(String name) throws DataAccessException {
 
         logger.debug("..");
         
-    	User user = (User) getSqlMapClientTemplate().queryForObject("user.getUser", name);
+        User user = (User) getSqlMapClientTemplate().queryForObject("user.getUser", name);
         
-		return user;
-		
-	}
+        return user;
+        
+    }
 
-	/* 
-	 * @see com.sec.ax.restful.persistence.UserPersistence#createUser(com.sec.ax.restful.pojo.User)
-	 */
-	@Override
-	public int createUser(User user) throws DataAccessException {
+    /* 
+     * @see com.sec.ax.restful.persistence.UserPersistence#createUser(com.sec.ax.restful.pojo.User)
+     */
+    @Override
+    public int createUser(User user) throws DataAccessException {
 
         logger.debug("..");
         
         return (int) getSqlMapClientTemplate().insert("user.createUser", user);
-		
-	}
+        
+    }
 
-	/* 
-	 * @see com.sec.ax.restful.persistence.UserPersistence#updateSid(int)
-	 */
-	@Override
-	public int updateSid(User user) throws DataAccessException {
+    /* 
+     * @see com.sec.ax.restful.persistence.UserPersistence#updateSid(int)
+     */
+    @Override
+    public int updateSid(User user) throws DataAccessException {
 
         logger.debug("..");
         
         return getSqlMapClientTemplate().update("user.updateSid", user);
-		
-	}
+        
+    }
 
-	/* 
-	 * @see com.sec.ax.restful.persistence.UserPersistence#updateUser(com.sec.ax.restful.pojo.User)
-	 */
-	@Override
-	public int updateUser(User user) throws DataAccessException {
-		
-		logger.debug("..");
-		
-		return getSqlMapClientTemplate().update("user.updateUser", user);
-		
-	}
-	
-	/* 
-	 * @see com.sec.ax.restful.persistence.UserPersistence#deleteUser(com.sec.ax.restful.pojo.User)
-	 */
-	@Override
-	public int deleteUser(User user) throws DataAccessException {
-		
-		logger.debug("..");
-		
-		return getSqlMapClientTemplate().delete("user.deleteUser", user);
-		
-	}
+    /* 
+     * @see com.sec.ax.restful.persistence.UserPersistence#updateUser(com.sec.ax.restful.pojo.User)
+     */
+    @Override
+    public int updateUser(User user) throws DataAccessException {
+        
+        logger.debug("..");
+        
+        return getSqlMapClientTemplate().update("user.updateUser", user);
+        
+    }
+    
+    /* 
+     * @see com.sec.ax.restful.persistence.UserPersistence#deleteUser(com.sec.ax.restful.pojo.User)
+     */
+    @Override
+    public int deleteUser(User user) throws DataAccessException {
+        
+        logger.debug("..");
+        
+        return getSqlMapClientTemplate().delete("user.deleteUser", user);
+        
+    }
 
-	/* 
-	 * @see com.sec.ax.restful.persistence.UserPersistence#loginUser(com.sec.ax.restful.pojo.User)
-	 */
-	@Override
-	public User loginUser(User user) throws DataAccessException {
+    /* 
+     * @see com.sec.ax.restful.persistence.UserPersistence#loginUser(com.sec.ax.restful.pojo.User)
+     */
+    @Override
+    public User loginUser(User user) throws DataAccessException {
 
         logger.debug("..");
         
         user = (User) getSqlMapClientTemplate().queryForObject("user.loginUser", user);
         
-		return user;
+        return user;
 
-	}
+    }
 
 }

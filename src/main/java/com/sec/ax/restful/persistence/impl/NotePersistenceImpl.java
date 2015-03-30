@@ -21,95 +21,95 @@ public class NotePersistenceImpl extends SqlMapClientDaoSupport implements NoteP
 
     private static final Logger logger = Logger.getLogger(NotePersistenceImpl.class);
 
-	/* 
-	 * @see com.sec.ax.restful.persistence.NotePersistence#getNotes(com.sec.ax.restful.pojo.Query)
-	 */
-	@Override
-	public List<Note> getNotes(Query query) throws DataAccessException {
+    /* 
+     * @see com.sec.ax.restful.persistence.NotePersistence#getNotes(com.sec.ax.restful.pojo.Query)
+     */
+    @Override
+    public List<Note> getNotes(Query query) throws DataAccessException {
 
         logger.debug("..");
 
         Paging paging = query.getPaging();
         
-    	@SuppressWarnings("unchecked")
+        @SuppressWarnings("unchecked")
         List<Note> list = getSqlMapClientTemplate().queryForList("note.getNotes", query, paging.getSkipResults(), paging.getMaxResults());
-    	
-		return list;
-		
-	}
+        
+        return list;
+        
+    }
 
-	/* 
-	 * @see com.sec.ax.restful.persistence.NotePersistence#cntNote()
-	 */
-	@Override
-	public int cntNote() throws DataAccessException {
-		
+    /* 
+     * @see com.sec.ax.restful.persistence.NotePersistence#cntNote()
+     */
+    @Override
+    public int cntNote() throws DataAccessException {
+        
         logger.debug("..");
-		
+        
         return (int) getSqlMapClientTemplate().queryForObject("note.cntNote");
-		
-	}
+        
+    }
 
-	/* 
-	 * @see com.sec.ax.restful.persistence.NotePersistence#getNote(int)
-	 */
-	@Override
-	public Note getNote(int idx) throws DataAccessException {
+    /* 
+     * @see com.sec.ax.restful.persistence.NotePersistence#getNote(int)
+     */
+    @Override
+    public Note getNote(int idx) throws DataAccessException {
 
         logger.debug("..");
         
         Note note= (Note) getSqlMapClientTemplate().queryForObject("note.getNote", idx);
         
-		return note;
-		
-	}
+        return note;
+        
+    }
 
-	/* 
-	 * @see com.sec.ax.restful.persistence.NotePersistence#createNote(com.sec.ax.restful.pojo.Note)
-	 */
-	@Override
-	public int createNote(Note note) throws DataAccessException {
+    /* 
+     * @see com.sec.ax.restful.persistence.NotePersistence#createNote(com.sec.ax.restful.pojo.Note)
+     */
+    @Override
+    public int createNote(Note note) throws DataAccessException {
 
         logger.debug("..");
         
-		return (int) getSqlMapClientTemplate().insert("note.createNote", note);
-		
-	}
+        return (int) getSqlMapClientTemplate().insert("note.createNote", note);
+        
+    }
 
-	/* 
-	 * @see com.sec.ax.restful.persistence.NotePersistence#getNote(int)
-	 */
-	@Override
-	public String getSid(int idx) throws DataAccessException {
+    /* 
+     * @see com.sec.ax.restful.persistence.NotePersistence#getNote(int)
+     */
+    @Override
+    public String getSid(int idx) throws DataAccessException {
 
         logger.debug("..");
         
-		return (String) getSqlMapClientTemplate().queryForObject("note.getSid", idx);
-		
-	}
+        return (String) getSqlMapClientTemplate().queryForObject("note.getSid", idx);
+        
+    }
 
-	/* 
-	 * @see com.sec.ax.restful.persistence.NotePersistence#updateNote(com.sec.ax.restful.pojo.Note)
-	 */
-	@Override
-	public int updateNote(Note note) throws DataAccessException {
-		
-		logger.debug("..");
-		
-		return getSqlMapClientTemplate().update("note.updateNote", note);
-		
-	}
-	
-	/* 
-	 * @see com.sec.ax.restful.persistence.NotePersistence#deleteNote(com.sec.ax.restful.pojo.Note)
-	 */
-	@Override
-	public int deleteNote(Note note) throws DataAccessException {
-		
-		logger.debug("..");
-		
-		return getSqlMapClientTemplate().delete("note.deleteNote", note);
-		
-	}
-	
+    /* 
+     * @see com.sec.ax.restful.persistence.NotePersistence#updateNote(com.sec.ax.restful.pojo.Note)
+     */
+    @Override
+    public int updateNote(Note note) throws DataAccessException {
+        
+        logger.debug("..");
+        
+        return getSqlMapClientTemplate().update("note.updateNote", note);
+        
+    }
+    
+    /* 
+     * @see com.sec.ax.restful.persistence.NotePersistence#deleteNote(com.sec.ax.restful.pojo.Note)
+     */
+    @Override
+    public int deleteNote(Note note) throws DataAccessException {
+        
+        logger.debug("..");
+        
+        return getSqlMapClientTemplate().delete("note.deleteNote", note);
+        
+    }
+    
 }

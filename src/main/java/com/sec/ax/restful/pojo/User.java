@@ -42,13 +42,13 @@ public class User extends Audit implements Principal {
         this.name = name;
     }
 
-	public String getPwd() {
-		return pwd;
-	}
+    public String getPwd() {
+        return pwd;
+    }
 
-	public void setPwd(String pwd) {
-		this.pwd = pwd;
-	}
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
+    }
 
     public String getSid() {
         return sid;
@@ -66,28 +66,28 @@ public class User extends Audit implements Principal {
         this.username = username;
     }
 
-	public Role getRole() {
-		return role;
-	}
+    public Role getRole() {
+        return role;
+    }
 
-	public void setRole(Role role) {
-		this.role = role;
-	}
+    public void setRole(Role role) {
+        this.role = role;
+    }
 
-	public int isStatus() {
-		return status;
-	}
+    public int isStatus() {
+        return status;
+    }
 
-	public void setStatus(int status) {
-		this.status = status;
-	}
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
-	public String getIp() {
-		return ip;
-	}
+    public String getIp() {
+        return ip;
+    }
 
-	public void setIp(String ip) {
-		this.ip = ip;
-	}
+    public void setIp(String ip) {
+        this.ip = ip;
+    }
 
 }

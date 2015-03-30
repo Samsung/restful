@@ -30,7 +30,7 @@ public abstract class AbstractResource {
      * @return
      */
     protected User getUserPrincipal() {
-    	
+        
         Principal principal = sc.getUserPrincipal();
         
         if (!(principal instanceof User)) {

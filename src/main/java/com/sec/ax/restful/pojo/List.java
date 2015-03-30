@@ -7,27 +7,27 @@ package com.sec.ax.restful.pojo;
  */
 
 public class List {
-	
-	private Query query;
-	private Object object;
-	
-	public List() {		
-	}
+    
+    private Query query;
+    private Object object;
+    
+    public List() {        
+    }
 
-	public Query getQuery() {
-		return query;
-	}
+    public Query getQuery() {
+        return query;
+    }
 
-	public void setQuery(Query query) {
-		this.query = query;
-	}
+    public void setQuery(Query query) {
+        this.query = query;
+    }
 
-	public Object getObject() {
-		return object;
-	}
+    public Object getObject() {
+        return object;
+    }
 
-	public void setObject(Object object) {
-		this.object = object;
-	}
-	
+    public void setObject(Object object) {
+        this.object = object;
+    }
+    
 }

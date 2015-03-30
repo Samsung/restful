@@ -18,9 +18,9 @@ public class ResourceBundleMessageSourceProxy implements LocalizationManager {
     @Autowired
     MessageSource resourceBundle;
 
-	@Override
+    @Override
     public String getMessage(String code, Object[] args) {
-    	return resourceBundle.getMessage(code, args, new Locale("en", "US"));
+        return resourceBundle.getMessage(code, args, new Locale("en", "US"));
     }
 
 }

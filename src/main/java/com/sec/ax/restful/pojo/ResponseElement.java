@@ -17,25 +17,25 @@ public class ResponseElement {
     public ResponseElement() {}
 
     public ResponseElement(String status, Object response) {
-    	this.status = status;
-    	this.response = response;
+        this.status = status;
+        this.response = response;
     }
 
-	public String getStatus() {
-		return status;
-	}
+    public String getStatus() {
+        return status;
+    }
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-	public Object getResponse() {
-		return response;
-	}
+    public Object getResponse() {
+        return response;
+    }
 
-	public void setResponse(Object response) {
-		this.response = response;
-	}
+    public void setResponse(Object response) {
+        this.response = response;
+    }
 
     public static ResponseElement newSuccessInstance(Object response) {
         return new ResponseElement("OK", response);

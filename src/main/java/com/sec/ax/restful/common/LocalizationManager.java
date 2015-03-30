@@ -7,7 +7,7 @@ package com.sec.ax.restful.common;
  */
 
 public interface LocalizationManager {
-	
+    
     /**
      * @param code
      * @param args

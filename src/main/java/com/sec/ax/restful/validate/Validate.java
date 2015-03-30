@@ -9,11 +9,11 @@ import java.util.List;
  */
 
 public interface Validate {
-	
-	/**
-	 * @param target
-	 * @param errors
-	 */
-	public void validate(Object target, List<Error> error);
+    
+    /**
+     * @param target
+     * @param errors
+     */
+    public void validate(Object target, List<Error> error);
 
 }

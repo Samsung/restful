@@ -18,41 +18,41 @@ import com.sec.ax.restful.validate.Error;
  */
 
 public class ValidatingName extends AbstractUserValidate {
-	
+    
 
     @Autowired
     private UserService service;
     
-	/* 
-	 * @see com.sec.ax.restful.validate.user.AbstractValidatedByUser#validate(com.sec.ax.restful.pojo.User, java.util.List)
-	 */
-	@Override
-	public void validate(User target, List<Error> error) {
-    	
-		if (service.getUser(target.getName(), new Object()) != null) {
-			error.add(new Error(Constant.ERR_USER_NAME_DUPLICATED, new Object[] {target.getName()}));
-    	} else if (target.getName().length() < Constant.USER_NAME_MIN_LENGTH || target.getName().length() > Constant.USER_NAME_MAX_LENGTH) {
-			error.add(new Error(Constant.ERR_USER_NAME_LENGTH, new Object[] {Constant.USER_NAME_MIN_LENGTH, Constant.USER_NAME_MAX_LENGTH}));
-    	} else if (!isNamePattern(target.getName())) {
-			error.add(new Error(Constant.ERR_USER_NAME_PATTERN, null));
-    	}
-    	
-	}
-	
-	private boolean isNamePattern(String name) {
-		
-		String regex = "^[a-z0-9.-]{3,15}+$";
-		
-		Pattern pattern = Pattern.compile(regex);
-		
-		Matcher matcher = pattern.matcher(name);
-		
-		if (matcher.find()) {
-			return true;
-		} else {
-			return false;
-		}
+    /* 
+     * @see com.sec.ax.restful.validate.user.AbstractValidatedByUser#validate(com.sec.ax.restful.pojo.User, java.util.List)
+     */
+    @Override
+    public void validate(User target, List<Error> error) {
+        
+        if (service.getUser(target.getName(), new Object()) != null) {
+            error.add(new Error(Constant.ERR_USER_NAME_DUPLICATED, new Object[] {target.getName()}));
+        } else if (target.getName().length() < Constant.USER_NAME_MIN_LENGTH || target.getName().length() > Constant.USER_NAME_MAX_LENGTH) {
+            error.add(new Error(Constant.ERR_USER_NAME_LENGTH, new Object[] {Constant.USER_NAME_MIN_LENGTH, Constant.USER_NAME_MAX_LENGTH}));
+        } else if (!isNamePattern(target.getName())) {
+            error.add(new Error(Constant.ERR_USER_NAME_PATTERN, null));
+        }
+        
+    }
+    
+    private boolean isNamePattern(String name) {
+        
+        String regex = "^[a-z0-9.-]{3,15}+$";
+        
+        Pattern pattern = Pattern.compile(regex);
+        
+        Matcher matcher = pattern.matcher(name);
+        
+        if (matcher.find()) {
+            return true;
+        } else {
+            return false;
+        }
 
-	}
-	
+    }
+    
 }

@@ -22,71 +22,71 @@ import com.sun.jersey.spi.container.ResourceFilter;
  */
 
 public class ValidateResourceFilter implements ResourceFilter, ContainerRequestFilter {
-	
+    
     private static final Logger logger = Logger.getLogger(ValidateResourceFilter.class);
 
     private ExceptionManager exceptionManager;
 
     private Class<?> target;
-	private List<Validate> list;
-	
-	/**
-	 * @param target
-	 * @param list
-	 * @param exceptionManager
-	 */
-	protected ValidateResourceFilter(Class<?> target, List<Validate> list, ExceptionManager exceptionManager) {
-		this.target = target;
-		this.list = list;
-		this.exceptionManager = exceptionManager;
-	}
+    private List<Validate> list;
+    
+    /**
+     * @param target
+     * @param list
+     * @param exceptionManager
+     */
+    protected ValidateResourceFilter(Class<?> target, List<Validate> list, ExceptionManager exceptionManager) {
+        this.target = target;
+        this.list = list;
+        this.exceptionManager = exceptionManager;
+    }
 
-	/* 
-	 * @see com.sun.jersey.spi.container.ContainerRequestFilter#filter(com.sun.jersey.spi.container.ContainerRequest)
-	 */
-	@Override
-	public ContainerRequest filter(ContainerRequest request) {
+    /* 
+     * @see com.sun.jersey.spi.container.ContainerRequestFilter#filter(com.sun.jersey.spi.container.ContainerRequest)
+     */
+    @Override
+    public ContainerRequest filter(ContainerRequest request) {
 
         logger.debug("..");
         
         try {
-        	
-        	Object obj = FilterHelper.getEntity(target, request);
-        	
-        	List<Error> error = new ArrayList<Error>();
-        	
-        	for (Validate validate : list) {
-        		validate.validate(obj, error);
-        	}
-        	
+            
+            Object obj = FilterHelper.getEntity(target, request);
+            
+            List<Error> error = new ArrayList<Error>();
+            
+            for (Validate validate : list) {
+                validate.validate(obj, error);
+            }
+            
             if (error.size() > 0) {
-            	exceptionManager.fireValidationException(error);
+                exceptionManager.fireValidationException(error);
             }
             
         } catch (WebApplicationException wae) {
             throw wae;
         } catch (Exception e) {
-        	exceptionManager.fireSystemException(e);
+            exceptionManager.fireSystemException(e);
         }
 
-		return request;
-		
-	}
+        return request;
+        
+    }
 
-	/* 
-	 * @see com.sun.jersey.spi.container.ResourceFilter#getRequestFilter()
-	 */
-	@Override
-	public ContainerRequestFilter getRequestFilter() {
+    /* 
+     * @see com.sun.jersey.spi.container.ResourceFilter#getRequestFilter()
+     */
+    @Override
+    public ContainerRequestFilter getRequestFilter() {
         return this;
-	}
+    }
 
-	/* 
-	 * @see com.sun.jersey.spi.container.ResourceFilter#getResponseFilter()
-	 */
-	@Override
-	public ContainerResponseFilter getResponseFilter() {
-		return null;
-	}
+    /* 
+     * @see com.sun.jersey.spi.container.ResourceFilter#getResponseFilter()
+     */
+    @Override
+    public ContainerResponseFilter getResponseFilter() {
+        return null;
+    }
 
 }
