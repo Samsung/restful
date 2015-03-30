@@ -40,7 +40,7 @@ import com.sun.jersey.multipart.FormDataParam;
 @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 public class BBSResource extends AbstractResource {
-	
+    
     private static final Logger logger = Logger.getLogger(BBSResource.class);
     
     @Autowired
@@ -51,23 +51,23 @@ public class BBSResource extends AbstractResource {
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @RolesAllowed({Role.Admin,Role.User})
     public ResponseElement uploadFile(@FormDataParam("file") InputStream is, @FormDataParam("file") FormDataContentDisposition fdcd) {
-    	
+        
         logger.debug("..");
         
         Object object = new Object();
         
         try {
-        	
-        	object = service.uploadFile(getUserPrincipal(), is, fdcd.getFileName());
-        	
-        	if (object == null) {
-            	exceptionManager.fireUserException(Constant.ERR_FILE_MISSING, null);
-        	}
-        	
+            
+            object = service.uploadFile(getUserPrincipal(), is, fdcd.getFileName());
+            
+            if (object == null) {
+                exceptionManager.fireUserException(Constant.ERR_FILE_MISSING, null);
+            }
+            
         } catch (java.io.FileNotFoundException e) {
-        	exceptionManager.fireUserException(Constant.ERR_FILE_MISSING, null);
+            exceptionManager.fireUserException(Constant.ERR_FILE_MISSING, null);
         } catch (IOException e) {
-        	exceptionManager.fireSystemException(new Exception(e));
+            exceptionManager.fireSystemException(new Exception(e));
         }
 
         logger.debug(FormatHelper.printPretty(object));
@@ -81,27 +81,27 @@ public class BBSResource extends AbstractResource {
     @Produces()
     @RolesAllowed({Role.Admin,Role.User})
     public Response downloadFile(@PathParam("filename") String filename) {
-    	
+        
         logger.debug("..");
         
         try {
-        	
+            
             String hash = FileHelper.hashdir(Constant.FILE_BASE_PATH, getUserPrincipal().getName(), Constant.FILE_BASE_DEPTH);
             String filepath = new StringBuffer(hash).append(filename).toString();
 
-        	File file = new File(filepath);
-        	
-        	if (file.exists()) {
-        		
-        		ResponseBuilder response = Response.ok(((Object) file));
-        		response.header("Content-Disposition", "attachment; filename="+filename);
-        		
-        		return response.build();
-        		
-        	}
-        	
+            File file = new File(filepath);
+            
+            if (file.exists()) {
+                
+                ResponseBuilder response = Response.ok(((Object) file));
+                response.header("Content-Disposition", "attachment; filename="+filename);
+                
+                return response.build();
+                
+            }
+            
         } catch (Exception e) {
-        	exceptionManager.fireSystemException(new Exception(e));
+            exceptionManager.fireSystemException(new Exception(e));
         }
 
         ResponseBuilder response = Response.status(Status.BAD_REQUEST);

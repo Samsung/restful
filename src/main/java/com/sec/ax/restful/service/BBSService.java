@@ -16,13 +16,13 @@ import com.sec.ax.restful.pojo.User;
 
 public interface BBSService {
 
-	/**
-	 * @param user
-	 * @param is
-	 * @param filename
-	 * @return
-	 * @throws DataAccessException
-	 */
-	public Object uploadFile(User user, InputStream is, String filename) throws IOException;
-	
+    /**
+     * @param user
+     * @param is
+     * @param filename
+     * @return
+     * @throws DataAccessException
+     */
+    public Object uploadFile(User user, InputStream is, String filename) throws IOException;
+    
 }

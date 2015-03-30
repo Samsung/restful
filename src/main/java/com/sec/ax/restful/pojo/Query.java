@@ -7,24 +7,24 @@ package com.sec.ax.restful.pojo;
  */
 
 public class Query {
-	
-	private String search;
-	private Paging paging;
+    
+    private String search;
+    private Paging paging;
 
-	public String getSearch() {
-		return search;
-	}
+    public String getSearch() {
+        return search;
+    }
 
-	public void setSearch(String search) {
-		this.search = search;
-	}
+    public void setSearch(String search) {
+        this.search = search;
+    }
 
-	public Paging getPaging() {
-		return paging;
-	}
+    public Paging getPaging() {
+        return paging;
+    }
 
-	public void setPaging(Paging paging) {
-		this.paging = paging;
-	}
-	
+    public void setPaging(Paging paging) {
+        this.paging = paging;
+    }
+    
 }

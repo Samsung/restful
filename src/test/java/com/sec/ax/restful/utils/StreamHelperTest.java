@@ -13,10 +13,10 @@ import org.apache.log4j.Logger;
 
 public class StreamHelperTest extends TestCase {
 
-	private Logger logger = Logger.getLogger(this.getClass());
-	
-	public StreamHelperTest() {
-		logger.setLevel(Level.DEBUG);
-	}
-	
+    private Logger logger = Logger.getLogger(this.getClass());
+    
+    public StreamHelperTest() {
+        logger.setLevel(Level.DEBUG);
+    }
+    
 }

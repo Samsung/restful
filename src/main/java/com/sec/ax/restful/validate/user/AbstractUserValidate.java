@@ -13,19 +13,19 @@ import com.sec.ax.restful.validate.Validate;
  */
 
 public abstract class AbstractUserValidate implements Validate {
-	
-	/* 
-	 * @see com.sec.ax.restful.validate.Validate#validate(java.lang.Object, java.util.List)
-	 */
-	@Override
-	public void validate(Object target, List<Error> error) {
-		validate((User) target, error);
-	}
-	
-	/**
-	 * @param target
-	 * @param error
-	 */
-	public abstract void validate(User target, List<Error> error);
+    
+    /* 
+     * @see com.sec.ax.restful.validate.Validate#validate(java.lang.Object, java.util.List)
+     */
+    @Override
+    public void validate(Object target, List<Error> error) {
+        validate((User) target, error);
+    }
+    
+    /**
+     * @param target
+     * @param error
+     */
+    public abstract void validate(User target, List<Error> error);
 
 }

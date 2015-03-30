@@ -50,7 +50,7 @@ import com.sec.ax.restful.utils.FormatHelper;
 @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 public class UserResource extends AbstractResource {
-	
+    
     private static final Logger logger = Logger.getLogger(UserResource.class);
     
     @Autowired
@@ -66,7 +66,7 @@ public class UserResource extends AbstractResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @RolesAllowed({Role.Admin})
     public ResponseElement getUsers(@DefaultValue("1") @QueryParam("pn") int pn, @QueryParam("q") String search) {
-    	
+        
         logger.debug("..");
         
         Object object = new Object();
@@ -75,19 +75,19 @@ public class UserResource extends AbstractResource {
         
         try {
 
-        	Paging paging = query.getPaging();
-        	
-        	paging.setTotalResults(service.cntUser());
-        	
+            Paging paging = query.getPaging();
+            
+            paging.setTotalResults(service.cntUser());
+            
             List list = new List();
-        	
-        	list.setQuery(query);
-        	list.setObject(service.getUsers(query, object));
-        	
-        	object = list;
+            
+            list.setQuery(query);
+            list.setObject(service.getUsers(query, object));
+            
+            object = list;
 
         } catch (DataAccessException e) {
-        	exceptionManager.fireSystemException(new Exception(e));
+            exceptionManager.fireSystemException(new Exception(e));
         }
         
         logger.debug(FormatHelper.printPretty(query));
@@ -106,15 +106,15 @@ public class UserResource extends AbstractResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @RolesAllowed({Role.Admin})
     public ResponseElement getUser(@PathParam("name") String name) {
-    	
+        
         logger.debug("..");
         
         Object object = new Object();
 
         try {
-        	object = service.getUser(name, object);
+            object = service.getUser(name, object);
         } catch (DataAccessException e) {
-        	exceptionManager.fireSystemException(new Exception(e));
+            exceptionManager.fireSystemException(new Exception(e));
         }
         
         logger.debug(FormatHelper.printPretty(name));
@@ -133,15 +133,15 @@ public class UserResource extends AbstractResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @ValidatedBy({"validatingName"})
     public ResponseElement createUser(User user) {
-    	
+        
         logger.debug("..");
         
         Object object = new Object();
         
         try {
-        	object = service.createUser(user, object);
+            object = service.createUser(user, object);
         } catch (DataAccessException e) {
-        	exceptionManager.fireSystemException(new Exception(e));
+            exceptionManager.fireSystemException(new Exception(e));
         }
 
         logger.debug(FormatHelper.printPretty(user));
@@ -160,24 +160,24 @@ public class UserResource extends AbstractResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @RolesAllowed({Role.Admin,Role.User})
     public ResponseElement updateUser(User user) {
-    	
+        
         logger.debug("..");
         
         Object object = new Object();
 
         try {
-        	
-        	User me = getUserPrincipal();
-        	User target = (User) service.getUser(user.getName(), object);
+            
+            User me = getUserPrincipal();
+            User target = (User) service.getUser(user.getName(), object);
 
-        	if (Role.User.equals(me.getRole()) && target != null && !StringUtils.equals(me.getSid(), target.getSid())) {
+            if (Role.User.equals(me.getRole()) && target != null && !StringUtils.equals(me.getSid(), target.getSid())) {
                 exceptionManager.fireUserException(Constant.ERR_USER_AUTHORIZATION_FAILED, new Object[] {me.getName()});
-        	}
-        	
-        	object = service.updateUser(user, object);
-        	
+            }
+            
+            object = service.updateUser(user, object);
+            
         } catch (DataAccessException e) {
-        	exceptionManager.fireSystemException(new Exception(e));
+            exceptionManager.fireSystemException(new Exception(e));
         }
 
         logger.debug(FormatHelper.printPretty(user));
@@ -196,24 +196,24 @@ public class UserResource extends AbstractResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @RolesAllowed({Role.Admin,Role.User})
     public ResponseElement deleteUser(@Context HttpServletRequest request, @Context HttpServletResponse response, User user) {
-    	
+        
         logger.debug("..");
         
         Object object = new Object();
 
         try {
-        	
-        	User me = getUserPrincipal();
-        	User target = (User) service.getUser(user.getName(), object);
+            
+            User me = getUserPrincipal();
+            User target = (User) service.getUser(user.getName(), object);
 
-        	if (Role.User.equals(me.getRole()) && target != null && !StringUtils.equals(me.getSid(), target.getSid())) {
+            if (Role.User.equals(me.getRole()) && target != null && !StringUtils.equals(me.getSid(), target.getSid())) {
                 exceptionManager.fireUserException(Constant.ERR_USER_AUTHORIZATION_FAILED, new Object[] {me.getName()});
-        	}
+            }
 
-        	object = service.deleteUser(user, object);
-        	
+            object = service.deleteUser(user, object);
+            
         } catch (DataAccessException e) {
-        	exceptionManager.fireSystemException(new Exception(e));
+            exceptionManager.fireSystemException(new Exception(e));
         }
 
         logger.debug(FormatHelper.printPretty(user));
@@ -231,15 +231,15 @@ public class UserResource extends AbstractResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @RolesAllowed({Role.Admin,Role.User})
     public ResponseElement getMe() {
-    	
+        
         logger.debug("..");
         
         Object object = new Object();
         
         try {
-        	object = getUserPrincipal();
+            object = getUserPrincipal();
         } catch (DataAccessException e) {
-        	exceptionManager.fireSystemException(new Exception(e));
+            exceptionManager.fireSystemException(new Exception(e));
         }
         
         logger.debug(FormatHelper.printPretty(object));
@@ -258,48 +258,48 @@ public class UserResource extends AbstractResource {
     @Path("/login")
     @Consumes(MediaType.APPLICATION_JSON)
     public ResponseElement loginUser(@Context HttpServletRequest request, @Context HttpServletResponse response, User user) {
-    	
+        
         logger.debug("..");
         
         try {
-        	user = service.loginUser(user);
+            user = service.loginUser(user);
         } catch (DataAccessException e) {
-        	exceptionManager.fireSystemException(new Exception(e));
+            exceptionManager.fireSystemException(new Exception(e));
         }
         
         try {
-        	
-        	if (user != null) {
+            
+            if (user != null) {
 
-            	StringBuffer Ax = new StringBuffer();
-            	
-            	Ax.append(user.getName()).append("|");
-            	Ax.append(user.getSid()).append("|");
-            	Ax.append(user.getUsername()).append("|");
-            	Ax.append(user.getRole()).append("|");
-            	Ax.append(request.getRemoteAddr()).append("|");
-            	
-        		Calendar c = Calendar.getInstance();
-            	Ax.append(c.getTimeInMillis());
-            	
-            	String crypted = AxCrypt.encrypt(Ax);
-            	
-            	logger.debug(crypted);
-            	
-            	Cookie cookie = new Cookie("Ax", crypted);
-            	
-            	cookie.setDomain(Constant.COOKIE_DOMAIN);
-            	cookie.setMaxAge(Constant.COOKIE_MAX_AGE);
-            	cookie.setPath("/");
+                StringBuffer Ax = new StringBuffer();
+                
+                Ax.append(user.getName()).append("|");
+                Ax.append(user.getSid()).append("|");
+                Ax.append(user.getUsername()).append("|");
+                Ax.append(user.getRole()).append("|");
+                Ax.append(request.getRemoteAddr()).append("|");
+                
+                Calendar c = Calendar.getInstance();
+                Ax.append(c.getTimeInMillis());
+                
+                String crypted = AxCrypt.encrypt(Ax);
+                
+                logger.debug(crypted);
+                
+                Cookie cookie = new Cookie("Ax", crypted);
+                
+                cookie.setDomain(Constant.COOKIE_DOMAIN);
+                cookie.setMaxAge(Constant.COOKIE_MAX_AGE);
+                cookie.setPath("/");
 
-            	response.addCookie(cookie);
+                response.addCookie(cookie);
 
-        	} else {
-        		exceptionManager.fireUserException(Constant.ERR_USER_LOGIN_FAILED, null);
-        	}
-        	
+            } else {
+                exceptionManager.fireUserException(Constant.ERR_USER_LOGIN_FAILED, null);
+            }
+            
         } catch (AxCryptException e) {
-        	exceptionManager.fireSystemException(new Exception(e));
+            exceptionManager.fireSystemException(new Exception(e));
         }
         
         logger.debug(FormatHelper.printPretty(user));
@@ -316,13 +316,13 @@ public class UserResource extends AbstractResource {
     @Path("/logout")
     @Consumes(MediaType.APPLICATION_JSON)
     public ResponseElement logoutUser(@Context HttpServletRequest request, @Context HttpServletResponse response) {
-    	
+        
         logger.debug("..");
         
         try {
-        	service.expiryCookie(request, response);
+            service.expiryCookie(request, response);
         } catch (Exception e) {
-        	exceptionManager.fireSystemException(new Exception(e));
+            exceptionManager.fireSystemException(new Exception(e));
         }
         
         return ResponseElement.newSuccessInstance(true);

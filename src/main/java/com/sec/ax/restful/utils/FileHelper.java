@@ -21,31 +21,31 @@ import org.apache.log4j.Logger;
  */
 
 public class FileHelper {
-	
-	private static final Logger logger = Logger.getLogger(FileHelper.class);
+    
+    private static final Logger logger = Logger.getLogger(FileHelper.class);
 
-	private static final int RANDOM_SEED = 1132164512;
-	private static final int RANDOM_MAX = 0x7fff;
+    private static final int RANDOM_SEED = 1132164512;
+    private static final int RANDOM_MAX = 0x7fff;
 
-	private static final int ALPHA_MAX = 26;
-	private static final int ALPHA_START = 97;
+    private static final int ALPHA_MAX = 26;
+    private static final int ALPHA_START = 97;
 
-	/**
-	 * @param classpath
-	 * @return
-	 * @throws IOException
-	 */
-	public static Reader getStream(String classpath) throws IOException {
-		
-		logger.debug("..");
-		
-		InputStream is = StreamHelper.class.getClass().getResourceAsStream(classpath);
-		
-		Reader reader = new InputStreamReader(is, "utf-8");
-		
-		return reader;
+    /**
+     * @param classpath
+     * @return
+     * @throws IOException
+     */
+    public static Reader getStream(String classpath) throws IOException {
+        
+        logger.debug("..");
+        
+        InputStream is = StreamHelper.class.getClass().getResourceAsStream(classpath);
+        
+        Reader reader = new InputStreamReader(is, "utf-8");
+        
+        return reader;
 
-	}
+    }
 
     /**
      * @param base
@@ -54,19 +54,19 @@ public class FileHelper {
      * @return
      */
     public static String hashdir(String base, String input, int depth) {
-    	
-		logger.debug("..");
+        
+        logger.debug("..");
 
         StringBuffer folder;
 
         if (base.endsWith("/")) {
-        	folder = new StringBuffer(base);
+            folder = new StringBuffer(base);
         } else {
-        	folder = new StringBuffer(base + "/");
+            folder = new StringBuffer(base + "/");
         }
 
-		long hash = input.hashCode() & 0xffffffffL;
-		
+        long hash = input.hashCode() & 0xffffffffL;
+        
         for (int i = 0; i < depth; i++) {
 
             int mod = (int) (hash % ALPHA_MAX);
@@ -77,22 +77,22 @@ public class FileHelper {
 
         }
 
-    	return folder.toString();
-    	
+        return folder.toString();
+        
     }
     
     /**
      * @param foldername
      */
     public static void mkdir(String foldername) {
-    	
-		logger.debug("..");
+        
+        logger.debug("..");
 
-		File folder = new File(foldername);
+        File folder = new File(foldername);
 
-    	if (!folder.exists()) {
-			folder.mkdirs();
-		}
+        if (!folder.exists()) {
+            folder.mkdirs();
+        }
 
     }
 
@@ -100,79 +100,79 @@ public class FileHelper {
      * @param foldername
      */
     public static void rmdir(String pathname) {
-    	
-		logger.debug("..");
+        
+        logger.debug("..");
 
-		File f = new File(pathname);
+        File f = new File(pathname);
 
-    	for (String filename : f.list()) {
+        for (String filename : f.list()) {
 
-    		String path = new StringBuffer(pathname + File.separator + filename).toString();
-    		
-    		File file = new File(path);
-    		
-    		if (file.isDirectory()) {
-    			rmdir(path);
-    		} else {
-    			file.delete();
-    		}
-    		
-    	}
-    	
-    	f.delete();
+            String path = new StringBuffer(pathname + File.separator + filename).toString();
+            
+            File file = new File(path);
+            
+            if (file.isDirectory()) {
+                rmdir(path);
+            } else {
+                file.delete();
+            }
+            
+        }
+        
+        f.delete();
 
     }
 
-	/**
-	 * @param foldername
-	 * @param filename
-	 * @return
-	 * @throws IOException
-	 */
-	public static List<String> unzip(String foldername, String filename) throws IOException {
-		
-		logger.debug("..");
-		
-		List<String> list = new ArrayList<String>();
-		
-		byte[] buffer = new byte[1024];
+    /**
+     * @param foldername
+     * @param filename
+     * @return
+     * @throws IOException
+     */
+    public static List<String> unzip(String foldername, String filename) throws IOException {
+        
+        logger.debug("..");
+        
+        List<String> list = new ArrayList<String>();
+        
+        byte[] buffer = new byte[1024];
 
-		ZipInputStream zis = new ZipInputStream(new FileInputStream(new StringBuffer(foldername + File.separator + filename).toString()));
-		ZipEntry ze;
-		
-		while ((ze = zis.getNextEntry()) != null) {
-			
-			File unzip = new File(foldername + File.separator + ze.getName());
-			
-			if (ze.getName().endsWith("/")) {
-				
-				String folder = new StringBuffer(foldername + File.separator + ze.getName()).toString();
+        ZipInputStream zis = new ZipInputStream(new FileInputStream(new StringBuffer(foldername + File.separator + filename).toString()));
+        ZipEntry ze;
+        
+        while ((ze = zis.getNextEntry()) != null) {
+            
+            File unzip = new File(foldername + File.separator + ze.getName());
+            
+            if (ze.getName().endsWith("/")) {
+                
+                String folder = new StringBuffer(foldername + File.separator + ze.getName()).toString();
 
-				mkdir(folder);
-				
-			} else {
-				
-				int len;
-				
-				FileOutputStream fos = new FileOutputStream(unzip);
+                mkdir(folder);
+                
+            } else {
+                
+                int len;
+                
+                FileOutputStream fos = new FileOutputStream(unzip);
 
-				while ((len = zis.read(buffer)) > 0) {
-					fos.write(buffer, 0, len);
-				}
-				
-				fos.close();
-				
-				list.add(unzip.getAbsolutePath());
-				
-			}
-			
-		}
+                while ((len = zis.read(buffer)) > 0) {
+                    fos.write(buffer, 0, len);
+                }
+                
+                fos.close();
+                
+                list.add(unzip.getAbsolutePath());
+                
+            }
+            
+        }
 
-		zis.closeEntry();
-		zis.close();
-		
-		return list;
+        zis.closeEntry();
+        zis.close();
+        
+        return list;
 
-	}
+    }
 
 }

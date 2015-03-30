@@ -1,9 +1,5 @@
-Development Environment
------------------------
-IDE: Eclipse
-Java: JDK 1.7
-Maven: 3.x
-Tomcat: 7.x
+#### Release v0.3.0 ####
+Replace tabs with spaces 
 
 #### Release v0.2.9 ####
 Add file upload/download

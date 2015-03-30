@@ -22,9 +22,9 @@
         WHERE
             status = 1
             <dynamic>
-	            <isNotNull prepend="AND" property="search">
-	                name LIKE CONCAT('%', LOWER(#search#), '%') OR username LIKE CONCAT('%', LOWER(#search#), '%') 
-	            </isNotNull>
+                <isNotNull prepend="AND" property="search">
+                    name LIKE CONCAT('%', LOWER(#search#), '%') OR username LIKE CONCAT('%', LOWER(#search#), '%') 
+                </isNotNull>
             </dynamic>
     </select>
 

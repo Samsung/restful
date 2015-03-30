@@ -7,5 +7,5 @@ package com.sec.ax.restful.pojo;
  */
 
 public enum Role {
-	Admin, User
+    Admin, User
 }

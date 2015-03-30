@@ -6,11 +6,11 @@
     <typeAlias alias="note" type="com.sec.ax.restful.pojo.Note"/>
     <typeAlias alias="query" type="com.sec.ax.restful.pojo.Query"/>
 
-	<resultMap id="noteResult" class="note" extends="audit.auditResult">
+    <resultMap id="noteResult" class="note" extends="audit.auditResult">
         <result property="idx" column="idx" javaType="int" jdbcType="INT"/>
         <result property="subject" column="subject" javaType="String" jdbcType="VARCHAR"/>
         <result property="content" column="content" javaType="String" jdbcType="VARCHAR"/>
-	</resultMap>
+    </resultMap>
 
     <select id="getNotes" parameterClass="query" resultMap="noteResult">
         SELECT
@@ -19,11 +19,11 @@
             note
         WHERE
             status = 1
-	        <dynamic prepend="AND">
-	            <isNotNull property="search">
-	                (subject LIKE CONCAT('%', #search#, '%') OR content LIKE CONCAT('%', #search#, '%')) 
-	            </isNotNull>
-	        </dynamic>
+            <dynamic prepend="AND">
+                <isNotNull property="search">
+                    (subject LIKE CONCAT('%', #search#, '%') OR content LIKE CONCAT('%', #search#, '%')) 
+                </isNotNull>
+            </dynamic>
     </select>
 
     <select id="cntNote" parameterClass="int" resultClass="int">

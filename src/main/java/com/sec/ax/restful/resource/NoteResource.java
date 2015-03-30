@@ -43,7 +43,7 @@ import com.sec.ax.restful.utils.FormatHelper;
 @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 public class NoteResource extends AbstractResource {
-	
+    
     private static final Logger logger = Logger.getLogger(NoteResource.class);
     
     @Autowired
@@ -58,7 +58,7 @@ public class NoteResource extends AbstractResource {
     @Path("/list")
     @Consumes(MediaType.APPLICATION_JSON)
     public ResponseElement getNotes(@DefaultValue("1") @QueryParam("pn") int pn, @QueryParam("q") String search) {
-    	
+        
         logger.debug("..");
         
         Object object = new Object();
@@ -66,20 +66,20 @@ public class NoteResource extends AbstractResource {
         Query query = QueryUtils.setQuery(pn, search);
         
         try {
-        	
-        	Paging paging = query.getPaging();
-        	
-        	paging.setTotalResults(service.cntNote());
-        	
+            
+            Paging paging = query.getPaging();
+            
+            paging.setTotalResults(service.cntNote());
+            
             List list = new List();
-        	
-        	list.setQuery(query);
-        	list.setObject(service.getNotes(query, object));
-        	
-        	object = list;
-        	
+            
+            list.setQuery(query);
+            list.setObject(service.getNotes(query, object));
+            
+            object = list;
+            
         } catch (DataAccessException e) {
-        	exceptionManager.fireSystemException(new Exception(e));
+            exceptionManager.fireSystemException(new Exception(e));
         }
         
         logger.debug(FormatHelper.printPretty(query));
@@ -97,15 +97,15 @@ public class NoteResource extends AbstractResource {
     @Path("/{idx}")
     @Consumes(MediaType.APPLICATION_JSON)
     public ResponseElement getNote(@PathParam("idx") int idx) {
-    	
+        
         logger.debug("..");
         
         Object object = new Object();
 
         try {
-        	object = service.getNote(idx, object);
+            object = service.getNote(idx, object);
         } catch (DataAccessException e) {
-        	exceptionManager.fireSystemException(new Exception(e));
+            exceptionManager.fireSystemException(new Exception(e));
         }
         
         logger.debug(FormatHelper.printPretty(idx));
@@ -125,15 +125,15 @@ public class NoteResource extends AbstractResource {
     @RolesAllowed({Role.Admin,Role.User})
     @ValidatedBy({"missingSubject","missingContent"})
     public ResponseElement createNote(Note note) {
-    	
+        
         logger.debug("..");
         
         Object object = new Object();
         
         try {
-        	object = service.createNote(note, getUserPrincipal().getSid(), object);
+            object = service.createNote(note, getUserPrincipal().getSid(), object);
         } catch (DataAccessException e) {
-        	exceptionManager.fireSystemException(new Exception(e));
+            exceptionManager.fireSystemException(new Exception(e));
         }
 
         logger.debug(FormatHelper.printPretty(note));
@@ -153,24 +153,24 @@ public class NoteResource extends AbstractResource {
     @RolesAllowed({Role.Admin,Role.User})
     @ValidatedBy({"missingIdx","missingSubject","missingContent"})
     public ResponseElement updateNote(Note note) {
-    	
+        
         logger.debug("..");
         
         Object object = new Object();
 
         try {
-        	
-        	User me = getUserPrincipal();
-        	String sid = service.getSid(note.getIdx(), object);
+            
+            User me = getUserPrincipal();
+            String sid = service.getSid(note.getIdx(), object);
 
-        	if (Role.User.equals(me.getRole()) && sid != null && !StringUtils.equals(me.getSid(), sid)) {
+            if (Role.User.equals(me.getRole()) && sid != null && !StringUtils.equals(me.getSid(), sid)) {
                 exceptionManager.fireUserException(Constant.ERR_USER_AUTHORIZATION_FAILED, new Object[] {me.getName()});
-        	}
-        	
-        	object = service.updateNote(note, object);
-        	
+            }
+            
+            object = service.updateNote(note, object);
+            
         } catch (DataAccessException e) {
-        	exceptionManager.fireSystemException(new Exception(e));
+            exceptionManager.fireSystemException(new Exception(e));
         }
 
         logger.debug(FormatHelper.printPretty(note));
@@ -190,24 +190,24 @@ public class NoteResource extends AbstractResource {
     @RolesAllowed({Role.Admin,Role.User})
     @ValidatedBy({"missingIdx"})
     public ResponseElement deleteNote(Note note) {
-    	
+        
         logger.debug("..");
         
         Object object = new Object();
 
         try {
-        	
-        	User me = getUserPrincipal();
-        	String sid = service.getSid(note.getIdx(), object);
+            
+            User me = getUserPrincipal();
+            String sid = service.getSid(note.getIdx(), object);
 
-        	if (Role.User.equals(me.getRole()) && sid != null && !StringUtils.equals(me.getSid(), sid)) {
+            if (Role.User.equals(me.getRole()) && sid != null && !StringUtils.equals(me.getSid(), sid)) {
                 exceptionManager.fireUserException(Constant.ERR_USER_AUTHORIZATION_FAILED, new Object[] {me.getName()});
-        	}
+            }
 
-        	object = service.deleteNote(note, object);
-        	
+            object = service.deleteNote(note, object);
+            
         } catch (DataAccessException e) {
-        	exceptionManager.fireSystemException(new Exception(e));
+            exceptionManager.fireSystemException(new Exception(e));
         }
 
         logger.debug(FormatHelper.printPretty(note));

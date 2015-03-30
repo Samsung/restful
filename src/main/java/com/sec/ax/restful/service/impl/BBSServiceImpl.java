@@ -28,12 +28,12 @@ public class BBSServiceImpl implements BBSService {
     @Autowired
     private BBSPersistence persistence;
 
-	/* 
-	 * @see com.sec.ax.restful.service.BBSService#uploadUser(com.sec.ax.restful.pojo.User, java.io.InputStream, java.lang.String)
-	 */
-	@Override
-	public Object uploadFile(User user, InputStream is, String filename) throws IOException {
-		
+    /* 
+     * @see com.sec.ax.restful.service.BBSService#uploadUser(com.sec.ax.restful.pojo.User, java.io.InputStream, java.lang.String)
+     */
+    @Override
+    public Object uploadFile(User user, InputStream is, String filename) throws IOException {
+        
         logger.debug("..");
         
         String hash = FileHelper.hashdir(Constant.FILE_BASE_PATH, user.getName(), Constant.FILE_BASE_DEPTH);
@@ -41,7 +41,7 @@ public class BBSServiceImpl implements BBSService {
         File filepath = new File(hash);
         
         if (!filepath.exists()) {
-        	filepath.mkdirs();
+            filepath.mkdirs();
         }
         
         String file = new StringBuffer(hash).append(filename).toString();
@@ -53,14 +53,14 @@ public class BBSServiceImpl implements BBSService {
         byte[] bytes = new byte[4096];
         
         while ((read = is.read(bytes)) != -1) {
-        	os.write(bytes, 0, read);
+            os.write(bytes, 0, read);
         }
         
         os.flush();
         os.close();
         
-		return filename;
-		
-	}
+        return filename;
+        
+    }
 
 }

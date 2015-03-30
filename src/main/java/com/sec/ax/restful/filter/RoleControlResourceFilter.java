@@ -38,12 +38,12 @@ public class RoleControlResourceFilter implements ResourceFilter, ContainerReque
         this.exceptionManager = exceptionManager;
     }
 
-	/* 
-	 * @see com.sun.jersey.spi.container.ContainerRequestFilter#filter(com.sun.jersey.spi.container.ContainerRequest)
-	 */
-	@Override
-	public ContainerRequest filter(ContainerRequest request) {
-		
+    /* 
+     * @see com.sun.jersey.spi.container.ContainerRequestFilter#filter(com.sun.jersey.spi.container.ContainerRequest)
+     */
+    @Override
+    public ContainerRequest filter(ContainerRequest request) {
+        
         logger.debug("..");
         
         Principal principal = request.getUserPrincipal();
@@ -53,15 +53,15 @@ public class RoleControlResourceFilter implements ResourceFilter, ContainerReque
         }
 
         if (principal instanceof User) {
-        	
+            
             User user = (User) principal;
             
             if (user.getRole() != null) {
-            	
+                
                 for (Role role : rolesAllowed) {
-                	if (StringUtils.equals(user.getRole().toString(), role.toString())) {
-                		return request;
-                	}
+                    if (StringUtils.equals(user.getRole().toString(), role.toString())) {
+                        return request;
+                    }
                 }
                 
                 exceptionManager.fireUserException(Constant.ERR_USER_AUTHORIZATION_FAILED, new Object[] {user.getName()});
@@ -74,24 +74,24 @@ public class RoleControlResourceFilter implements ResourceFilter, ContainerReque
             exceptionManager.fireUserException(Constant.ERR_USER_AUTHENTICATION_FAILED, null);
         }
 
-		return request;
-		
-	}
+        return request;
+        
+    }
 
-	/* 
-	 * @see com.sun.jersey.spi.container.ResourceFilter#getRequestFilter()
-	 */
-	@Override
-	public ContainerRequestFilter getRequestFilter() {
-		return this;
-	}
+    /* 
+     * @see com.sun.jersey.spi.container.ResourceFilter#getRequestFilter()
+     */
+    @Override
+    public ContainerRequestFilter getRequestFilter() {
+        return this;
+    }
 
-	/* 
-	 * @see com.sun.jersey.spi.container.ResourceFilter#getResponseFilter()
-	 */
-	@Override
-	public ContainerResponseFilter getResponseFilter() {
-		return null;
-	}
+    /* 
+     * @see com.sun.jersey.spi.container.ResourceFilter#getResponseFilter()
+     */
+    @Override
+    public ContainerResponseFilter getResponseFilter() {
+        return null;
+    }
 
 }

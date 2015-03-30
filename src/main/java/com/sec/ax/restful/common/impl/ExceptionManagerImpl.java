@@ -40,44 +40,44 @@ public class ExceptionManagerImpl implements ExceptionManager {
         this.localizationManager = localizationManager;
     }
 
-	@Override
-	public void fireSystemException(Exception e) {
+    @Override
+    public void fireSystemException(Exception e) {
 
-		logger.error("..");
+        logger.error("..");
 
-    	String referenceId = RandomStringUtils.randomAlphanumeric(16);
+        String referenceId = RandomStringUtils.randomAlphanumeric(16);
         String message = localizationManager.getMessage(Constant.ERR_SYSTEM_ERROR, new String[] {referenceId});
         
         logger.error(referenceId + "\n" + e);
         
         throw new WebApplicationException(Response.status(Status.INTERNAL_SERVER_ERROR).entity(ResponseElement.newFailedInstance(message)).type(MediaType.APPLICATION_JSON  + ";charset=utf-8").build());
-		
-	}
+        
+    }
 
     /* 
      * @see com.sec.ax.restful.common.ExceptionManager#fireUserException(java.lang.String, java.lang.Object[])
      */
     @Override
     public void fireUserException(String code, Object[] args) {
-    	
-		logger.debug("..");
-		
-		String message = localizationManager.getMessage(code, args);
+        
+        logger.debug("..");
+        
+        String message = localizationManager.getMessage(code, args);
         
         throw new WebApplicationException(Response.status(Status.BAD_REQUEST).entity(ResponseElement.newFailedInstance(message)).type(MediaType.APPLICATION_JSON  + ";charset=utf-8").build());
 
     }
 
-	/* 
-	 * @see com.sec.ax.restful.common.ExceptionManager#fireValidationException(java.util.List)
-	 */
-	@Override
-	public void fireValidationException(List<Error> error) {
-		
-		logger.debug("..");
-		
-		String[] messages = new String[error.size()];
-		
+    /* 
+     * @see com.sec.ax.restful.common.ExceptionManager#fireValidationException(java.util.List)
+     */
+    @Override
+    public void fireValidationException(List<Error> error) {
+        
+        logger.debug("..");
+        
+        String[] messages = new String[error.size()];
+        
         for (int i = 0; i < error.size(); i++) {
             Error err = error.get(i);
             messages[i] = localizationManager.getMessage(err.getCode(), err.getArgs());
@@ -85,6 +85,6 @@ public class ExceptionManagerImpl implements ExceptionManager {
 
         throw new WebApplicationException(Response.status(Status.BAD_REQUEST).entity(ResponseElement.newFailedInstance(StringUtils.join(messages, ", "))).type(MediaType.APPLICATION_JSON  + ";charset=utf-8").build());
 
-	}
+    }
 
 }

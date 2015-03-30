@@ -11,13 +11,13 @@ import com.sec.ax.restful.pojo.Query;
 
 public class QueryUtils {
     
-	/**
-	 * @param pn
-	 * @param search
-	 * @return
-	 */
-	public static Query setQuery(int pn, String search) {
-		
+    /**
+     * @param pn
+     * @param search
+     * @return
+     */
+    public static Query setQuery(int pn, String search) {
+        
         Query query = new Query();
         
         Paging paging = new Paging();
@@ -29,6 +29,6 @@ public class QueryUtils {
         
         return query;
         
-	}
-	
+    }
+    
 }
