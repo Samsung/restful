@@ -22,6 +22,8 @@ public class AxCryptTest extends TestCase {
 	}
 	
 	public void testEncrypt() {
+	    
+	    logger.debug("AxCryptTest.testEncrypt...");
 		
 		try {
 			
