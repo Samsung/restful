@@ -14,7 +14,7 @@
     </appender>
 
     <appender name="dailyRollingFile" class="org.apache.log4j.DailyRollingFileAppender">
-        <param name="File" value="/usr/local/share/logs/restful.log"/>
+        <param name="File" value="logs/restful.log"/>
         <param name="Append" value="true"/>
         <param name="DatePattern" value="'-'yyyyMMdd'.log'"/>
         <layout class="org.apache.log4j.PatternLayout">
