@@ -49,7 +49,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'axpower', PASSWORD('axpower'),'1','heesik.jeon',1,'Admin','ko_KR','2014-10-15 00:00:00','2014-10-15 00:00:00');
+INSERT INTO `user` VALUES (1,'axpower', PASSWORD('axpower'),'1','heesik.jeon','Admin',1,'2014-10-15 00:00:00','2014-10-15 00:00:00');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -71,7 +71,7 @@ CREATE TABLE `note` (
   `updatedate` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`idx`),
   UNIQUE KEY `idx_UNIQUE` (`idx`),
-  KEY `status` (`status`),
+  KEY `status` (`status`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -81,7 +81,7 @@ CREATE TABLE `note` (
 
 LOCK TABLES `note` WRITE;
 /*!40000 ALTER TABLE `note` DISABLE KEYS */;
-INSERT INTO `note` VALUES (1,'Hello','It\'s really nice to meet you.','2014-10-15 00:00:00','2014-10-15 00:00:00'),(2,'Hello','Me too.','2014-10-15 00:00:00','2014-10-15 00:00:00');
+INSERT INTO `note` VALUES (1,'1','Hello','It\'s really nice to meet you.',1,'2014-10-15 00:00:00','2014-10-15 00:00:00'),(2,'1','Hello','Me too.',1,'2014-10-15 00:00:00','2014-10-15 00:00:00');
 /*!40000 ALTER TABLE `note` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
