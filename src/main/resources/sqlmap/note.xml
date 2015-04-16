@@ -24,6 +24,7 @@
                     (subject LIKE CONCAT('%', #search#, '%') OR content LIKE CONCAT('%', #search#, '%')) 
                 </isNotNull>
             </dynamic>
+        ORDER BY idx DESC
     </select>
 
     <select id="cntNote" parameterClass="int" resultClass="int">
