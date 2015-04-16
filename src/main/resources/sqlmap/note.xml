@@ -12,7 +12,7 @@
         <result property="content" column="content" javaType="String" jdbcType="VARCHAR"/>
     </resultMap>
 
-    <select id="getNotes" parameterClass="query" resultMap="noteResult" >
+    <select id="getNotes" parameterClass="query" resultMap="noteResult">
         SELECT
             idx, subject, content, createdate, updatedate
         FROM
