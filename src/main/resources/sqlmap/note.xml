@@ -12,7 +12,7 @@
         <result property="content" column="content" javaType="String" jdbcType="VARCHAR"/>
     </resultMap>
 
-    <select id="getNotes" parameterClass="query" resultMap="noteResult">
+    <select id="getNotes" parameterClass="query" resultMap="noteResult" >
         SELECT
             idx, subject, content, createdate, updatedate
         FROM
@@ -24,6 +24,7 @@
                     (subject LIKE CONCAT('%', #search#, '%') OR content LIKE CONCAT('%', #search#, '%')) 
                 </isNotNull>
             </dynamic>
+        ORDER BY idx DESC
     </select>
 
     <select id="cntNote" parameterClass="int" resultClass="int">
