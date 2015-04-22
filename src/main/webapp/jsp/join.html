@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>Join</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <style type="text/css">
+            #join_text {margin-left: 5px; width: 169px; height: 20px;} 
+            #join_username {margin-left: 5px; margin-top: 7px; width: 169px; height: 20px;}     
+            #join_password {margin-left: 5px; margin-top: 7px; width: 169px; height: 20px;}     
+            #join_password_confirm {margin-left: 5px; margin-top: 7px; width: 169px; height: 20px;}     
+            #join_submit{margin-left: 7px; width: 80px; height: 60px;} 
+        </style>
+        <script type="text/javascript" src="js/restful.js"></script>
+    </head>
+    <body>
+        <table>
+            <tr>
+                <td>user id</td>
+                <td><input type="text" name="userid" id="join_text" tabindex=1 placeholder=" user id"></td>
+                <td rowspan="3"  valign="top" ><button type="submit" id="join_submit" onClick="join()"><span>Join</span></button></td>
+            </tr>
+            <tr>
+                <td>username</td>
+                <td><input type="text" name="username" id="join_username" tabindex=2  placeholder=" username"></td>
+            </tr>
+            <tr>
+                 <td>password</td>
+                <td><input type="password" name="userpassword" id="join_password" tabindex=3 placeholder=" password"></td>
+            </tr>
+            <tr>
+                 <td>confirm pw</td>
+                <td><input type="password" name="userpassword_confirm" id="join_password_confirm" tabindex=4 placeholder=" password confirm"></td>
+            </tr>
+        </table>
+    </body>
+</html>

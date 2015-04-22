@@ -1,0 +1,27 @@
+@CHARSET "UTF-8";
+
+html,body {
+    height: 100%;
+}
+
+table {
+    margin: 0px 0px 0px 0px;
+    border-spacing: 0px;
+    border-collapse: collapse;
+}
+
+table td {
+    padding: 0px 0px 0px 0px;
+}
+
+p {
+    margin: 0px 0px 0px 0px;
+}
+
+ul {
+    margin: 0px 0px 0px 0px;
+}
+
+a {
+    text-decoration: none;
+}
