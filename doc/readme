@@ -1,3 +1,6 @@
+#### Release v0.3.6 ####
+Not specify the domain name of Cookie
+
 #### Release v0.3.5 ####
 Change url-pattern for servlet to change its' path in web.xml
 
