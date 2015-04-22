@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>Login</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <style type="text/css">
+            #login_text {margin-left: 5px; width: 169px; height: 20px;} 
+            #login_password {margin-left: 5px; margin-top: 7px; width: 169px; height: 20px;}     
+            #login_submit{margin-left: 7px; width: 80px; height: 60px;} 
+        </style>
+        <script src="js/restful.js"></script>
+    </head>
+    <body>
+        <table>
+            <tr>
+                <td>user id</td>
+                <td><input type="text" name="userid" id="login_text" tabindex=1 placeholder=" user id" ></td>
+                <td rowspan="3"  valign="top" ><button type="submit" id="login_submit" onClick="login()"><span>Login</span></button></td>
+            </tr>
+            <tr>
+                <td>password</td>
+                <td><input type="password" name="userpassword" id="login_password" tabindex=2 placeholder=" password"></td>
+            </tr>
+            <tr>
+                <td colspan="2" ><a href="#" onClick="joinWindow();">Do you want to join us?</a></td>
+            </tr>
+        </table>
+    </body>
+</html>
