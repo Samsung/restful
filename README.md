@@ -13,22 +13,22 @@ And, please, take a look at [jdbc.properties](https://github.com/Samsung/restful
 
 ##### User #####
 ```
-// Retrieving a list of user with paging and search query
-GET /user/list
-GET /user/list?pn=1
-GET /user/list?pn=1&q=ax
+// Retrieving a list of user
+GET /restful/api/user/list 
 Content-Type: application/json
 
-// Retrieving a list of user
-GET /user/list 
+// Retrieving a list of user with paging and search query
+GET /restful/api/user/list
+GET /restful/api/user/list?pn=1
+GET /restful/api/user/list?pn=1&q=ax
 Content-Type: application/json
 
 // Retrieving a user
-GET /user/ax
+GET /restful/api/user/ax
 Content-Type: application/json
 
 // Creating a user
-POST /user/create
+POST /restful/api/user/create
 Content-Type: application/json
 {
   "name": "axpower",
@@ -38,7 +38,7 @@ Content-Type: application/json
 }
 
 // Updating a user
-PUT /user/update
+PUT /restful/api/user/update
 Content-Type: application/json
 {
   "name": "axpower",
@@ -46,47 +46,47 @@ Content-Type: application/json
 }
 
 // Deleting a user
-DELETE /user/delete
+DELETE /restful/api/user/delete
 Content-Type: application/json
 {
   "name": "axpower"
 }
 
 // Signing in
-POST /user/login
+POST /restful/api/user/login
 Content-Type: application/json
 {
   "name": "axpower",
   "pwd": "*****"
 }
 
-// Retrieving my information 
-GET /user/me
+// Signing out
+GET /restful/api/user/logout
 Content-Type: application/json
 
-// Signing out
-GET /user/logout
+// Retrieving my information 
+GET /restful/api/user/me
 Content-Type: application/json
 ```
 
 ##### Note #####
 ```
 // Retrieving a list of note with paging and search query
-GET /note/list
-GET /note/list?pn=1
-GET /note/list?pn=1&q=hello
+GET /restful/api/note/list
+GET /restful/api/note/list?pn=1
+GET /restful/api/note/list?pn=1&q=hello
 Content-Type: application/json
 
 // Retrieving a list of note
-GET /note/list 
+GET /restful/api/note/list 
 Content-Type: application/json
 
 // Retrieving a note
-GET /note/1
+GET /restful/api/note/1
 Content-Type: application/json
 
 // Creating a note
-POST /note/create
+POST /restful/api/note/create
 Content-Type: application/json
 {
   "subject": "Hello",
@@ -94,7 +94,7 @@ Content-Type: application/json
 }
 
 // Updating a note
-PUT /note/update
+PUT /restful/api/note/update
 Content-Type: application/json
 {
   "idx": 1,
@@ -103,7 +103,7 @@ Content-Type: application/json
 }
 
 // Deleting a note
-DELETE /note/delete
+DELETE /restful/api/note/delete
 Content-Type: application/json
 {
   "idx": 1
