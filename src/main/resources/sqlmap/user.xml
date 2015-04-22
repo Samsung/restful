@@ -26,6 +26,7 @@
                     name LIKE CONCAT('%', LOWER(#search#), '%') OR username LIKE CONCAT('%', LOWER(#search#), '%') 
                 </isNotNull>
             </dynamic>
+        ORDER BY idx DESC
     </select>
 
     <select id="cntUser" parameterClass="int" resultClass="int">
