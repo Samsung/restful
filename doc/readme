@@ -1,3 +1,6 @@
+#### Release v0.3.3 ####
+Add account for handling data into MySQL
+
 #### Release v0.3.2 ####
 Change location of log file
 Fix bugs on data.sql
