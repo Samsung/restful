@@ -18,7 +18,6 @@ GET /restful/api/user/list
 Content-Type: application/json
 
 // Retrieving a list of user with paging and search query
-GET /restful/api/user/list
 GET /restful/api/user/list?pn=1
 GET /restful/api/user/list?pn=1&q=ax
 Content-Type: application/json
@@ -71,14 +70,13 @@ Content-Type: application/json
 
 ##### Note #####
 ```
-// Retrieving a list of note with paging and search query
-GET /restful/api/note/list
-GET /restful/api/note/list?pn=1
-GET /restful/api/note/list?pn=1&q=hello
-Content-Type: application/json
-
 // Retrieving a list of note
 GET /restful/api/note/list 
+Content-Type: application/json
+
+// Retrieving a list of note with paging and search query
+GET /restful/api/note/list?pn=1
+GET /restful/api/note/list?pn=1&q=hello
 Content-Type: application/json
 
 // Retrieving a note
