@@ -288,7 +288,7 @@ public class UserResource extends AbstractResource {
                 
                 Cookie cookie = new Cookie("Ax", crypted);
                 
-                cookie.setDomain(Constant.COOKIE_DOMAIN);
+//                cookie.setDomain(Constant.COOKIE_DOMAIN);
                 cookie.setMaxAge(Constant.COOKIE_MAX_AGE);
                 cookie.setPath("/");
 

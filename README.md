@@ -51,6 +51,10 @@ Content-Type: application/json
   "name": "axpower"
 }
 
+// Retrieving my information 
+GET /restful/api/user/me
+Content-Type: application/json
+
 // Signing in
 POST /restful/api/user/login
 Content-Type: application/json
@@ -61,10 +65,6 @@ Content-Type: application/json
 
 // Signing out
 GET /restful/api/user/logout
-Content-Type: application/json
-
-// Retrieving my information 
-GET /restful/api/user/me
 Content-Type: application/json
 ```
 

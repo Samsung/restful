@@ -147,7 +147,7 @@ public class UserServiceImpl implements UserService {
             
             if (StringUtils.equals(Constant.COOKIE_USER_KEY, cookie.getName())) {
 
-                cookie.setDomain(Constant.COOKIE_DOMAIN);
+//                cookie.setDomain(Constant.COOKIE_DOMAIN);
                 cookie.setMaxAge(Constant.COOKIE_EXPIRY);
                 cookie.setPath("/");
 

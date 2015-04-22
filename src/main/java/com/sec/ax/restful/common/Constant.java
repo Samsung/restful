@@ -11,7 +11,7 @@ public class Constant {
     public static final String COOKIE_USER_KEY = "Ax";
     public static final String COOKIE_USER_SECRET = "cookie.secret";
     
-    public static final String COOKIE_DOMAIN = ".samsung.com"; // TODO You need to change it to your domain
+//    public static final String COOKIE_DOMAIN = ".samsung.com"; // TODO You need to change it to your domain
     public static final String COOKIE_URI = "/";
     public static final int COOKIE_MAX_AGE = 60 * 60 * 6; // 6 hours
     public static final int COOKIE_EXPIRY = 0;
