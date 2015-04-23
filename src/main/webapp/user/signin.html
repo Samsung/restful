@@ -7,12 +7,12 @@
         <script type="text/javascript" src="/restful/js/restful.js"></script>
         <script type="text/javascript">
             // Sign In
-	        function signin() {
-	            var url = "/restful/api/user/login";
-	            
-	            var userid =  document.getElementById('userid').value;
-	            var password =  document.getElementById('password').value;
-	            
+            function signin() {
+                var url = "/restful/api/user/login";
+                
+                var userid =  document.getElementById('userid').value;
+                var password =  document.getElementById('password').value;
+                
                 if (!userid) {
                     alert('Please input your userid');
                     return;
@@ -20,22 +20,22 @@
                     alert('Please insert your password');
                     return;
                 }
-	            
-	            var params = {
-	                'name' : userid,
-	                'pwd' : password
-	            };
-	            
-	            ajaxCall('POST', url, null, params, function(data) {
-	                    var status = data.status;
-	                    if(status == 'OK'){
-	                        alert(data.response);
-	                    }
-	                },
-	                function(data){
-	                	alert(data.response);
-	              });
-	        }
+                
+                var params = {
+                    'name' : userid,
+                    'pwd' : password
+                };
+                
+                ajaxCall('POST', url, null, params, function(data) {
+                        var status = data.status;
+                        if(status == 'OK'){
+                            alert(data.response);
+                        }
+                    },
+                    function(data){
+                        alert(data.response);
+                  });
+            }
         </script>
     </head>
     <body>

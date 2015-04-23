@@ -1,8 +1,8 @@
 // Implement ajax request using XMLHttpRequest
 var ajaxCall = (function() {
-	
-	    return function(Method, Url, Headers, Body, successFunc, errorFunc) {
-	    	
+    
+        return function(Method, Url, Headers, Body, successFunc, errorFunc) {
+            
             var xmlHttpRequest = (window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsotf.XMLHTTP"));
             
             xmlHttpRequest.onreadystatechange = function() {
@@ -37,20 +37,20 @@ var JSON = JSON || {};
 
 // Implement JSON.stringify serialization
 JSON.stringify = JSON.stringify || function(obj) {
-	
+    
     var t = typeof (obj);
     
     if (t != "object" || obj === null) {
-    	
+        
         // Simple data type
         if (t == "string") {
-        	obj = '"' + obj + '"';
+            obj = '"' + obj + '"';
         }
         
         return String(obj);
         
     } else {
-    	
+        
         // Recurse array or object
         var n, v, json = [], arr = (obj && obj.constructor == Array);
         
@@ -58,9 +58,9 @@ JSON.stringify = JSON.stringify || function(obj) {
             v = obj[n];
             t = typeof (v);
             if (t == "string") {
-            	v = '"' + v + '"';
+                v = '"' + v + '"';
             } else if (t == "object" && v !== null) {
-            	v = JSON.stringify(v);
+                v = JSON.stringify(v);
             }
             json.push((arr ? "" : '"' + n + '":') + String(v));
         }
@@ -73,7 +73,7 @@ JSON.stringify = JSON.stringify || function(obj) {
 
 // Implement JSON.parse de-serialization
 JSON.parse = JSON.parse || function(str) {
-	
+    
     if (str === "") {
         str = '""';
     }
