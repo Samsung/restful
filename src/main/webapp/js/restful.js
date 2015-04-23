@@ -8,11 +8,11 @@ var ajaxCall = (function() {
             xmlHttpRequest.onreadystatechange = function() {
                 if (xmlHttpRequest.readyState == 4 ) {
                     var data = JSON.parse(xmlHttpRequest.responseText);
-                   if(xmlHttpRequest.status == 200) {
+                    if(xmlHttpRequest.status == 200) {
                         successFunc(data);
-                   } else {
+                    } else {
                         errorFunc(data);
-                   }
+                    }
                 }
             };
             
