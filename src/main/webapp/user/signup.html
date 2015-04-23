@@ -34,11 +34,11 @@
                 
                 ajaxCall('POST', url, null, params, function(data) {
                         var status = data.status;
-                        if(status == 'OK'){
-                            alert(data.response);
+                        if(status == 'OK') {
+                        	document.getElementById('signin').innerHTML = "<a href=\"signin.html\">Sign In</a>";
                         }
                     },
-                    function(data){
+                    function(data) {
                         alert(data.response);
                   });
             }
@@ -61,6 +61,9 @@
             </tr>
             <tr>
                 <td align="center" colspan="2"><button type="submit" onClick="signup()"><span>Sign Up</span></button></td>
+            </tr>
+            <tr>
+                <td align="left" colspan="2"><div id="signin"></div></td>
             </tr>
         </table>
     </body>
