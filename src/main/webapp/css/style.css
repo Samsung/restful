@@ -1,0 +1,11 @@
+@CHARSET "UTF-8";
+html,body {
+    font-size:12px;
+    line-height:1.5;
+    font-family:dotum,sans-serif;
+    color:#333;
+}
+a {
+    color:#4447c3;
+    text-decoration:none;
+}
