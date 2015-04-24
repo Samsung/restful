@@ -29,7 +29,7 @@
                 ajaxCall('POST', url, null, params, function(data) {
                         var status = data.status;
                         if(status == 'OK') {
-                            document.getElementById('profile').innerHTML = "<a href=\"profile.html\">Profile</a>";
+                            location.replace("profile.html"); 
                         }
                     },
                     function(data) {
@@ -53,8 +53,7 @@
                 <td align="center" colspan="2"><button type="submit" onClick="signin()"><span>Sign In</span></button></td>
             </tr>
             <tr>
-                <td align="left"><div id="profile"></div></td>
-                <td align="right"><a href="signup.html">Sign Up</a></td>
+                <td align="right" colspan="2"><a href="signup.html">Sign Up</a></td>
             </tr>
         </table>
     </body>
