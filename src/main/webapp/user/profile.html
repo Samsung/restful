@@ -47,7 +47,7 @@
                 ajaxCall('GET', url, null, null, function(data) {
                         var status = data.status;
                         if(status == 'OK'){
-                            alert(data.response);
+                            location.reload(true);
                         }
                     },
                     function(data){
