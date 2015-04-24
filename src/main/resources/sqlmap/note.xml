@@ -12,7 +12,62 @@
         <result property="content" column="content" javaType="String" jdbcType="VARCHAR"/>
     </resultMap>
 
-    <select id="getNotes" parameterClass="query" resultMap="noteResult">
+    <insert id="create" parameterClass="note">
+        INSERT INTO
+            note (sid, subject, content)
+        VALUES (
+            #sid#, #subject#, #content#
+        )
+        <selectKey resultClass="int" keyProperty="idx">
+            SELECT LAST_INSERT_ID() AS idx
+        </selectKey> 
+    </insert>
+    
+    <select id="sid" parameterClass="int" resultClass="String">
+        SELECT
+            sid
+        FROM
+            note
+        WHERE
+            idx = #idx# AND status = 1
+    </select>
+
+    <update id="update" parameterClass="note">
+        UPDATE
+            note
+        SET
+            subject = #subject#,
+            content = #content#
+        WHERE
+            idx = #idx# AND status = 1
+    </update>
+
+    <delete id="delete" parameterClass="note">
+        DELETE FROM 
+            note
+        WHERE 
+            idx = #idx# AND status = 1
+    </delete>
+    
+    <select id="idx" parameterClass="int" resultMap="noteResult">
+        SELECT
+            idx, subject, content, createdate, updatedate
+        FROM
+            note
+        WHERE
+            idx = #idx# AND status = 1
+    </select>
+    
+    <select id="count" parameterClass="int" resultClass="int">
+        SELECT
+            COUNT(idx)
+        FROM
+            note
+        WHERE
+            status = 1
+    </select>
+    
+    <select id="list" parameterClass="query" resultMap="noteResult">
         SELECT
             idx, subject, content, createdate, updatedate
         FROM
@@ -26,60 +81,5 @@
             </dynamic>
         ORDER BY idx DESC
     </select>
-
-    <select id="cntNote" parameterClass="int" resultClass="int">
-        SELECT
-            COUNT(idx)
-        FROM
-            note
-        WHERE
-            status = 1
-    </select>
-
-    <select id="getNote" parameterClass="int" resultMap="noteResult">
-        SELECT
-            idx, subject, content, createdate, updatedate
-        FROM
-            note
-        WHERE
-            idx = #idx# AND status = 1
-    </select>
-
-    <insert id="createNote" parameterClass="note">
-        INSERT INTO
-            note (sid, subject, content)
-        VALUES (
-            #sid#, #subject#, #content#
-        )
-        <selectKey resultClass="int" keyProperty="idx">
-            SELECT LAST_INSERT_ID() AS idx
-        </selectKey> 
-    </insert>
-
-    <select id="getSid" parameterClass="int" resultClass="String">
-        SELECT
-            sid
-        FROM
-            note
-        WHERE
-            idx = #idx# AND status = 1
-    </select>
-
-    <update id="updateNote" parameterClass="note">
-        UPDATE
-            note
-        SET
-            subject = #subject#,
-            content = #content#
-        WHERE
-            idx = #idx# AND status = 1
-    </update>
-
-    <delete id="deleteNote" parameterClass="note">
-        DELETE FROM 
-            note
-        WHERE 
-            idx = #idx# AND status = 1
-    </delete>
-
+    
 </sqlMap>

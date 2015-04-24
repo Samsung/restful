@@ -14,7 +14,70 @@
         <result property="role" column="role" javaType="com.sec.ax.restful.pojo.Role" jdbcType="VARCHAR"/>
     </resultMap>
 
-    <select id="getUsers" parameterClass="query" resultMap="userResult">
+    <insert id="signup" parameterClass="user">
+        INSERT INTO
+            user (name, pwd, sid, username, role)
+        VALUES (
+            LOWER(#name#), PASSWORD(#pwd#), #sid#, #username#, #role,javaType=com.sec.ax.restful.pojo.Role,jdbcType=VARCHAR#
+        )
+        <selectKey resultClass="int" keyProperty="idx">
+            SELECT LAST_INSERT_ID() AS idx
+        </selectKey> 
+    </insert>
+
+    <update id="sid" parameterClass="user">
+        UPDATE
+            user
+        SET
+            sid = #sid# 
+        WHERE
+            idx = #idx# AND status = 1
+    </update>
+    
+    <select id="signin" parameterClass="user" resultMap="userResult">
+        SELECT
+            idx, name, sid, username, role, createdate, updatedate
+        FROM
+            user
+        WHERE
+            name = LOWER(#name#) AND pwd = password(#pwd#) AND status = 1
+    </select>
+        
+    <update id="update" parameterClass="user">
+        UPDATE
+            user
+        SET
+            username = #username#
+        WHERE
+            name = LOWER(#name#) AND status = 1
+    </update>
+
+    <delete id="delete" parameterClass="user">
+        DELETE FROM 
+            user
+        WHERE 
+            name = LOWER(#name#) AND status = 1
+    </delete>
+
+    <select id="name" parameterClass="String" resultMap="userResult">
+        SELECT
+            idx, name, sid, username, role, createdate, updatedate
+        FROM
+            user
+        WHERE
+            name = LOWER(#name#) AND status = 1
+    </select>
+            
+    <select id="count" parameterClass="int" resultClass="int">
+        SELECT
+            COUNT(idx)
+        FROM
+            user
+        WHERE
+            status = 1
+    </select>
+    
+    <select id="list" parameterClass="query" resultMap="userResult">
         SELECT
             idx, name, sid, username, role, createdate, updatedate
         FROM
@@ -27,69 +90,6 @@
                 </isNotNull>
             </dynamic>
         ORDER BY idx DESC
-    </select>
-
-    <select id="cntUser" parameterClass="int" resultClass="int">
-        SELECT
-            COUNT(idx)
-        FROM
-            user
-        WHERE
-            status = 1
-    </select>
-
-    <select id="getUser" parameterClass="String" resultMap="userResult">
-        SELECT
-            idx, name, sid, username, role, createdate, updatedate
-        FROM
-            user
-        WHERE
-            name = LOWER(#name#) AND status = 1
-    </select>
-
-    <insert id="createUser" parameterClass="user">
-        INSERT INTO
-            user (name, pwd, sid, username, role)
-        VALUES (
-            LOWER(#name#), PASSWORD(#pwd#), #sid#, #username#, #role,javaType=com.sec.ax.restful.pojo.Role,jdbcType=VARCHAR#
-        )
-        <selectKey resultClass="int" keyProperty="idx">
-            SELECT LAST_INSERT_ID() AS idx
-        </selectKey> 
-    </insert>
-
-    <update id="updateSid" parameterClass="user">
-        UPDATE
-            user
-        SET
-            sid = #sid# 
-        WHERE
-            idx = #idx# AND status = 1
-    </update>
-
-    <update id="updateUser" parameterClass="user">
-        UPDATE
-            user
-        SET
-            username = #username#
-        WHERE
-            name = LOWER(#name#) AND status = 1
-    </update>
-
-    <delete id="deleteUser" parameterClass="user">
-        DELETE FROM 
-            user
-        WHERE 
-            name = LOWER(#name#) AND status = 1
-    </delete>
-
-    <select id="loginUser" parameterClass="user" resultMap="userResult">
-        SELECT
-            idx, name, sid, username, role, createdate, updatedate
-        FROM
-            user
-        WHERE
-            name = LOWER(#name#) AND pwd = password(#pwd#) AND status = 1
     </select>
 
 </sqlMap>

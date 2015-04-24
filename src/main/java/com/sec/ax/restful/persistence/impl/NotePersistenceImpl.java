@@ -29,7 +29,7 @@ public class NotePersistenceImpl extends SqlMapClientDaoSupport implements NoteP
 
         logger.debug("..");
         
-        return (int) getSqlMapClientTemplate().insert("note.createNote", note);
+        return (int) getSqlMapClientTemplate().insert("note.create", note);
         
     }
 
@@ -41,7 +41,7 @@ public class NotePersistenceImpl extends SqlMapClientDaoSupport implements NoteP
 
         logger.debug("..");
         
-        return (String) getSqlMapClientTemplate().queryForObject("note.getSid", idx);
+        return (String) getSqlMapClientTemplate().queryForObject("note.sid", idx);
         
     }
 
@@ -53,7 +53,7 @@ public class NotePersistenceImpl extends SqlMapClientDaoSupport implements NoteP
         
         logger.debug("..");
         
-        return getSqlMapClientTemplate().update("note.updateNote", note);
+        return getSqlMapClientTemplate().update("note.update", note);
         
     }
     
@@ -65,7 +65,7 @@ public class NotePersistenceImpl extends SqlMapClientDaoSupport implements NoteP
         
         logger.debug("..");
         
-        return getSqlMapClientTemplate().delete("note.deleteNote", note);
+        return getSqlMapClientTemplate().delete("note.delete", note);
         
     }
 
@@ -77,7 +77,7 @@ public class NotePersistenceImpl extends SqlMapClientDaoSupport implements NoteP
     
         logger.debug("..");
         
-        Note note= (Note) getSqlMapClientTemplate().queryForObject("note.getNote", idx);
+        Note note= (Note) getSqlMapClientTemplate().queryForObject("note.idx", idx);
         
         return note;
         
@@ -91,7 +91,7 @@ public class NotePersistenceImpl extends SqlMapClientDaoSupport implements NoteP
         
         logger.debug("..");
         
-        return (int) getSqlMapClientTemplate().queryForObject("note.cntNote");
+        return (int) getSqlMapClientTemplate().queryForObject("note.count");
         
     }
 
@@ -106,7 +106,7 @@ public class NotePersistenceImpl extends SqlMapClientDaoSupport implements NoteP
         Paging paging = query.getPaging();
         
         @SuppressWarnings("unchecked")
-        List<Note> list = getSqlMapClientTemplate().queryForList("note.getNotes", query, paging.getSkipResults(), paging.getMaxResults());
+        List<Note> list = getSqlMapClientTemplate().queryForList("note.list", query, paging.getSkipResults(), paging.getMaxResults());
         
         return list;
         
