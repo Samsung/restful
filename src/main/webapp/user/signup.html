@@ -8,7 +8,7 @@
         <script type="text/javascript">
             // Sign Up
             function signup() {
-                var url = "/restful/api/user/create";
+                var url = "/restful/api/user/signup";
                 
                 var username =  document.getElementById('username').value;
                 var userid =  document.getElementById('userid').value;
@@ -35,7 +35,7 @@
                 ajaxCall('POST', url, null, params, function(data) {
                         var status = data.status;
                         if(status == 'OK') {
-                        	document.getElementById('signin').innerHTML = "<a href=\"signin.html\">Sign In</a>";
+                            document.getElementById('signin').innerHTML = "<a href=\"signin.html\">Sign In</a>";
                         }
                     },
                     function(data) {

@@ -50,72 +50,6 @@ public class NoteResource extends AbstractResource {
     private NoteService service;
 
     /**
-     * @param pn
-     * @param search
-     * @return
-     */
-    @GET
-    @Path("/list")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public ResponseElement getNotes(@DefaultValue("1") @QueryParam("pn") int pn, @QueryParam("q") String search) {
-        
-        logger.debug("..");
-        
-        Object object = new Object();
-        
-        Query query = QueryUtils.setQuery(pn, search);
-        
-        try {
-            
-            Paging paging = query.getPaging();
-            
-            paging.setTotalResults(service.cntNote());
-            
-            List list = new List();
-            
-            list.setQuery(query);
-            list.setObject(service.getNotes(query, object));
-            
-            object = list;
-            
-        } catch (DataAccessException e) {
-            exceptionManager.fireSystemException(new Exception(e));
-        }
-        
-        logger.debug(FormatHelper.printPretty(query));
-        logger.debug(FormatHelper.printPretty(object));
-        
-        return ResponseElement.newSuccessInstance(object);
-
-    }
-
-    /**
-     * @param idx
-     * @return
-     */
-    @GET
-    @Path("/{idx}")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public ResponseElement getNote(@PathParam("idx") int idx) {
-        
-        logger.debug("..");
-        
-        Object object = new Object();
-
-        try {
-            object = service.getNote(idx, object);
-        } catch (DataAccessException e) {
-            exceptionManager.fireSystemException(new Exception(e));
-        }
-        
-        logger.debug(FormatHelper.printPretty(idx));
-        logger.debug(FormatHelper.printPretty(object));
-        
-        return ResponseElement.newSuccessInstance(object);
-
-    }
-
-    /**
      * @param note
      * @return
      */
@@ -124,14 +58,14 @@ public class NoteResource extends AbstractResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @RolesAllowed({Role.Admin,Role.User})
     @ValidatedBy({"missingSubject","missingContent"})
-    public ResponseElement createNote(Note note) {
+    public ResponseElement create(Note note) {
         
         logger.debug("..");
         
         Object object = new Object();
         
         try {
-            object = service.createNote(note, getUserPrincipal().getSid(), object);
+            object = service.create(note, getUserPrincipal().getSid(), object);
         } catch (DataAccessException e) {
             exceptionManager.fireSystemException(new Exception(e));
         }
@@ -152,7 +86,7 @@ public class NoteResource extends AbstractResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @RolesAllowed({Role.Admin,Role.User})
     @ValidatedBy({"missingIdx","missingSubject","missingContent"})
-    public ResponseElement updateNote(Note note) {
+    public ResponseElement update(Note note) {
         
         logger.debug("..");
         
@@ -161,13 +95,13 @@ public class NoteResource extends AbstractResource {
         try {
             
             User me = getUserPrincipal();
-            String sid = service.getSid(note.getIdx(), object);
+            String sid = service.sid(note.getIdx(), object);
 
             if (Role.User.equals(me.getRole()) && sid != null && !StringUtils.equals(me.getSid(), sid)) {
                 exceptionManager.fireUserException(Constant.ERR_USER_AUTHORIZATION_FAILED, new Object[] {me.getName()});
             }
             
-            object = service.updateNote(note, object);
+            object = service.update(note, object);
             
         } catch (DataAccessException e) {
             exceptionManager.fireSystemException(new Exception(e));
@@ -189,7 +123,7 @@ public class NoteResource extends AbstractResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @RolesAllowed({Role.Admin,Role.User})
     @ValidatedBy({"missingIdx"})
-    public ResponseElement deleteNote(Note note) {
+    public ResponseElement delete(Note note) {
         
         logger.debug("..");
         
@@ -198,19 +132,85 @@ public class NoteResource extends AbstractResource {
         try {
             
             User me = getUserPrincipal();
-            String sid = service.getSid(note.getIdx(), object);
+            String sid = service.sid(note.getIdx(), object);
 
             if (Role.User.equals(me.getRole()) && sid != null && !StringUtils.equals(me.getSid(), sid)) {
                 exceptionManager.fireUserException(Constant.ERR_USER_AUTHORIZATION_FAILED, new Object[] {me.getName()});
             }
 
-            object = service.deleteNote(note, object);
+            object = service.delete(note, object);
             
         } catch (DataAccessException e) {
             exceptionManager.fireSystemException(new Exception(e));
         }
 
         logger.debug(FormatHelper.printPretty(note));
+        logger.debug(FormatHelper.printPretty(object));
+        
+        return ResponseElement.newSuccessInstance(object);
+
+    }
+
+    /**
+     * @param idx
+     * @return
+     */
+    @GET
+    @Path("/{idx}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public ResponseElement idx(@PathParam("idx") int idx) {
+        
+        logger.debug("..");
+        
+        Object object = new Object();
+
+        try {
+            object = service.idx(idx, object);
+        } catch (DataAccessException e) {
+            exceptionManager.fireSystemException(new Exception(e));
+        }
+        
+        logger.debug(FormatHelper.printPretty(idx));
+        logger.debug(FormatHelper.printPretty(object));
+        
+        return ResponseElement.newSuccessInstance(object);
+
+    }
+
+    /**
+     * @param pn
+     * @param search
+     * @return
+     */
+    @GET
+    @Path("/list")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public ResponseElement list(@DefaultValue("1") @QueryParam("pn") int pn, @QueryParam("q") String search) {
+        
+        logger.debug("..");
+        
+        Object object = new Object();
+        
+        Query query = QueryUtils.setQuery(pn, search);
+        
+        try {
+            
+            Paging paging = query.getPaging();
+            
+            paging.setTotalResults(service.count());
+            
+            List list = new List();
+            
+            list.setQuery(query);
+            list.setObject(service.list(query, object));
+            
+            object = list;
+            
+        } catch (DataAccessException e) {
+            exceptionManager.fireSystemException(new Exception(e));
+        }
+        
+        logger.debug(FormatHelper.printPretty(query));
         logger.debug(FormatHelper.printPretty(object));
         
         return ResponseElement.newSuccessInstance(object);

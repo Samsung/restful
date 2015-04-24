@@ -8,7 +8,7 @@
         <script type="text/javascript">
             // window.onload
             window.onload = function() {
-                var url = "/restful/api/user/me";
+                var url = "/restful/api/user/profile";
                 
                 ajaxCall('GET', url, null, null, function(data) {
                         var status = data.status;
@@ -42,7 +42,7 @@
             
             // Sign Out
             function signout() {
-                var url = "/restful/api/user/logout";
+                var url = "/restful/api/user/signout";
                 
                 ajaxCall('GET', url, null, null, function(data) {
                         var status = data.status;

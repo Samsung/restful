@@ -50,7 +50,7 @@ public class BBSResource extends AbstractResource {
     @Path("/upload")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @RolesAllowed({Role.Admin,Role.User})
-    public ResponseElement uploadFile(@FormDataParam("file") InputStream is, @FormDataParam("file") FormDataContentDisposition fdcd) {
+    public ResponseElement upload(@FormDataParam("file") InputStream is, @FormDataParam("file") FormDataContentDisposition fdcd) {
         
         logger.debug("..");
         
@@ -58,7 +58,7 @@ public class BBSResource extends AbstractResource {
         
         try {
             
-            object = service.uploadFile(getUserPrincipal(), is, fdcd.getFileName());
+            object = service.upload(getUserPrincipal(), is, fdcd.getFileName());
             
             if (object == null) {
                 exceptionManager.fireUserException(Constant.ERR_FILE_MISSING, null);
@@ -80,7 +80,7 @@ public class BBSResource extends AbstractResource {
     @Path("/download/{filename}")
     @Produces()
     @RolesAllowed({Role.Admin,Role.User})
-    public Response downloadFile(@PathParam("filename") String filename) {
+    public Response download(@PathParam("filename") String filename) {
         
         logger.debug("..");
         

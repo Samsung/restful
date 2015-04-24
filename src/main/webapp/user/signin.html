@@ -8,7 +8,7 @@
         <script type="text/javascript">
             // Sign In
             function signin() {
-                var url = "/restful/api/user/login";
+                var url = "/restful/api/user/signin";
                 
                 var userid =  document.getElementById('userid').value;
                 var password =  document.getElementById('password').value;
@@ -29,7 +29,7 @@
                 ajaxCall('POST', url, null, params, function(data) {
                         var status = data.status;
                         if(status == 'OK') {
-                        	document.getElementById('profile').innerHTML = "<a href=\"profile.html\">Profile</a>";
+                            document.getElementById('profile').innerHTML = "<a href=\"profile.html\">Profile</a>";
                         }
                     },
                     function(data) {

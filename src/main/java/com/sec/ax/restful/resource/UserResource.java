@@ -1,8 +1,5 @@
 package com.sec.ax.restful.resource;
 
-import java.util.Calendar;
-
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
@@ -28,7 +25,6 @@ import com.sec.ax.restful.annotation.RolesAllowed;
 import com.sec.ax.restful.annotation.ValidatedBy;
 import com.sec.ax.restful.common.Constant;
 import com.sec.ax.restful.crypt.AxCryptException;
-import com.sec.ax.restful.crypt.aes.AxCrypt;
 import com.sec.ax.restful.pojo.List;
 import com.sec.ax.restful.pojo.Paging;
 import com.sec.ax.restful.pojo.Query;
@@ -55,91 +51,23 @@ public class UserResource extends AbstractResource {
     
     @Autowired
     private UserService service;
-
-    /**
-     * @param pn
-     * @param search
-     * @return
-     */
-    @GET
-    @Path("/list")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @RolesAllowed({Role.Admin})
-    public ResponseElement getUsers(@DefaultValue("1") @QueryParam("pn") int pn, @QueryParam("q") String search) {
-        
-        logger.debug("..");
-        
-        Object object = new Object();
-        
-        Query query = QueryUtils.setQuery(pn, search);
-        
-        try {
-
-            Paging paging = query.getPaging();
-            
-            paging.setTotalResults(service.cntUser());
-            
-            List list = new List();
-            
-            list.setQuery(query);
-            list.setObject(service.getUsers(query, object));
-            
-            object = list;
-
-        } catch (DataAccessException e) {
-            exceptionManager.fireSystemException(new Exception(e));
-        }
-        
-        logger.debug(FormatHelper.printPretty(query));
-        logger.debug(FormatHelper.printPretty(object));
-        
-        return ResponseElement.newSuccessInstance(object);
-
-    }
-
-    /**
-     * @param idx
-     * @return
-     */
-    @GET
-    @Path("/{name}")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @RolesAllowed({Role.Admin})
-    public ResponseElement getUser(@PathParam("name") String name) {
-        
-        logger.debug("..");
-        
-        Object object = new Object();
-
-        try {
-            object = service.getUser(name, object);
-        } catch (DataAccessException e) {
-            exceptionManager.fireSystemException(new Exception(e));
-        }
-        
-        logger.debug(FormatHelper.printPretty(name));
-        logger.debug(FormatHelper.printPretty(object));
-        
-        return ResponseElement.newSuccessInstance(object);
-
-    }
-
+    
     /**
      * @param user
      * @return
      */
     @POST
-    @Path("/create")
+    @Path("/signup")
     @Consumes(MediaType.APPLICATION_JSON)
     @ValidatedBy({"validatingName"})
-    public ResponseElement createUser(User user) {
+    public ResponseElement signup(User user) {
         
         logger.debug("..");
         
         Object object = new Object();
         
         try {
-            object = service.createUser(user, object);
+            object = service.signup(user, object);
         } catch (DataAccessException e) {
             exceptionManager.fireSystemException(new Exception(e));
         }
@@ -151,6 +79,86 @@ public class UserResource extends AbstractResource {
 
     }
 
+    /**
+     * @param request
+     * @param response
+     * @param user
+     * @return
+     */
+    @POST
+    @Path("/signin")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public ResponseElement signin(@Context HttpServletRequest request, @Context HttpServletResponse response, User user) {
+        
+        logger.debug("..");
+        
+        try {
+            
+            user = service.signin(request, response, user);
+            
+            if (user == null) {
+                exceptionManager.fireUserException(Constant.ERR_USER_LOGIN_FAILED, null);
+            }
+            
+        } catch (DataAccessException e) {
+            exceptionManager.fireSystemException(new Exception(e));
+        } catch (AxCryptException e) {
+            exceptionManager.fireSystemException(new Exception(e));
+        }
+        
+        logger.debug(FormatHelper.printPretty(user));
+        
+        return ResponseElement.newSuccessInstance(true);
+        
+    }
+    
+    /**
+     * @param request
+     * @param response
+     * @return
+     */
+    @GET
+    @Path("/signout")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public ResponseElement signout(@Context HttpServletRequest request, @Context HttpServletResponse response) {
+        
+        logger.debug("..");
+        
+        try {
+            service.signout(request, response);
+        } catch (Exception e) {
+            exceptionManager.fireSystemException(new Exception(e));
+        }
+        
+        return ResponseElement.newSuccessInstance(true);
+        
+    }
+    
+    /**
+     * @return
+     */
+    @GET
+    @Path("/profile")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @RolesAllowed({Role.Admin,Role.User})
+    public ResponseElement profile() {
+        
+        logger.debug("..");
+        
+        User me = new User();
+        
+        try {
+            me = getUserPrincipal();
+        } catch (DataAccessException e) {
+            exceptionManager.fireSystemException(new Exception(e));
+        }
+        
+        logger.debug(FormatHelper.printPretty(me));
+        
+        return ResponseElement.newSuccessInstance(me);
+
+    }
+    
     /**
      * @param user
      * @return
@@ -159,7 +167,7 @@ public class UserResource extends AbstractResource {
     @Path("/update")
     @Consumes(MediaType.APPLICATION_JSON)
     @RolesAllowed({Role.Admin,Role.User})
-    public ResponseElement updateUser(User user) {
+    public ResponseElement update(User user) {
         
         logger.debug("..");
         
@@ -168,80 +176,19 @@ public class UserResource extends AbstractResource {
         try {
             
             User me = getUserPrincipal();
-            User target = (User) service.getUser(user.getName(), object);
+            User target = (User) service.name(user.getName(), object);
 
             if (Role.User.equals(me.getRole()) && target != null && !StringUtils.equals(me.getSid(), target.getSid())) {
                 exceptionManager.fireUserException(Constant.ERR_USER_AUTHORIZATION_FAILED, new Object[] {me.getName()});
             }
             
-            object = service.updateUser(user, object);
+            object = service.update(user, object);
             
         } catch (DataAccessException e) {
             exceptionManager.fireSystemException(new Exception(e));
         }
 
         logger.debug(FormatHelper.printPretty(user));
-        logger.debug(FormatHelper.printPretty(object));
-        
-        return ResponseElement.newSuccessInstance(object);
-
-    }
-    
-    /**
-     * @param user
-     * @return
-     */
-    @DELETE
-    @Path("/delete")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @RolesAllowed({Role.Admin,Role.User})
-    public ResponseElement deleteUser(@Context HttpServletRequest request, @Context HttpServletResponse response, User user) {
-        
-        logger.debug("..");
-        
-        Object object = new Object();
-
-        try {
-            
-            User me = getUserPrincipal();
-            User target = (User) service.getUser(user.getName(), object);
-
-            if (Role.User.equals(me.getRole()) && target != null && !StringUtils.equals(me.getSid(), target.getSid())) {
-                exceptionManager.fireUserException(Constant.ERR_USER_AUTHORIZATION_FAILED, new Object[] {me.getName()});
-            }
-
-            object = service.deleteUser(user, object);
-            
-        } catch (DataAccessException e) {
-            exceptionManager.fireSystemException(new Exception(e));
-        }
-
-        logger.debug(FormatHelper.printPretty(user));
-        logger.debug(FormatHelper.printPretty(object));
-        
-        return ResponseElement.newSuccessInstance(object);
-
-    }
-    
-    /**
-     * @return
-     */
-    @GET
-    @Path("/me")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @RolesAllowed({Role.Admin,Role.User})
-    public ResponseElement getMe() {
-        
-        logger.debug("..");
-        
-        Object object = new Object();
-        
-        try {
-            object = getUserPrincipal();
-        } catch (DataAccessException e) {
-            exceptionManager.fireSystemException(new Exception(e));
-        }
-        
         logger.debug(FormatHelper.printPretty(object));
         
         return ResponseElement.newSuccessInstance(object);
@@ -254,79 +201,104 @@ public class UserResource extends AbstractResource {
      * @param user
      * @return
      */
-    @POST
-    @Path("/login")
+    @DELETE
+    @Path("/delete")
     @Consumes(MediaType.APPLICATION_JSON)
-    public ResponseElement loginUser(@Context HttpServletRequest request, @Context HttpServletResponse response, User user) {
+    @RolesAllowed({Role.Admin,Role.User})
+    public ResponseElement delete(@Context HttpServletRequest request, @Context HttpServletResponse response, User user) {
         
         logger.debug("..");
         
+        Object object = new Object();
+
         try {
-            user = service.loginUser(user);
+            
+            User me = getUserPrincipal();
+            User target = (User) service.name(user.getName(), object);
+
+            if (Role.User.equals(me.getRole()) && target != null && !StringUtils.equals(me.getSid(), target.getSid())) {
+                exceptionManager.fireUserException(Constant.ERR_USER_AUTHORIZATION_FAILED, new Object[] {me.getName()});
+            }
+
+            object = service.delete(user, object);
+            
+        } catch (DataAccessException e) {
+            exceptionManager.fireSystemException(new Exception(e));
+        }
+
+        logger.debug(FormatHelper.printPretty(user));
+        logger.debug(FormatHelper.printPretty(object));
+        
+        return ResponseElement.newSuccessInstance(object);
+
+    }
+    
+    /**
+     * @param name
+     * @return
+     */
+    @GET
+    @Path("/{name}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @RolesAllowed({Role.Admin})
+    public ResponseElement name(@PathParam("name") String name) {
+        
+        logger.debug("..");
+        
+        Object object = new Object();
+
+        try {
+            object = service.name(name, object);
         } catch (DataAccessException e) {
             exceptionManager.fireSystemException(new Exception(e));
         }
         
-        try {
-            
-            if (user != null) {
-
-                StringBuffer Ax = new StringBuffer();
-                
-                Ax.append(user.getName()).append("|");
-                Ax.append(user.getSid()).append("|");
-                Ax.append(user.getUsername()).append("|");
-                Ax.append(user.getRole()).append("|");
-                Ax.append(request.getRemoteAddr()).append("|");
-                
-                Calendar c = Calendar.getInstance();
-                Ax.append(c.getTimeInMillis());
-                
-                String crypted = AxCrypt.encrypt(Ax);
-                
-                logger.debug(crypted);
-                
-                Cookie cookie = new Cookie("Ax", crypted);
-                
-//                cookie.setDomain(Constant.COOKIE_DOMAIN);
-                cookie.setMaxAge(Constant.COOKIE_MAX_AGE);
-                cookie.setPath("/");
-
-                response.addCookie(cookie);
-
-            } else {
-                exceptionManager.fireUserException(Constant.ERR_USER_LOGIN_FAILED, null);
-            }
-            
-        } catch (AxCryptException e) {
-            exceptionManager.fireSystemException(new Exception(e));
-        }
+        logger.debug(FormatHelper.printPretty(name));
+        logger.debug(FormatHelper.printPretty(object));
         
-        logger.debug(FormatHelper.printPretty(user));
-        
-        return ResponseElement.newSuccessInstance(true);
-        
+        return ResponseElement.newSuccessInstance(object);
+
     }
-    
+
     /**
-     * @param user
+     * @param pn
+     * @param search
      * @return
      */
     @GET
-    @Path("/logout")
+    @Path("/list")
     @Consumes(MediaType.APPLICATION_JSON)
-    public ResponseElement logoutUser(@Context HttpServletRequest request, @Context HttpServletResponse response) {
+    @RolesAllowed({Role.Admin})
+    public ResponseElement list(@DefaultValue("1") @QueryParam("pn") int pn, @QueryParam("q") String search) {
         
         logger.debug("..");
         
+        Object object = new Object();
+        
+        Query query = QueryUtils.setQuery(pn, search);
+        
         try {
-            service.expiryCookie(request, response);
-        } catch (Exception e) {
+
+            Paging paging = query.getPaging();
+            
+            paging.setTotalResults(service.count());
+            
+            List list = new List();
+            
+            list.setQuery(query);
+            list.setObject(service.list(query, object));
+            
+            object = list;
+
+        } catch (DataAccessException e) {
             exceptionManager.fireSystemException(new Exception(e));
         }
         
-        return ResponseElement.newSuccessInstance(true);
+        logger.debug(FormatHelper.printPretty(query));
+        logger.debug(FormatHelper.printPretty(object));
         
+        return ResponseElement.newSuccessInstance(object);
+
     }
     
 }
