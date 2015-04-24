@@ -29,7 +29,7 @@ public class UserPersistenceImpl extends SqlMapClientDaoSupport implements UserP
 
         logger.debug("..");
         
-        return (int) getSqlMapClientTemplate().insert("user.createUser", user);
+        return (int) getSqlMapClientTemplate().insert("user.signup", user);
         
     }
     
@@ -41,7 +41,7 @@ public class UserPersistenceImpl extends SqlMapClientDaoSupport implements UserP
 
         logger.debug("..");
         
-        return getSqlMapClientTemplate().update("user.updateSid", user);
+        return getSqlMapClientTemplate().update("user.sid", user);
         
     }
     
@@ -53,7 +53,7 @@ public class UserPersistenceImpl extends SqlMapClientDaoSupport implements UserP
 
         logger.debug("..");
         
-        user = (User) getSqlMapClientTemplate().queryForObject("user.loginUser", user);
+        user = (User) getSqlMapClientTemplate().queryForObject("user.signin", user);
         
         return user;
 
@@ -67,7 +67,7 @@ public class UserPersistenceImpl extends SqlMapClientDaoSupport implements UserP
         
         logger.debug("..");
         
-        return getSqlMapClientTemplate().update("user.updateUser", user);
+        return getSqlMapClientTemplate().update("user.update", user);
         
     }
     
@@ -79,7 +79,7 @@ public class UserPersistenceImpl extends SqlMapClientDaoSupport implements UserP
         
         logger.debug("..");
         
-        return getSqlMapClientTemplate().delete("user.deleteUser", user);
+        return getSqlMapClientTemplate().delete("user.delete", user);
         
     }
     
@@ -91,7 +91,7 @@ public class UserPersistenceImpl extends SqlMapClientDaoSupport implements UserP
 
         logger.debug("..");
         
-        User user = (User) getSqlMapClientTemplate().queryForObject("user.getUser", name);
+        User user = (User) getSqlMapClientTemplate().queryForObject("user.name", name);
         
         return user;
         
@@ -105,7 +105,7 @@ public class UserPersistenceImpl extends SqlMapClientDaoSupport implements UserP
         
         logger.debug("..");
         
-        return (int) getSqlMapClientTemplate().queryForObject("user.cntUser");
+        return (int) getSqlMapClientTemplate().queryForObject("user.count");
         
     }
     
@@ -120,7 +120,7 @@ public class UserPersistenceImpl extends SqlMapClientDaoSupport implements UserP
         Paging paging = query.getPaging();
         
         @SuppressWarnings("unchecked")
-        List<User> list = getSqlMapClientTemplate().queryForList("user.getUsers", query, paging.getSkipResults(), paging.getMaxResults());
+        List<User> list = getSqlMapClientTemplate().queryForList("user.list", query, paging.getSkipResults(), paging.getMaxResults());
         
         return list;
         
