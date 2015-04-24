@@ -15,35 +15,13 @@ import com.sec.ax.restful.pojo.Query;
 public interface NoteService {
 
     /**
-     * @param query
-     * @param object
-     * @return
-     * @throws DataAccessException
-     */
-    public Object getNotes(Query query, Object object) throws DataAccessException;
-
-    /**
-     * @return
-     * @throws DataAccessException
-     */
-    public int cntNote() throws DataAccessException;
-    
-    /**
-     * @param idx
-     * @param object
-     * @return
-     * @throws DataAccessException
-     */
-    public Object getNote(int idx, Object object) throws DataAccessException;
-
-    /**
      * @param note
      * @param sid
      * @param object
      * @return
      * @throws DataAccessException
      */
-    public Object createNote(Note note, String sid, Object object) throws DataAccessException;
+    public Object create(Note note, String sid, Object object) throws DataAccessException;
 
     /**
      * @param idx
@@ -51,7 +29,7 @@ public interface NoteService {
      * @return
      * @throws DataAccessException
      */
-    public String getSid(int idx, Object object) throws DataAccessException;
+    public String sid(int idx, Object object) throws DataAccessException;
 
     /**
      * @param note
@@ -59,7 +37,7 @@ public interface NoteService {
      * @return
      * @throws DataAccessException
      */
-    public Object updateNote(Note note, Object object) throws DataAccessException;
+    public Object update(Note note, Object object) throws DataAccessException;
 
     /**
      * @param note
@@ -67,6 +45,28 @@ public interface NoteService {
      * @return
      * @throws DataAccessException
      */
-    public Object deleteNote(Note note, Object object) throws DataAccessException;
+    public Object delete(Note note, Object object) throws DataAccessException;
+
+    /**
+     * @param idx
+     * @param object
+     * @return
+     * @throws DataAccessException
+     */
+    public Object idx(int idx, Object object) throws DataAccessException;
+
+    /**
+     * @return
+     * @throws DataAccessException
+     */
+    public int count() throws DataAccessException;
+    
+    /**
+     * @param query
+     * @param object
+     * @return
+     * @throws DataAccessException
+     */
+    public Object list(Query query, Object object) throws DataAccessException;
 
 }

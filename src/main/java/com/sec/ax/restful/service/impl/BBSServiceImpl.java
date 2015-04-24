@@ -32,7 +32,7 @@ public class BBSServiceImpl implements BBSService {
      * @see com.sec.ax.restful.service.BBSService#uploadUser(com.sec.ax.restful.pojo.User, java.io.InputStream, java.lang.String)
      */
     @Override
-    public Object uploadFile(User user, InputStream is, String filename) throws IOException {
+    public Object upload(User user, InputStream is, String filename) throws IOException {
         
         logger.debug("..");
         

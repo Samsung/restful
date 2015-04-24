@@ -16,58 +16,58 @@ import com.sec.ax.restful.pojo.Query;
 public interface UserPersistence {
     
     /**
-     * @param query
+     * @param user
      * @return
      * @throws DataAccessException
      */
-    public List<User> getUsers(Query query) throws DataAccessException;
-
-    /**
-     * @return
-     * @throws DataAccessException
-     */
-    public int cntUser() throws DataAccessException;
-
-    /**
-     * @param name
-     * @return
-     * @throws DataAccessException
-     */
-    public User getUser(String name) throws DataAccessException;
+    public int signup(User user) throws DataAccessException;
 
     /**
      * @param user
      * @return
      * @throws DataAccessException
      */
-    public int createUser(User user) throws DataAccessException;
-
-    /**
-     * @param user
-     * @return
-     * @throws DataAccessException
-     */
-    public int updateSid(User user) throws DataAccessException;
-
-    /**
-     * @param user
-     * @return
-     * @throws DataAccessException
-     */
-    public int updateUser(User user) throws DataAccessException;
+    public int sid(User user) throws DataAccessException;
     
     /**
      * @param user
      * @return
      * @throws DataAccessException
      */
-    public int deleteUser(User user) throws DataAccessException;
+    public User signin(User user) throws DataAccessException;
 
     /**
      * @param user
      * @return
      * @throws DataAccessException
      */
-    public User loginUser(User user) throws DataAccessException;
+    public int update(User user) throws DataAccessException;
+    
+    /**
+     * @param user
+     * @return
+     * @throws DataAccessException
+     */
+    public int delete(User user) throws DataAccessException;
+    
+    /**
+     * @param name
+     * @return
+     * @throws DataAccessException
+     */
+    public User name(String name) throws DataAccessException;
+    
+    /**
+     * @return
+     * @throws DataAccessException
+     */
+    public int count() throws DataAccessException;
+
+    /**
+     * @param query
+     * @return
+     * @throws DataAccessException
+     */
+    public List<User> list(Query query) throws DataAccessException;
 
 }

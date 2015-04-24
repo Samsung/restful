@@ -29,7 +29,7 @@ public class ValidatingName extends AbstractUserValidate {
     @Override
     public void validate(User target, List<Error> error) {
         
-        if (service.getUser(target.getName(), new Object()) != null) {
+        if (service.name(target.getName(), new Object()) != null) {
             error.add(new Error(Constant.ERR_USER_NAME_DUPLICATED, new Object[] {target.getName()}));
         } else if (target.getName().length() < Constant.USER_NAME_MIN_LENGTH || target.getName().length() > Constant.USER_NAME_MAX_LENGTH) {
             error.add(new Error(Constant.ERR_USER_NAME_LENGTH, new Object[] {Constant.USER_NAME_MIN_LENGTH, Constant.USER_NAME_MAX_LENGTH}));

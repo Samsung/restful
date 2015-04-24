@@ -36,7 +36,7 @@ public class FormatHelper {
      * @param decimal
      * @return
      */
-    public static String getNumConverter(int base, int decimal) {
+    public static String convertNumeral(int base, int decimal) {
         
         StringBuffer stack = new StringBuffer();
         
@@ -86,7 +86,12 @@ public class FormatHelper {
         
     }
 
-    public static long getNumInverter(int base, String number) {
+    /**
+     * @param base (Numeral System)
+     * @param number
+     * @return
+     */
+    public static long invertNumeral(int base, String number) {
         
         long decimal = 0;
         char[] c = number.toCharArray();

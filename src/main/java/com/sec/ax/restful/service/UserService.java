@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.dao.DataAccessException;
 
+import com.sec.ax.restful.crypt.AxCryptException;
 import com.sec.ax.restful.pojo.Query;
 import com.sec.ax.restful.pojo.User;
 
@@ -18,26 +19,28 @@ import com.sec.ax.restful.pojo.User;
 public interface UserService {
 
     /**
-     * @param query
+     * @param user
      * @param object
      * @return
      * @throws DataAccessException
      */
-    public Object getUsers(Query query, Object object) throws DataAccessException;
+    public Object signup(User user, Object object) throws DataAccessException;
 
     /**
+     * @param request
+     * @param response
+     * @param user
      * @return
      * @throws DataAccessException
+     * @throws AxCryptException
      */
-    public int cntUser() throws DataAccessException;
+    public User signin(HttpServletRequest request, HttpServletResponse response, User user) throws DataAccessException, AxCryptException;
 
     /**
-     * @param name
-     * @param object
-     * @return
-     * @throws DataAccessException
+     * @param request
+     * @param response
      */
-    public Object getUser(String name, Object object) throws DataAccessException;
+    public void signout(HttpServletRequest request, HttpServletResponse response);
 
     /**
      * @param user
@@ -45,15 +48,7 @@ public interface UserService {
      * @return
      * @throws DataAccessException
      */
-    public Object createUser(User user, Object object) throws DataAccessException;
-
-    /**
-     * @param user
-     * @param object
-     * @return
-     * @throws DataAccessException
-     */
-    public Object updateUser(User user, Object object) throws DataAccessException;
+    public Object update(User user, Object object) throws DataAccessException;
     
     /**
      * @param user
@@ -61,20 +56,28 @@ public interface UserService {
      * @return
      * @throws DataAccessException
      */
-    public Object deleteUser(User user, Object object) throws DataAccessException;
-
+    public Object delete(User user, Object object) throws DataAccessException;
+    
     /**
-     * @param user
+     * @param name
      * @param object
      * @return
      * @throws DataAccessException
      */
-    public User loginUser(User user) throws DataAccessException;
-
+    public Object name(String name, Object object) throws DataAccessException;
+    
     /**
-     * @param request
-     * @param response
+     * @return
+     * @throws DataAccessException
      */
-    public void expiryCookie(HttpServletRequest request, HttpServletResponse response);
+    public int count() throws DataAccessException;
+    
+    /**
+     * @param query
+     * @param object
+     * @return
+     * @throws DataAccessException
+     */
+    public Object list(Query query, Object object) throws DataAccessException;
 
 }

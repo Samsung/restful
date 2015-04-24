@@ -13,21 +13,8 @@ And, please, take a look at [jdbc.properties](https://github.com/Samsung/restful
 
 ##### User #####
 ```
-// Retrieving a list of user
-GET /restful/api/user/list 
-Content-Type: application/json
-
-// Retrieving a list of user with paging and search query
-GET /restful/api/user/list?pn=1
-GET /restful/api/user/list?pn=1&q=ax
-Content-Type: application/json
-
-// Retrieving a user
-GET /restful/api/user/ax
-Content-Type: application/json
-
 // Creating a user
-POST /restful/api/user/create
+POST /restful/api/user/signup
 Content-Type: application/json
 {
   "name": "axpower",
@@ -35,6 +22,22 @@ Content-Type: application/json
   "username": "RESTful",
   "role": "User"
 }
+
+// Signing in
+POST /restful/api/user/signin
+Content-Type: application/json
+{
+  "name": "axpower",
+  "pwd": "*****"
+}
+
+// Signing out
+GET /restful/api/user/signout
+Content-Type: application/json
+
+// Retrieving my information 
+GET /restful/api/user/profile
+Content-Type: application/json
 
 // Updating a user
 PUT /restful/api/user/update
@@ -51,38 +54,22 @@ Content-Type: application/json
   "name": "axpower"
 }
 
-// Retrieving my information 
-GET /restful/api/user/me
+// Retrieving a user
+GET /restful/api/user/ax
 Content-Type: application/json
 
-// Signing in
-POST /restful/api/user/login
+// Retrieving a list of user
+GET /restful/api/user/list 
 Content-Type: application/json
-{
-  "name": "axpower",
-  "pwd": "*****"
-}
 
-// Signing out
-GET /restful/api/user/logout
+// Retrieving a list of user with paging and search query
+GET /restful/api/user/list?pn=1
+GET /restful/api/user/list?pn=1&q=ax
 Content-Type: application/json
 ```
 
 ##### Note #####
 ```
-// Retrieving a list of note
-GET /restful/api/note/list 
-Content-Type: application/json
-
-// Retrieving a list of note with paging and search query
-GET /restful/api/note/list?pn=1
-GET /restful/api/note/list?pn=1&q=hello
-Content-Type: application/json
-
-// Retrieving a note
-GET /restful/api/note/1
-Content-Type: application/json
-
 // Creating a note
 POST /restful/api/note/create
 Content-Type: application/json
@@ -106,4 +93,17 @@ Content-Type: application/json
 {
   "idx": 1
 }
+
+// Retrieving a note
+GET /restful/api/note/1
+Content-Type: application/json
+
+// Retrieving a list of note
+GET /restful/api/note/list 
+Content-Type: application/json
+
+// Retrieving a list of note with paging and search query
+GET /restful/api/note/list?pn=1
+GET /restful/api/note/list?pn=1&q=hello
+Content-Type: application/json
 ```

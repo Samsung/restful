@@ -23,6 +23,6 @@ public interface BBSService {
      * @return
      * @throws DataAccessException
      */
-    public Object uploadFile(User user, InputStream is, String filename) throws IOException;
+    public Object upload(User user, InputStream is, String filename) throws IOException;
     
 }

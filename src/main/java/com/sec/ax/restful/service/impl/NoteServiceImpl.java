@@ -23,101 +23,101 @@ public class NoteServiceImpl implements NoteService {
     private NotePersistence persistence;
 
     /* 
-     * @see com.sec.ax.restful.service.NoteService#getNotes(com.sec.ax.restful.pojo.Query, java.lang.Object)
+     * @see com.sec.ax.restful.service.NoteService#create(com.sec.ax.restful.pojo.Note, java.lang.String, java.lang.Object)
      */
     @Override
-    public Object getNotes(Query query, Object object) throws DataAccessException {
-
-        logger.debug("..");
-        
-        object = persistence.getNotes(query);
-        
-        return object;
-        
-    }
-
-    /* 
-     * @see com.sec.ax.restful.service.NoteService#cntNote(java.lang.Object)
-     */
-    @Override
-    public int cntNote() throws DataAccessException {
-
-        logger.debug("..");
-        
-        int cnt = persistence.cntNote();
-        
-        return cnt;
-        
-    }
-
-    /* 
-     * @see com.sec.ax.restful.service.NoteService#getNote(int, java.lang.Object)
-     */
-    @Override
-    public Object getNote(int idx, Object object) throws DataAccessException {
-
-        logger.debug("..");
-        
-        object = persistence.getNote(idx);
-        
-        return object;
-        
-    }
-
-    /* 
-     * @see com.sec.ax.restful.service.NoteService#createNote(com.sec.ax.restful.pojo.Note, java.lang.String, java.lang.Object)
-     */
-    @Override
-    public Object createNote(Note note, String sid, Object object) throws DataAccessException {
+    public Object create(Note note, String sid, Object object) throws DataAccessException {
 
         logger.debug("..");
         
         note.setSid(sid);
         
-        object = persistence.createNote(note);
+        object = persistence.create(note);
 
         return object;
         
     }
 
     /* 
-     * @see com.sec.ax.restful.service.NoteService#getNote(int, java.lang.Object)
+     * @see com.sec.ax.restful.service.NoteService#sid(int, java.lang.Object)
      */
     @Override
-    public String getSid(int idx, Object object) throws DataAccessException {
+    public String sid(int idx, Object object) throws DataAccessException {
 
         logger.debug("..");
         
-        object = persistence.getSid(idx);
+        object = persistence.sid(idx);
         
         return (String) object;
         
     }
 
     /* 
-     * @see com.sec.ax.restful.service.NoteService#updateNote(com.sec.ax.restful.pojo.Note, java.lang.Object)
+     * @see com.sec.ax.restful.service.NoteService#update(com.sec.ax.restful.pojo.Note, java.lang.Object)
      */
     @Override
-    public Object updateNote(Note note, Object object) throws DataAccessException {
+    public Object update(Note note, Object object) throws DataAccessException {
 
         logger.debug("..");
         
-        object = persistence.updateNote(note);
+        object = persistence.update(note);
 
         return object;
         
     }
 
     /* 
-     * @see com.sec.ax.restful.service.NoteService#deleteNote(com.sec.ax.restful.pojo.Note, java.lang.Object)
+     * @see com.sec.ax.restful.service.NoteService#delete(com.sec.ax.restful.pojo.Note, java.lang.Object)
      */
     @Override
-    public Object deleteNote(Note note, Object object) throws DataAccessException {
+    public Object delete(Note note, Object object) throws DataAccessException {
 
         logger.debug("..");
         
-        object = persistence.deleteNote(note);
+        object = persistence.delete(note);
 
+        return object;
+        
+    }
+
+    /* 
+     * @see com.sec.ax.restful.service.NoteService#idx(int, java.lang.Object)
+     */
+    @Override
+    public Object idx(int idx, Object object) throws DataAccessException {
+    
+        logger.debug("..");
+        
+        object = persistence.idx(idx);
+        
+        return object;
+        
+    }
+
+    /* 
+     * @see com.sec.ax.restful.service.NoteService#count()
+     */
+    @Override
+    public int count() throws DataAccessException {
+    
+        logger.debug("..");
+        
+        int cnt = persistence.count();
+        
+        return cnt;
+        
+    }
+
+    /* 
+     * @see com.sec.ax.restful.service.NoteService#list(com.sec.ax.restful.pojo.Query, java.lang.Object)
+     */
+    @Override
+    public Object list(Query query, Object object) throws DataAccessException {
+    
+        logger.debug("..");
+        
+        object = persistence.list(query);
+        
         return object;
         
     }
