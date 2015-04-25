@@ -3,16 +3,33 @@ RESTful
 
 Suggesting the codes for RESTful API including filter/annotator for allowing user access and validating input data, user management, data management and some utils such as protecting data using 128/256-bit AES encryption and so on.
 
-Please take a look at [readme](https://github.com/Samsung/restful/blob/master/doc/readme) to see release note.
+Please take a look at [readme](/doc/readme) to see release note.
 
-##### Guide #####
-You need to install MySQL and create database for this. Please, run a sql file named [data.sql](https://github.com/Samsung/restful/blob/master/doc/sql/data.sql) in doc/sql.<br>
-And, please, take a look at [jdbc.properties](https://github.com/Samsung/restful/blob/master/src/main/resources/config/jdbc.properties) in src/main/resources/config and edit url, username and password.
+### Guide ###
+You need to install MySQL and create database for this. Please, run a sql file named [data.sql](/doc/sql/data.sql) in doc/sql.<br>
+And, please, take a look at [jdbc.properties](/src/main/resources/config/jdbc.properties) in [/src/main/resources/config](/src/main/resources/config) and edit url, username and password.
 
-#### Usage ####
+### Usage ###
 
+#### html ####
 ##### User #####
-```
+  - [x] [/restful/user/signup.html](/src/main/webapp/user/signup.html "Creating new user")
+  - [x] [/restful/user/signin.html](/src/main/webapp/user/signin.html "Signing in")
+  - [x] [/restful/user/profile.html](/src/main/webapp/user/profile.html "Retrieving user's information that is signed in")
+  - [ ] /restful/user/setting.html
+  - [ ] /restful/user/user.html (_admin only_)
+  - [ ] /restful/user/list.html (_admin only_)
+
+##### Note #####
+  - [ ] /restful/note/create.html
+  - [ ] /restful/note/update.html
+  - [ ] /restful/note/delete.html
+  - [ ] /restful/note/note.html
+  - [ ] /restful/note/list.html
+
+#### Restful ####
+##### User #####
+```json
 // Creating a user
 POST /restful/api/user/signup
 Content-Type: application/json
@@ -54,22 +71,19 @@ Content-Type: application/json
   "name": "axpower"
 }
 
-// Retrieving a user
+// Retrieving a user (admin only)
 GET /restful/api/user/ax
 Content-Type: application/json
 
-// Retrieving a list of user
+// Retrieving a list of user with paging and search query (admin only)
 GET /restful/api/user/list 
-Content-Type: application/json
-
-// Retrieving a list of user with paging and search query
 GET /restful/api/user/list?pn=1
 GET /restful/api/user/list?pn=1&q=ax
 Content-Type: application/json
 ```
 
 ##### Note #####
-```
+```json
 // Creating a note
 POST /restful/api/note/create
 Content-Type: application/json
@@ -98,11 +112,8 @@ Content-Type: application/json
 GET /restful/api/note/1
 Content-Type: application/json
 
-// Retrieving a list of note
-GET /restful/api/note/list 
-Content-Type: application/json
-
 // Retrieving a list of note with paging and search query
+GET /restful/api/note/list 
 GET /restful/api/note/list?pn=1
 GET /restful/api/note/list?pn=1&q=hello
 Content-Type: application/json
