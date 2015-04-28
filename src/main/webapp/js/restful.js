@@ -21,10 +21,10 @@ var ajaxCall = (function() {
             xmlHttpRequest.setRequestHeader("Cache-Control","no-cache, must-revalidate");
             xmlHttpRequest.setRequestHeader("Pragma","no-cache");
             
-            if(Method == 'POST') {
-                xmlHttpRequest.send(JSON.stringify(Body));
-            } else {
+            if(Method == 'GET'){
                 xmlHttpRequest.send();
+            } else {
+                xmlHttpRequest.send(JSON.stringify(Body));
             }
             
         };
