@@ -8,7 +8,7 @@ var ajaxCall = (function() {
             xmlHttpRequest.onreadystatechange = function() {
                 if (xmlHttpRequest.readyState == 4 ) {
                     var data = JSON.parse(xmlHttpRequest.responseText);
-                    if(xmlHttpRequest.status == 200) {
+                    if (xmlHttpRequest.status == 200) {
                         successFunc(data);
                     } else {
                         errorFunc(data);
@@ -21,7 +21,7 @@ var ajaxCall = (function() {
             xmlHttpRequest.setRequestHeader("Cache-Control","no-cache, must-revalidate");
             xmlHttpRequest.setRequestHeader("Pragma","no-cache");
             
-            if(Method == 'GET'){
+            if (Method == 'GET') {
                 xmlHttpRequest.send();
             } else {
                 xmlHttpRequest.send(JSON.stringify(Body));

@@ -3,7 +3,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <title>Setting</title>
-        <link rel="stylesheet" type="text/css" href="/restful/css/style.css" />
+        <link rel="stylesheet" type="text/css" href="/restful/css/style.css"/>
         <script type="text/javascript" src="/restful/js/restful.js"></script>
         <script type="text/javascript">
             // window.onload
@@ -12,7 +12,7 @@
                 
                 ajaxCall('GET', url, null, null, function(data) {
                         var status = data.status;
-                        if(status == 'OK') {
+                        if (status == 'OK') {
                             success(data);
                         }
                     }, function(data) {
@@ -26,12 +26,13 @@
                 var html = "";
                 
                 for (str in data.response) {    
-                	if(str == 'name'){
-                		var name =  "<input id=\"name\" type=\"hidden\" value=" + data.response[str] + " />"
-                		html += str + " : " + data.response[str] + name + "<br/>";
-                	}else if( str == 'username'){
-                		var username = "<input id=\"username\" type=\"text\" value=" + data.response[str] + " style=\"width:100px;\" />"
-                		html += str + " : " + username + "<br/>";
+                	if (str == 'name') {
+                		var name =  "<input id=\"name\" type=\"hidden\" value=\"" + data.response[str] + "\">"
+                        html += "UserId : " + data.response[str] + "";
+                        html += name + "<br/>";
+                	} else if ( str == 'username') {
+                		var username = "<input id=\"username\" type=\"text\" value=\"" + data.response[str] + "\" style=\"width:100px;\">"
+                		html += "UserName " + username + "";
                 	}
                 }
                 
@@ -45,7 +46,7 @@
             }
             
             // Update profile
-            function updateProfile() {
+            function update() {
                 var url = "/restful/api/user/update";
                 
                 var name =  document.getElementById('name').value;
@@ -63,17 +64,18 @@
                 
                 ajaxCall('PUT', url, null, params, function(data) {
                         var status = data.status;
-                        if(status == 'OK'){
+                        if (status == 'OK') {
                             location.reload(true);
                         }
                     },
-                    function(data){
+                    function(data) {
                         alert(data.response);
-                  });
+                    }
+                );
             }
             
             // Delete profile
-            function deleteProfile() {
+            function leave() {
                 var url = "/restful/api/user/delete";
                 
                 var name =  document.getElementById('name').value;
@@ -88,13 +90,14 @@
                 
                 ajaxCall('DELETE', url, null, params, function(data) {
                         var status = data.status;
-                        if(status == 'OK'){
+                        if (status == 'OK') {
                             location.reload(true);
                         }
                     },
-                    function(data){
+                    function(data) {
                         alert(data.response);
-                  });
+                    }
+                );
             }
         </script>
     </head>
@@ -105,12 +108,8 @@
                 <td colspan="2"><div id="me"></div></td>
             </tr>
             <tr>
-                <td align="left">
-                    <input type="button" value="Update" onclick="updateProfile();"/>
-                </td>
-                <td align="right">
-                    <input type="button" value="Delete" onclick="deleteProfile();"/>
-                </td>
+                <td align="left"><input type="button" value="Update" onclick="update();"></td>
+                <td align="right"><input type="button" value="Delete" onclick="leave();"></td>
             </tr>
         </table>
     </body>

@@ -3,7 +3,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <title>User</title>
-        <link rel="stylesheet" type="text/css" href="/restful/css/style.css" />
+        <link rel="stylesheet" type="text/css" href="/restful/css/style.css"/>
         <script type="text/javascript" src="/restful/js/restful.js"></script>
         <script type="text/javascript">
         // window.onload
@@ -19,7 +19,7 @@
             
             ajaxCall('GET', url, null, null, function(data) {
                     var status = data.status;
-                    if(status == 'OK') {
+                    if (status == 'OK') {
                         success(data);
                     }
                 }, function(data) {
@@ -32,8 +32,10 @@
         function success(data) {
         	var html = "";
             
-            for (str in data.response) {            
-                html += str + " : " + data.response[str] + "<br/>";
+            for (str in data.response) {
+                if (data.response[str] != null) {
+                    html += str + " : " + data.response[str] + "<br/>";
+                }
             }
 
             document.getElementById('user').innerHTML = html;
@@ -44,19 +46,20 @@
             var html = data.response;
             document.getElementById('user').innerHTML = html;
         }
-        
         </script>
     </head>
     <body>
         <p>User Retrieval</p>
-        <table style="width: 230px;">
+        <table style="width: 180px;">
             <tr>
-                <td> UserId : </td>
-                <td> <input id="userid" type="text" style="width:100px;" /> </td>
-                <td> <input id="search"  type="button" style="width:60px;" value="Search" onClick="retrieval();" /> </td>
+                <td>UserId</td>
+                <td><input id="userid" type="text"></td>
             </tr>
             <tr>
-                <td colspan="3"><div id="user"></div></td>
+                <td align="center" colspan="2"><input id="search"  type="button" value="Search" onClick="retrieval();"></td>
+            </tr>
+            <tr>
+                <td colspan="2"><div id="user"></div></td>
             </tr>
         </table>
     </body>

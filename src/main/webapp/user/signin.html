@@ -3,7 +3,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <title>Sign In</title>
-        <link rel="stylesheet" type="text/css" href="/restful/css/style.css" />
+        <link rel="stylesheet" type="text/css" href="/restful/css/style.css"/>
         <script type="text/javascript" src="/restful/js/restful.js"></script>
         <script type="text/javascript">
             // Sign In
@@ -28,13 +28,14 @@
                 
                 ajaxCall('POST', url, null, params, function(data) {
                         var status = data.status;
-                        if(status == 'OK') {
+                        if (status == 'OK') {
                             location.replace("profile.html"); 
                         }
                     },
                     function(data) {
                         alert(data.response);
-                  });
+                    }
+                );
             }
         </script>
     </head>
