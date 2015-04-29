@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>Setting</title>
+        <link rel="stylesheet" type="text/css" href="/restful/css/style.css" />
+        <script type="text/javascript" src="/restful/js/restful.js"></script>
+        <script type="text/javascript">
+            // window.onload
+            window.onload = function() {
+                var url = "/restful/api/user/profile";
+                
+                ajaxCall('GET', url, null, null, function(data) {
+                        var status = data.status;
+                        if(status == 'OK') {
+                            success(data);
+                        }
+                    }, function(data) {
+                        fail(data);
+                    }
+                );
+            };
+    
+            // Success function
+            function success(data) {
+                var html = "";
+                
+                for (str in data.response) {    
+                	if(str == 'name'){
+                		var name =  "<input id=\"name\" type=\"hidden\" value=" + data.response[str] + " />"
+                		html += str + " : " + data.response[str] + name + "<br/>";
+                	}else if( str == 'username'){
+                		var username = "<input id=\"username\" type=\"text\" value=" + data.response[str] + " style=\"width:100px;\" />"
+                		html += str + " : " + username + "<br/>";
+                	}
+                }
+                
+                html += "<div style=\"text-align:center;\"><button onClick=\"signout()\"><span>Sign Out</span></button></div>";
+                
+                document.getElementById('me').innerHTML = html;
+            }
+
+            // Fail function
+            function fail(data) {
+                var html = data.response;
+                document.getElementById('me').innerHTML = html;
+            }
+            
+            // Sign Out
+            function signout() {
+                var url = "/restful/api/user/signout";
+                
+                ajaxCall('GET', url, null, null, function(data) {
+                        var status = data.status;
+                        if(status == 'OK'){
+                            location.reload(true);
+                        }
+                    },
+                    function(data){
+                        alert(data.response);
+                  });
+            }
+            
+            // Update profile
+            function updateProfile() {
+                var url = "/restful/api/user/update";
+                
+                var name =  document.getElementById('name').value;
+                var username =  document.getElementById('username').value;
+                
+                if (!username) {
+                    alert('Please input your username');
+                    return;
+                }
+                
+                var params = {
+                    'name': name,
+                    'username': username
+                };
+                
+                ajaxCall('PUT', url, null, params, function(data) {
+                        var status = data.status;
+                        if(status == 'OK'){
+                            location.reload(true);
+                        }
+                    },
+                    function(data){
+                        alert(data.response);
+                  });
+            }
+            
+            // Delete profile
+            function deleteProfile() {
+                var url = "/restful/api/user/delete";
+                
+                var name =  document.getElementById('name').value;
+                
+                if (!name) {
+                    return;
+                }
+                
+                var params = {
+                    'name': name
+                };
+                
+                ajaxCall('DELETE', url, null, params, function(data) {
+                        var status = data.status;
+                        if(status == 'OK'){
+                            location.reload(true);
+                        }
+                    },
+                    function(data){
+                        alert(data.response);
+                  });
+            }
+
+        </script>
+    </head>
+    <body>
+        <p>Setting</p>
+        <table style="width: 180px;">
+            <tr>
+                <td colspan="2"><div id="me"></div></td>
+            </tr>
+            <tr>
+                <td align="left">
+                    <a href="#" onclick="updateProfile();">Update</a>
+                </td>
+                <td align="right">
+                    <a href="#" onclick="deleteProfile();">Delete</a>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>
