@@ -52,7 +52,7 @@ JSON.stringify = JSON.stringify || function(obj) {
     } else {
         
         // Recurse array or object
-        var n, v, json = [], arr = (obj && obj.constructor == Array);
+        var v, json = [], arr = (obj && obj.constructor == Array);
         
         for (n in obj) {
             v = obj[n];

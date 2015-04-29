@@ -35,8 +35,6 @@
                 	}
                 }
                 
-                html += "<div style=\"text-align:center;\"><button onClick=\"signout()\"><span>Sign Out</span></button></div>";
-                
                 document.getElementById('me').innerHTML = html;
             }
 
@@ -44,21 +42,6 @@
             function fail(data) {
                 var html = data.response;
                 document.getElementById('me').innerHTML = html;
-            }
-            
-            // Sign Out
-            function signout() {
-                var url = "/restful/api/user/signout";
-                
-                ajaxCall('GET', url, null, null, function(data) {
-                        var status = data.status;
-                        if(status == 'OK'){
-                            location.reload(true);
-                        }
-                    },
-                    function(data){
-                        alert(data.response);
-                  });
             }
             
             // Update profile
@@ -113,7 +96,6 @@
                         alert(data.response);
                   });
             }
-
         </script>
     </head>
     <body>
@@ -124,10 +106,10 @@
             </tr>
             <tr>
                 <td align="left">
-                    <a href="#" onclick="updateProfile();">Update</a>
+                    <input type="button" value="Update" onclick="updateProfile();"/>
                 </td>
                 <td align="right">
-                    <a href="#" onclick="deleteProfile();">Delete</a>
+                    <input type="button" value="Delete" onclick="deleteProfile();"/>
                 </td>
             </tr>
         </table>
