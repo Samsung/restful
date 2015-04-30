@@ -8,13 +8,13 @@
         <script type="text/javascript">
         // window.onload
         function retrieval() {
-        	var userid =  document.getElementById('userid').value;
+            var userid =  document.getElementById('userid').value;
               
             if (!userid) {
                   alert('Please input userid');
                   return;
             }
-        	
+            
             var url = "/restful/api/user/" + userid;
             
             ajaxCall('GET', url, null, null, function(data) {
@@ -30,7 +30,7 @@
 
         // Success function
         function success(data) {
-        	var html = "";
+            var html = "";
             
             for (str in data.response) {
                 if (data.response[str] != null) {

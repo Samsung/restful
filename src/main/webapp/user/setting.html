@@ -26,14 +26,14 @@
                 var html = "";
                 
                 for (str in data.response) {    
-                	if (str == 'name') {
-                		var name =  "<input id=\"name\" type=\"hidden\" value=\"" + data.response[str] + "\">"
+                    if (str == 'name') {
+                        var name =  "<input id=\"name\" type=\"hidden\" value=\"" + data.response[str] + "\">"
                         html += "UserId : " + data.response[str] + "";
                         html += name + "<br/>";
-                	} else if ( str == 'username') {
-                		var username = "<input id=\"username\" type=\"text\" value=\"" + data.response[str] + "\" style=\"width:100px;\">"
-                		html += "UserName " + username + "";
-                	}
+                    } else if ( str == 'username') {
+                        var username = "<input id=\"username\" type=\"text\" value=\"" + data.response[str] + "\" style=\"width:100px;\">"
+                        html += "UserName " + username + "";
+                    }
                 }
                 
                 document.getElementById('me').innerHTML = html;
