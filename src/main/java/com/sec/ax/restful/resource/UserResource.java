@@ -160,6 +160,8 @@ public class UserResource extends AbstractResource {
     }
     
     /**
+     * @param request
+     * @param response
      * @param user
      * @return
      */
@@ -167,7 +169,7 @@ public class UserResource extends AbstractResource {
     @Path("/update")
     @Consumes(MediaType.APPLICATION_JSON)
     @RolesAllowed({Role.Admin,Role.User})
-    public ResponseElement update(User user) {
+    public ResponseElement update(@Context HttpServletRequest request, @Context HttpServletResponse response, User user) {
         
         logger.debug("..");
         
@@ -221,6 +223,12 @@ public class UserResource extends AbstractResource {
             }
 
             object = service.delete(user, object);
+            
+            try {
+                service.signout(request, response);
+            } catch (Exception e) {
+                exceptionManager.fireSystemException(new Exception(e));
+            }
             
         } catch (DataAccessException e) {
             exceptionManager.fireSystemException(new Exception(e));
