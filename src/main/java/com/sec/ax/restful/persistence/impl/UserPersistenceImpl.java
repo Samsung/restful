@@ -98,14 +98,14 @@ public class UserPersistenceImpl extends SqlMapClientDaoSupport implements UserP
     }
     
     /* 
-     * @see com.sec.ax.restful.persistence.UserPersistence#count()
+     * @see com.sec.ax.restful.persistence.UserPersistence#count(com.sec.ax.restful.pojo.Query)
      */
     @Override
-    public int count() throws DataAccessException {
+    public int count(Query query) throws DataAccessException {
         
         logger.debug("..");
         
-        return (int) getSqlMapClientTemplate().queryForObject("user.count");
+        return (int) getSqlMapClientTemplate().queryForObject("user.count", query);
         
     }
     

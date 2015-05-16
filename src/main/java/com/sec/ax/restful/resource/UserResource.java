@@ -289,7 +289,7 @@ public class UserResource extends AbstractResource {
 
             Paging paging = query.getPaging();
             
-            paging.setTotalResults(service.count());
+            paging.setTotalResults(service.count(query));
             
             List list = new List();
             

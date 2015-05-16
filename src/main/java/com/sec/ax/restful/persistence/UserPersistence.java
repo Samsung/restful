@@ -58,10 +58,11 @@ public interface UserPersistence {
     public User name(String name) throws DataAccessException;
     
     /**
+     * @param query
      * @return
      * @throws DataAccessException
      */
-    public int count() throws DataAccessException;
+    public int count(Query query) throws DataAccessException;
 
     /**
      * @param query
