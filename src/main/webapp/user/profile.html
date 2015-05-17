@@ -33,13 +33,13 @@
                 
                 html += "<div style=\"text-align:center;\"><button onClick=\"signout()\"><span>Sign Out</span></button></div>";
                 
-                document.getElementById('me').innerHTML = html;
+                document.getElementById('user').innerHTML = html;
             }
 
             // Fail function
             function fail(data) {
                 var html = data.response;
-                document.getElementById('me').innerHTML = html;
+                document.getElementById('user').innerHTML = html;
             }
             
             // Sign Out
@@ -63,7 +63,7 @@
         <p>Profile</p>
         <table style="width: 180px;">
             <tr>
-                <td colspan="3"><div id="me"></div></td>
+                <td colspan="3"><div id="user"></div></td>
             </tr>
             <tr>
                 <td align="left"><a href="signin.html">Sign In</a></td>
