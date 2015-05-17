@@ -33,7 +33,72 @@
             	for (str in data.response) {
                     if (data.response[str] != null && data.response[str] != 0) {
                     	
-                        if (str == "object") {
+                        if (str == "query") {
+                        	
+                            var url = location.href;
+                            
+                            if (url.indexOf('?') > 0) {
+                                url = url.substring(0, url.indexOf('?'));
+                            }
+                            
+                            var query = data.response.query;
+                                                        
+                            var pn = query.paging.pn;
+                            var maxResults = query.paging.maxResults;
+                            var totalResults = query.paging.totalResults;
+                            var screenResults = 5;
+                            
+                            if (totalResults > 0) {
+                                var paging = "";
+                            	
+                            	var current = parseInt((pn - 1) / screenResults) + 1;
+                            	var start = (current - 1) * screenResults + 1;
+                            	var end = (start + screenResults) - 1;
+                                var total = parseInt(totalResults / maxResults);
+                            	
+                            	if (totalResults % maxResults > 0) {
+                            		total = total + 1;
+                            	}
+                            	if (end > total) {
+                            		end = total;
+                            	}
+                            	
+                            	if (start > 1) {
+                            		paging += "<a href=\""+ url + "?pn=1\"> << </a>"; 
+                            	} else {
+                            		paging += " << ";
+                            	}
+                            	if (start > screenResults) {
+                            		var prev = start - 1;
+                                    paging += "<a href=\"" + url + "?pn=" + prev + "\"> < </a>";
+                            	} else {
+                                    paging += " < ";
+                            	}
+                            	
+                            	for (var i = start ; i <= end ; i++) {
+                            		if (i == pn) {
+                            			paging += "<b> " + i + " </b>";
+                            		} else {
+                            			paging += "<a href=\"" + url + "?pn=" + i + "\"> " + i + " </a>";
+                            		}
+                            	}
+                            	
+                            	if (end < total) {
+                                    var next = end + 1;
+                                    paging += "<a href=\"" + url + "?pn=" + next + "\"> > </a>";
+                            	} else {
+                                    paging += " > ";
+                            	}
+                            	if (end < total) {
+                                    paging += "<a href=\"" + url + "?pn=" + total + "\"> >> </a>";
+                            	} else {
+                                    paging += " >> ";
+                            	}
+                            	
+                            	document.getElementById('paging').innerHTML = paging;
+                            }
+                            
+                        } else if (str == "object") {
                         	
                             var html = "";
                             
@@ -79,6 +144,9 @@
         <table style="width: 180px;">
             <tr>
                 <td><div id="user"></div></td>
+            </tr>
+            <tr>
+                <td align="center"><div id="paging"></div></td>
             </tr>
         </table>
     </body>
