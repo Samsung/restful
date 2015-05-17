@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>List</title>
+        <link rel="stylesheet" type="text/css" href="/restful/css/style.css"/>
+        <script type="text/javascript" src="/restful/js/restful.js"></script>
+        <script type="text/javascript">
+            // window.onload
+            window.onload = function() {
+                var url = location.href;
+                var params = "";
+                
+            	if (url.indexOf('?') > 0) {
+                    params = (url.substring(url.indexOf('?'), url.length));
+            	}
+            	
+                var url = "/restful/api/user/list" + params;
+                
+                ajaxCall('GET', url, null, null, function(data) {
+                        var status = data.status;
+                        if (status == 'OK') {
+                            success(data);
+                        }
+                    }, function(data) {
+                        fail(data);
+                    }
+                );
+            };
+    
+            // Success function
+            function success(data) {
+            	for (str in data.response) {
+                    if (data.response[str] != null && data.response[str] != 0) {
+                    	
+                        if (str == "object") {
+                        	
+                            var html = "";
+                            
+                            html += "<table>";
+                            html += "<tr align=\"center\">";
+                            html += "<td>Idx</td>";
+                            html += "<td>UserId</td>";
+                            html += "<td>UserName</td>";
+                            html += "<td>Role</td>";
+                            html += "</tr>";
+                            
+                            var object = data.response.object;
+                            
+                            for (var i = 0 ; i < object.length ; i++) {
+                            	var user = object[i];
+                            	html += "<tr>";
+                                html += "<td>" + user.idx + "</td>"
+                                html += "<td>" + user.name + "</td>"
+                                html += "<td>" + user.username + "</td>" 
+                                html += "<td>" + user.role + "</td>"
+                                html += "</tr>";
+                            }
+                            
+                            html += "</table>";
+                            
+                            document.getElementById('user').innerHTML = html;
+                        
+                        }
+                        
+                    }
+            	}
+            }
+
+            // Fail function
+            function fail(data) {
+                var html = data.response;
+                document.getElementById('user').innerHTML = html;
+            }
+        </script>
+    </head>
+    <body>
+        <p>List</p>
+        <table style="width: 180px;">
+            <tr>
+                <td><div id="user"></div></td>
+            </tr>
+        </table>
+    </body>
+</html>

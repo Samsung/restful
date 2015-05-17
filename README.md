@@ -16,9 +16,9 @@ And, please, take a look at [jdbc.properties](/src/main/resources/config/jdbc.pr
   - [x] [/restful/user/signup.html](/src/main/webapp/user/signup.html "Creating new user")
   - [x] [/restful/user/signin.html](/src/main/webapp/user/signin.html "Signing in")
   - [x] [/restful/user/profile.html](/src/main/webapp/user/profile.html "Retrieving my information")
-  - [x] [/restful/user/setting.html](/src/main/webapp/user/setting.html "Updating/Deleting user's information")
-  - [x] [/restful/user/user.html](/src/main/webapp/user/user.html "Retrieving user's information") (_admin only_)
-  - [ ] /restful/user/list.html (_admin only_)
+  - [x] [/restful/user/setting.html](/src/main/webapp/user/setting.html "Updating/Deleting user information")
+  - [x] [/restful/user/user.html](/src/main/webapp/user/user.html "Retrieving user information") (_admin only_)
+  - [x] [/restful/user/list.html](/src/main/webapp/user/list.html "Retrieving user list") (_admin only_)
 
 ##### Note #####
   - [ ] /restful/note/create.html

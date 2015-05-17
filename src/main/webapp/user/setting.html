@@ -36,13 +36,13 @@
                     }
                 }
                 
-                document.getElementById('me').innerHTML = html;
+                document.getElementById('user').innerHTML = html;
             }
 
             // Fail function
             function fail(data) {
                 var html = data.response;
-                document.getElementById('me').innerHTML = html;
+                document.getElementById('user').innerHTML = html;
             }
             
             // Update profile
@@ -105,7 +105,7 @@
         <p>Setting</p>
         <table style="width: 180px;">
             <tr>
-                <td colspan="2"><div id="me"></div></td>
+                <td colspan="2"><div id="user"></div></td>
             </tr>
             <tr>
                 <td align="left"><input type="button" value="Update" onclick="update();"></td>
