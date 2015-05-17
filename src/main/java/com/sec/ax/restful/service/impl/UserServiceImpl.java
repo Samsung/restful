@@ -169,14 +169,14 @@ public class UserServiceImpl implements UserService {
     }
     
     /*
-     * @see com.sec.ax.restful.service.UserService#count()
+     * @see com.sec.ax.restful.service.UserService#count(com.sec.ax.restful.pojo.Query)
      */
     @Override
-    public int count() throws DataAccessException {
+    public int count(Query query) throws DataAccessException {
 
         logger.debug("..");
         
-        int cnt = persistence.count();
+        int cnt = persistence.count(query);
         
         return cnt;
         

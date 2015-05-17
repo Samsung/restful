@@ -67,10 +67,11 @@ public interface UserService {
     public Object name(String name, Object object) throws DataAccessException;
     
     /**
+     * @param query
      * @return
      * @throws DataAccessException
      */
-    public int count() throws DataAccessException;
+    public int count(Query query) throws DataAccessException;
     
     /**
      * @param query
