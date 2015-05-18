@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <title>Update</title>
+        <title>User/Update</title>
         <link rel="stylesheet" type="text/css" href="/restful/css/style.css"/>
         <script type="text/javascript" src="/restful/js/restful.js"></script>
         <script type="text/javascript">
@@ -28,15 +28,12 @@
             function success(data) {
                 var html = "";
                 
-                for (str in data.response) {    
-                    if (str == 'name') {
-                        var name =  "<input id=\"name\" type=\"hidden\" value=\"" + data.response[str] + "\">"
-                        html += "UserId : " + data.response[str] + "";
-                        html += name + "<br/>";
-                    } else if ( str == 'username') {
-                        var username = "<input id=\"username\" type=\"text\" value=\"" + data.response[str] + "\" style=\"width:100px;\">"
-                        html += "UserName " + username + "";
-                    }
+                if (data.response != null) {
+                    var user = data.response;
+                    
+                    html += "<input id=\"name\" type=\"hidden\" value=\"" + user.name + "\">"
+                    html += "UserId : " + user.name + "<br/>";
+                    html += "UserName <input id=\"username\" type=\"text\" value=\"" + user.username + "\" style=\"width:100px;\">";
                 }
                 
                 document.getElementById('user').innerHTML = html;
@@ -78,7 +75,7 @@
             }
             
             // Delete profile
-            function leave() {
+            function deletion() {
                 var url = "/restful/api/user/delete";
                 
                 var name =  document.getElementById('name').value;
@@ -105,14 +102,14 @@
         </script>
     </head>
     <body>
-        <p>Setting</p>
+        <p>Update</p>
         <table style="width: 180px;">
             <tr>
                 <td colspan="2"><div id="user"></div></td>
             </tr>
             <tr>
                 <td align="left"><input type="button" value="Update" onclick="update();"></td>
-                <td align="right"><input type="button" value="Delete" onclick="leave();"></td>
+                <td align="right"><input type="button" value="Delete" onclick="deletion();"></td>
             </tr>
         </table>
     </body>
