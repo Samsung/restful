@@ -15,9 +15,9 @@
                   return;
             }
             
-            var url = "/restful/api/user/" + userid;
+            var endpoint = "/restful/api/user/" + userid;
             
-            ajaxCall('GET', url, null, null, function(data) {
+            ajaxCall('GET', endpoint, null, null, function(data) {
                     var status = data.status;
                     if (status == 'OK') {
                         success(data);

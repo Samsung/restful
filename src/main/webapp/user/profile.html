@@ -8,9 +8,9 @@
         <script type="text/javascript">
             // window.onload
             window.onload = function() {
-                var url = "/restful/api/user/profile";
+                var endpoint = "/restful/api/user/profile";
                 
-                ajaxCall('GET', url, null, null, function(data) {
+                ajaxCall('GET', endpoint, null, null, function(data) {
                         var status = data.status;
                         if (status == 'OK') {
                             success(data);
