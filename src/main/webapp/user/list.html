@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <title>List</title>
+        <title>User/List</title>
         <link rel="stylesheet" type="text/css" href="/restful/css/style.css"/>
         <script type="text/javascript" src="/restful/js/restful.js"></script>
         <script type="text/javascript">
@@ -105,7 +105,7 @@
                             
                             var html = "";
                             
-                            html += "<table>";
+                            html += "<table align=\"100%\">";
                             html += "<tr align=\"center\">";
                             html += "<td>Idx</td>";
                             html += "<td>UserId</td>";
@@ -116,7 +116,7 @@
                             for (var i = 0 ; i < object.length ; i++) {
                             	var user = object[i];
                             	html += "<tr>";
-                                html += "<td>" + user.idx + "</td>"
+                                html += "<td align=\"center\">" + user.idx + "</td>"
                                 html += "<td><a href=\"" + update + "?" + user.name + "\">" + user.name + "</a></td>"
                                 html += "<td>" + user.username + "</td>" 
                                 html += "<td>" + user.role + "</td>"
@@ -139,6 +139,7 @@
                 document.getElementById('user').innerHTML = html;
             }
             
+            // Search user
             function search() {
                 var url = location.href;
                 
@@ -156,7 +157,7 @@
     </head>
     <body>
         <p>List</p>
-        <table style="width: 180px;">
+        <table style="width: 200px;">
             <tr>
                 <td><div id="user"></div></td>
             </tr>

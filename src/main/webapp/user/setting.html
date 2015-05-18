@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <title>Setting</title>
+        <title>User/Setting</title>
         <link rel="stylesheet" type="text/css" href="/restful/css/style.css"/>
         <script type="text/javascript" src="/restful/js/restful.js"></script>
         <script type="text/javascript">
@@ -28,11 +28,11 @@
                 for (str in data.response) {    
                     if (str == 'name') {
                         var name =  "<input id=\"name\" type=\"hidden\" value=\"" + data.response[str] + "\">"
-                        html += "UserId : " + data.response[str] + "";
-                        html += name + "<br/>";
+                        html += name;
+                        html += "UserId : " + data.response[str] + "<br/>";
                     } else if ( str == 'username') {
                         var username = "<input id=\"username\" type=\"text\" value=\"" + data.response[str] + "\" style=\"width:100px;\">"
-                        html += "UserName " + username + "";
+                        html += "UserName " + username + "<br/>";
                     }
                 }
                 
@@ -75,7 +75,7 @@
             }
             
             // Delete profile
-            function leave() {
+            function deletion() {
                 var url = "/restful/api/user/delete";
                 
                 var name =  document.getElementById('name').value;
@@ -103,13 +103,13 @@
     </head>
     <body>
         <p>Setting</p>
-        <table style="width: 180px;">
+        <table style="width: 200px;">
             <tr>
                 <td colspan="2"><div id="user"></div></td>
             </tr>
             <tr>
                 <td align="left"><input type="button" value="Update" onclick="update();"></td>
-                <td align="right"><input type="button" value="Delete" onclick="leave();"></td>
+                <td align="right"><input type="button" value="Delete" onclick="deletion();"></td>
             </tr>
         </table>
     </body>
