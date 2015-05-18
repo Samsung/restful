@@ -24,6 +24,7 @@ import org.springframework.stereotype.Component;
 import com.sec.ax.restful.annotation.RolesAllowed;
 import com.sec.ax.restful.annotation.ValidatedBy;
 import com.sec.ax.restful.common.Constant;
+import com.sec.ax.restful.common.PropertiesManager;
 import com.sec.ax.restful.crypt.AxCryptException;
 import com.sec.ax.restful.pojo.List;
 import com.sec.ax.restful.pojo.Paging;
@@ -51,6 +52,9 @@ public class UserResource extends AbstractResource {
     
     @Autowired
     private UserService service;
+    
+    @Autowired
+    private PropertiesManager properties;
     
     /**
      * @param user
@@ -289,9 +293,11 @@ public class UserResource extends AbstractResource {
 
             Paging paging = query.getPaging();
             
+            paging.setMaxPaging(Integer.parseInt(properties.getProperty(Constant.LIST_MAX_PAGING)));
+            paging.setMaxResults(Integer.parseInt(properties.getProperty(Constant.LIST_MAX_RESULTS)));
             paging.setTotalResults(service.count(query));
-            
-            List list = new List();
+			
+			List list = new List();
             
             list.setQuery(query);
             list.setObject(service.list(query, object));

@@ -38,7 +38,7 @@ public class FileHelperTest extends TestCase {
             prop.load(reader);
             
             logger.debug(prop.get("project"));
-            logger.debug(prop.get("description"));
+            logger.debug(prop.getProperty("description"));
 
         } catch (Exception e) {
             fail(e.toString());

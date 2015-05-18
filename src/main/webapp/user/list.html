@@ -44,16 +44,16 @@
                             var query = data.response.query;
                                                         
                             var pn = query.paging.pn;
+                            var maxPaging = query.paging.maxPaging;
                             var maxResults = query.paging.maxResults;
                             var totalResults = query.paging.totalResults;
-                            var screenResults = 5;
                             
                             if (totalResults > 0) {
                                 var paging = "";
                             	
-                            	var current = parseInt((pn - 1) / screenResults) + 1;
-                            	var start = (current - 1) * screenResults + 1;
-                            	var end = (start + screenResults) - 1;
+                            	var current = parseInt((pn - 1) / maxPaging) + 1;
+                            	var start = (current - 1) * maxPaging + 1;
+                            	var end = (start + maxPaging) - 1;
                                 var total = parseInt(totalResults / maxResults);
                             	
                             	if (totalResults % maxResults > 0) {
@@ -68,7 +68,7 @@
                             	} else {
                             		paging += " << ";
                             	}
-                            	if (start > screenResults) {
+                            	if (start > maxPaging) {
                             		var prev = start - 1;
                                     paging += "<a href=\"" + url + "?pn=" + prev + "\"> < </a>";
                             	} else {
