@@ -26,8 +26,7 @@
                 var params = {
                     'username': username,
                     'name': userid,
-                    'pwd': password,
-                    'role': 'User'
+                    'pwd': password
                 };
                 
                 var endpoint = "/restful/api/user/signup";
@@ -49,15 +48,15 @@
         <p>Sign Up</p>
         <table style="width: 200px;">
             <tr>
-                <td>UserName</td>
-                <td><input type="text" name="username" id="username" tabindex="1" placeholder=" UserName"></td>
-            </tr>
-            <tr>
-                <td>UserId</td>
+                <td>userid</td>
                 <td><input type="text" name="userid" id="userid" tabindex="1" placeholder=" UserId"></td>
             </tr>
             <tr>
-                <td>Password</td>
+                <td>username</td>
+                <td><input type="text" name="username" id="username" tabindex="1" placeholder=" UserName"></td>
+            </tr>
+            <tr>
+                <td>password</td>
                 <td><input type="password" name="password" id="password" tabindex="1" placeholder=" Password"></td>
             </tr>
             <tr>

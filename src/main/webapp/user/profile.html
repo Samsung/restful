@@ -25,10 +25,12 @@
             function success(data) {
                 var html = "";
                 
-                for (str in data.response) {
-                    if (data.response[str] != null && data.response[str] != 0) {
-                        html += str + " : " + data.response[str] + "<br/>";
-                    }
+                if (data.response != null) {
+                    var user = data.response;
+                    
+                    html += "userid : " + user.name + "<br/>";
+                    html += "username : " + user.username + "<br/>";
+                    html += "role : " + user.role + "<br/>";
                 }
                 
                 html += "<div style=\"text-align:center;\"><button onClick=\"signout()\"><span>Sign Out</span></button></div>";

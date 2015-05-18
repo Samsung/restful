@@ -25,15 +25,12 @@
             function success(data) {
                 var html = "";
                 
-                for (str in data.response) {    
-                    if (str == 'name') {
-                        var name =  "<input id=\"name\" type=\"hidden\" value=\"" + data.response[str] + "\">"
-                        html += name;
-                        html += "UserId : " + data.response[str] + "<br/>";
-                    } else if ( str == 'username') {
-                        var username = "<input id=\"username\" type=\"text\" value=\"" + data.response[str] + "\" style=\"width:100px;\">"
-                        html += "UserName " + username + "<br/>";
-                    }
+                if (data.response != null) {
+                    var user = data.response;
+                    
+                    html += "<input id=\"name\" type=\"hidden\" value=\"" + user.name + "\">"
+                    html += "userid : " + user.name + "<br/>";
+                    html += "username <input id=\"username\" type=\"text\" value=\"" + user.username + "\" style=\"width:100px;\">";
                 }
                 
                 document.getElementById('user').innerHTML = html;
