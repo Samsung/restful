@@ -29,7 +29,6 @@ import com.sec.ax.restful.pojo.Query;
 import com.sec.ax.restful.pojo.ResponseElement;
 import com.sec.ax.restful.pojo.Role;
 import com.sec.ax.restful.pojo.User;
-import com.sec.ax.restful.resource.utils.QueryUtils;
 import com.sec.ax.restful.service.NoteService;
 import com.sec.ax.restful.utils.FormatHelper;
 
@@ -195,7 +194,7 @@ public class NoteResource extends AbstractResource {
         
         Object object = new Object();
         
-        Query query = QueryUtils.setQuery(pn, search);
+        Query query = Query.setQuery(pn, search);
         
         try {
             

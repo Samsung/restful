@@ -15,9 +15,9 @@
                     params = (url.substring(url.indexOf('?'), url.length));
             	}
             	
-                var url = "/restful/api/user/list" + params;
+                var endpoint = "/restful/api/user/list" + params;
                 
-                ajaxCall('GET', url, null, null, function(data) {
+                ajaxCall('GET', endpoint, null, null, function(data) {
                         var status = data.status;
                         if (status == 'OK') {
                             success(data);
@@ -99,7 +99,10 @@
                             }
                             
                         } else if (str == "object") {
-                        	
+                            
+                        	var update = "/restful/user/update.html";
+                            var object = data.response.object;
+                            
                             var html = "";
                             
                             html += "<table>";
@@ -110,13 +113,11 @@
                             html += "<td>Role</td>";
                             html += "</tr>";
                             
-                            var object = data.response.object;
-                            
                             for (var i = 0 ; i < object.length ; i++) {
                             	var user = object[i];
                             	html += "<tr>";
                                 html += "<td>" + user.idx + "</td>"
-                                html += "<td>" + user.name + "</td>"
+                                html += "<td><a href=\"" + update + "?" + user.name + "\">" + user.name + "</a></td>"
                                 html += "<td>" + user.username + "</td>" 
                                 html += "<td>" + user.role + "</td>"
                                 html += "</tr>";

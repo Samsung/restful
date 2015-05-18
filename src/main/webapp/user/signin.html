@@ -8,8 +8,6 @@
         <script type="text/javascript">
             // Sign In
             function signin() {
-                var url = "/restful/api/user/signin";
-                
                 var userid =  document.getElementById('userid').value;
                 var password =  document.getElementById('password').value;
                 
@@ -26,7 +24,9 @@
                     'pwd' : password
                 };
                 
-                ajaxCall('POST', url, null, params, function(data) {
+                var endpoint = "/restful/api/user/signin";
+                
+                ajaxCall('POST', endpoint, null, params, function(data) {
                         var status = data.status;
                         if (status == 'OK') {
                             location.replace("profile.html"); 
