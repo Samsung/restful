@@ -67,6 +67,8 @@
         <property name="sqlMapClient" ref="sqlMapClient"/>
     </bean>
 
+    <bean name="propertiesManager" class="com.sec.ax.restful.common.PropertiesManager"/>
+
     <util:map id="validateMap" map-class="java.util.HashMap">
         <entry key="validatingName" value-ref="validatingName"/>
         <entry key="missingIdx" value-ref="missingIdx"/>

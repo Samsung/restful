@@ -21,6 +21,7 @@ import org.springframework.stereotype.Component;
 import com.sec.ax.restful.annotation.RolesAllowed;
 import com.sec.ax.restful.annotation.ValidatedBy;
 import com.sec.ax.restful.common.Constant;
+import com.sec.ax.restful.common.PropertiesManager;
 import com.sec.ax.restful.pojo.List;
 import com.sec.ax.restful.pojo.Note;
 import com.sec.ax.restful.pojo.Paging;
@@ -48,6 +49,9 @@ public class NoteResource extends AbstractResource {
     
     @Autowired
     private NoteService service;
+    
+    @Autowired
+    private PropertiesManager properties;
 
     /**
      * @param note
@@ -197,6 +201,8 @@ public class NoteResource extends AbstractResource {
             
             Paging paging = query.getPaging();
             
+            paging.setMaxPaging(Integer.parseInt(properties.getProperty(Constant.LIST_MAX_PAGING)));
+            paging.setMaxResults(Integer.parseInt(properties.getProperty(Constant.LIST_MAX_RESULTS)));
             paging.setTotalResults(service.count());
             
             List list = new List();

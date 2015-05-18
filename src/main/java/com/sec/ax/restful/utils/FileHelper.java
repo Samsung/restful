@@ -39,7 +39,7 @@ public class FileHelper {
         
         logger.debug("..");
         
-        InputStream is = StreamHelper.class.getClass().getResourceAsStream(classpath);
+        InputStream is = FileHelper.class.getClass().getResourceAsStream(classpath);
         
         Reader reader = new InputStreamReader(is, "utf-8");
         

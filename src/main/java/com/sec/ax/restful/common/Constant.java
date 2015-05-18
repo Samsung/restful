@@ -16,6 +16,11 @@ public class Constant {
     public static final int COOKIE_MAX_AGE = 60 * 60 * 6; // 6 hours
     public static final int COOKIE_EXPIRY = 0;
 
+    public static final String PROPERTIES_CLASSPATH = "/config/restful.properties";
+    
+    public static final String LIST_MAX_RESULTS = "maxResults";
+    public static final String LIST_MAX_PAGING = "maxPaging";
+
     public static final String USER_WSSID_KEY = "wssid";
     public static final int USER_WSSID_RAMDOM_COUNT = 8;
     
@@ -24,8 +29,6 @@ public class Constant {
 
     public static final int USER_NAME_MIN_LENGTH = 3;
     public static final int USER_NAME_MAX_LENGTH = 15;
-    
-    public static final int PAGING_MAX_RESULTS = 10;
     
     public static final String NOTE_IDX = "idx";
     public static final String NOTE_SUBJECT = "subject";

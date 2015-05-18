@@ -1,7 +1,5 @@
 package com.sec.ax.restful.pojo;
 
-import com.sec.ax.restful.common.Constant;
-
 /**
  *
  * @author heesik.jeon
@@ -11,12 +9,9 @@ import com.sec.ax.restful.common.Constant;
 public class Paging {
     
     private int pn;
+    private int maxPaging;
     private int maxResults;
     private int totalResults;
-    
-    public Paging() {
-        this.setMaxResults(Constant.PAGING_MAX_RESULTS);
-    }
     
     public int getPn() {
         return pn;
@@ -25,6 +20,14 @@ public class Paging {
     public void setPn(int pn) {
         this.pn = pn;
     }
+
+	public int getMaxPaging() {
+		return maxPaging;
+	}
+
+	public void setMaxPaging(int maxPaging) {
+		this.maxPaging = maxPaging;
+	}
 
     public int getMaxResults() {
         return maxResults;
