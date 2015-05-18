@@ -17,6 +17,7 @@ import com.sec.ax.restful.crypt.AxCryptException;
 import com.sec.ax.restful.crypt.aes.AxCrypt;
 import com.sec.ax.restful.persistence.UserPersistence;
 import com.sec.ax.restful.pojo.Query;
+import com.sec.ax.restful.pojo.Role;
 import com.sec.ax.restful.pojo.User;
 import com.sec.ax.restful.service.UserService;
 import com.sec.ax.restful.utils.FormatHelper;
@@ -42,6 +43,7 @@ public class UserServiceImpl implements UserService {
 
         logger.debug("..");
         
+        user.setRole(Role.User);
         user.setIdx(persistence.signup(user));
         user.setSid(FormatHelper.convertNumeral(Constant.USER_BASE_NUMERAL_SYSTEM, user.getIdx()+Constant.USER_SID_BASE_VALUE));
         
