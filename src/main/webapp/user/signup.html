@@ -12,11 +12,11 @@
                 var userid =  document.getElementById('userid').value;
                 var password =  document.getElementById('password').value;
                 
-                if (!username) {
-                    alert('Please input your username');
-                    return;
-                } else if (!userid) {
+                if (!userid) {
                     alert('Please insert your userid');
+                    return;
+                } else if (!username) {
+                    alert('Please input your username');
                     return;
                 } else if (!password) {
                     alert('Please insert your password');
@@ -24,8 +24,8 @@
                 }
                 
                 var params = {
-                    'username': username,
                     'name': userid,
+                    'username': username,
                     'pwd': password
                 };
                 

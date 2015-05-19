@@ -9,9 +9,14 @@
             // window.onload
             window.onload = function() {
                 var url = location.href;
-                var name = url.substring(url.indexOf("?")+1, url.length);
                 
-                var endpoint = "/restful/api/user/" + name;
+                var endpoint = null;
+                if (url.indexOf("?") > 0 && url.length > (url.indexOf("?")+1)) {
+                    var name = url.substring(url.indexOf("?")+1, url.length);
+                    endpoint = "/restful/api/user/" + name;
+                } else {
+                    endpoint = "/restful/api/user/profile";
+                }
                 
                 ajaxCall('GET', endpoint, null, null, function(data) {
                         var status = data.status;
@@ -31,9 +36,9 @@
                 if (data.response != null) {
                     var user = data.response;
                     
-                    html += "<input id=\"name\" type=\"hidden\" value=\"" + user.name + "\">"
+                    html += "<input type=\"hidden\" name=\"name\" id=\"name\" value=\"" + user.name + "\">"
                     html += "userid : " + user.name + "<br/>";
-                    html += "username <input id=\"username\" type=\"text\" value=\"" + user.username + "\" style=\"width:100px;\">";
+                    html += "username <input type=\"text\" name=\"username\" id=\"username\" value=\"" + user.username + "\">";
                 }
                 
                 document.getElementById('user').innerHTML = html;
