@@ -39,6 +39,7 @@
                     html += "<input type=\"hidden\" name=\"name\" id=\"name\" value=\"" + user.name + "\">"
                     html += "userid : " + user.name + "<br/>";
                     html += "username <input type=\"text\" name=\"username\" id=\"username\" value=\"" + user.username + "\">";
+                    html += "password <input type=\"password\" name=\"password\" id=\"password\">";
                 }
                 
                 document.getElementById('user').innerHTML = html;
@@ -56,6 +57,7 @@
                 
                 var name =  document.getElementById('name').value;
                 var username =  document.getElementById('username').value;
+                var password =  document.getElementById('password').value;
                 
                 if (!username) {
                     alert('Please input your username');
@@ -64,7 +66,8 @@
                 
                 var params = {
                     'name': name,
-                    'username': username
+                    'username': username,
+                    'pwd': password
                 };
                 
                 ajaxCall('PUT', url, null, params, function(data) {

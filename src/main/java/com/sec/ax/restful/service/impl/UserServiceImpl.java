@@ -5,7 +5,6 @@ import java.util.Calendar;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.core.Context;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -57,12 +56,23 @@ public class UserServiceImpl implements UserService {
      * @see com.sec.ax.restful.service.UserService#signin(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.sec.ax.restful.pojo.User)
      */
     @Override
-    public User signin(@Context HttpServletRequest request, @Context HttpServletResponse response, User user) throws DataAccessException, AxCryptException {
+    public User signin(HttpServletRequest request, HttpServletResponse response, User user) throws DataAccessException, AxCryptException {
 
         logger.debug("..");
         
         user = persistence.signin(user);
         
+        return cookie(request, response, user);
+        
+    }
+    
+    
+    /* 
+     * @see com.sec.ax.restful.service.UserService#cookie(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.sec.ax.restful.pojo.User)
+     */
+    @Override
+    public User cookie(HttpServletRequest request, HttpServletResponse response, User user) throws AxCryptException {
+
         if (user != null) {
 
             StringBuffer Ax = new StringBuffer();
@@ -100,7 +110,7 @@ public class UserServiceImpl implements UserService {
      * @see com.sec.ax.restful.service.UserService#signout(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
-    public void signout(@Context HttpServletRequest request, @Context HttpServletResponse response) {
+    public void signout(HttpServletRequest request, HttpServletResponse response) {
         
         Cookie[] cookies = request.getCookies();
         
