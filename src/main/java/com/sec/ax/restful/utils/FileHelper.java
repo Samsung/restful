@@ -73,7 +73,7 @@ public class FileHelper {
             folder.append((char) (ALPHA_START + mod));
             folder.append('/');
             
-            hash = (hash * RANDOM_SEED) / (2 * (RANDOM_MAX+1)) % (RANDOM_MAX +1);
+            hash = (hash * RANDOM_SEED) / (2 * (RANDOM_MAX+1)) % (RANDOM_MAX+1);
 
         }
 
