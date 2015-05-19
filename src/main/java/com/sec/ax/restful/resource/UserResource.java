@@ -189,9 +189,16 @@ public class UserResource extends AbstractResource {
             
             object = service.update(user, object);
             
+            if (StringUtils.equals(me.getSid(), target.getSid())) {
+            	me.setUsername(user.getUsername());
+            	service.cookie(request, response, me);
+            }
+            
         } catch (DataAccessException e) {
             exceptionManager.fireSystemException(new Exception(e));
-        }
+        } catch (AxCryptException e) {
+            exceptionManager.fireSystemException(new Exception(e));
+		}
 
         logger.debug(FormatHelper.printPretty(user));
         logger.debug(FormatHelper.printPretty(object));

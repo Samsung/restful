@@ -2,6 +2,7 @@ package com.sec.ax.restful.service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.core.Context;
 
 import org.springframework.dao.DataAccessException;
 
@@ -36,6 +37,15 @@ public interface UserService {
      */
     public User signin(HttpServletRequest request, HttpServletResponse response, User user) throws DataAccessException, AxCryptException;
 
+    /**
+     * @param request
+     * @param response
+     * @param user
+     * @return
+     * @throws AxCryptException
+     */
+    public User cookie(@Context HttpServletRequest request, @Context HttpServletResponse response, User user) throws AxCryptException;
+    
     /**
      * @param request
      * @param response

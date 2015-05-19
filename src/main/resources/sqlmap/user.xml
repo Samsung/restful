@@ -48,6 +48,11 @@
             user
         SET
             username = #username#
+            <dynamic>
+                <isNotEmpty prepend="," property="pwd">
+                    pwd = PASSWORD(#pwd#)
+                </isNotEmpty>
+            </dynamic>
         WHERE
             name = LOWER(#name#) AND status = 1
     </update>
