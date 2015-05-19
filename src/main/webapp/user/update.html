@@ -36,10 +36,20 @@
                 if (data.response != null) {
                     var user = data.response;
                     
-                    html += "<input type=\"hidden\" name=\"name\" id=\"name\" value=\"" + user.name + "\">"
-                    html += "userid : " + user.name + "<br/>";
-                    html += "username <input type=\"text\" name=\"username\" id=\"username\" value=\"" + user.username + "\">";
-                    html += "password <input type=\"password\" name=\"password\" id=\"password\">";
+                    html += "<table>";
+                    html += "<tr>";
+                    html += "<td>userid</td>";
+                    html += "<td>" + user.name + "<input type=\"hidden\" name=\"name\" id=\"name\" value=\"" + user.name + "\"></td>";
+                    html += "</tr>";
+                    html += "<tr>";
+                    html += "<td>username</td>";
+                    html += "<td><input type=\"text\" name=\"username\" id=\"username\" value=\"" + user.username + "\"></td>";
+                    html += "</tr>";
+                    html += "<tr>";
+                    html += "<td>password</td>";
+                    html += "<td><input type=\"password\" name=\"password\" id=\"password\"></td>";
+                    html += "</tr>";
+                    html += "</table>";
                 }
                 
                 document.getElementById('user').innerHTML = html;
