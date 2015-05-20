@@ -7,6 +7,7 @@ import org.springframework.dao.DataAccessException;
 import com.sec.ax.restful.persistence.NotePersistence;
 import com.sec.ax.restful.pojo.Note;
 import com.sec.ax.restful.pojo.Query;
+import com.sec.ax.restful.pojo.User;
 import com.sec.ax.restful.service.NoteService;
 
 /**
@@ -26,11 +27,12 @@ public class NoteServiceImpl implements NoteService {
      * @see com.sec.ax.restful.service.NoteService#create(com.sec.ax.restful.pojo.Note, java.lang.String, java.lang.Object)
      */
     @Override
-    public Object create(Note note, String sid, Object object) throws DataAccessException {
+    public Object create(Note note, User user, Object object) throws DataAccessException {
 
         logger.debug("..");
         
-        note.setSid(sid);
+        note.setSid(user.getSid());
+        note.setUsername(user.getUsername());
         
         object = persistence.create(note);
 
@@ -88,6 +90,7 @@ public class NoteServiceImpl implements NoteService {
     
         logger.debug("..");
         
+        persistence.access(idx);
         object = persistence.idx(idx);
         
         return object;

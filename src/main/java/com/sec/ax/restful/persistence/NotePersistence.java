@@ -51,6 +51,13 @@ public interface NotePersistence {
     public Note idx(int idx) throws DataAccessException;
 
     /**
+     * @param idx
+     * @return
+     * @throws DataAccessException
+     */
+    public int access(int idx) throws DataAccessException;
+
+    /**
      * @return
      * @throws DataAccessException
      */

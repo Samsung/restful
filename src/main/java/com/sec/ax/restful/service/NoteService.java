@@ -4,6 +4,7 @@ import org.springframework.dao.DataAccessException;
 
 import com.sec.ax.restful.pojo.Note;
 import com.sec.ax.restful.pojo.Query;
+import com.sec.ax.restful.pojo.User;
 
 
 /**
@@ -16,12 +17,12 @@ public interface NoteService {
 
     /**
      * @param note
-     * @param sid
+     * @param user
      * @param object
      * @return
      * @throws DataAccessException
      */
-    public Object create(Note note, String sid, Object object) throws DataAccessException;
+    public Object create(Note note, User user, Object object) throws DataAccessException;
 
     /**
      * @param idx

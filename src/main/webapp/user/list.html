@@ -11,10 +11,10 @@
                 var url = location.href;
                 var params = "";
                 
-            	if (url.indexOf('?') > 0) {
+                if (url.indexOf('?') > 0) {
                     params = (url.substring(url.indexOf('?'), url.length));
-            	}
-            	
+                }
+                
                 var endpoint = "/restful/api/user/list" + params;
                 
                 ajaxCall('GET', endpoint, null, null, function(data) {
@@ -30,11 +30,11 @@
     
             // Success function
             function success(data) {
-            	for (str in data.response) {
+                for (str in data.response) {
                     if (data.response[str] != null && data.response[str] != 0) {
-                    	
+                        
                         if (str == "query") {
-                        	
+                            
                             var url = location.href;
                             
                             if (url.indexOf('?') > 0) {
@@ -50,57 +50,57 @@
                             
                             if (totalResults > 0) {
                                 var paging = "";
-                            	
-                            	var current = parseInt((pn - 1) / maxPaging) + 1;
-                            	var start = (current - 1) * maxPaging + 1;
-                            	var end = (start + maxPaging) - 1;
+                                
+                                var current = parseInt((pn - 1) / maxPaging) + 1;
+                                var start = (current - 1) * maxPaging + 1;
+                                var end = (start + maxPaging) - 1;
                                 var total = parseInt(totalResults / maxResults);
-                            	
-                            	if (totalResults % maxResults > 0) {
-                            		total = total + 1;
-                            	}
-                            	if (end > total) {
-                            		end = total;
-                            	}
-                            	
-                            	if (start > 1) {
-                            		paging += "<a href=\""+ url + "?pn=1\"> << </a>"; 
-                            	} else {
-                            		paging += " << ";
-                            	}
-                            	if (start > maxPaging) {
-                            		var prev = start - 1;
+                                
+                                if (totalResults % maxResults > 0) {
+                                    total = total + 1;
+                                }
+                                if (end > total) {
+                                    end = total;
+                                }
+                                
+                                if (start > 1) {
+                                    paging += "<a href=\""+ url + "?pn=1\"> << </a>"; 
+                                } else {
+                                    paging += " << ";
+                                }
+                                if (start > maxPaging) {
+                                    var prev = start - 1;
                                     paging += "<a href=\"" + url + "?pn=" + prev + "\"> < </a>";
-                            	} else {
+                                } else {
                                     paging += " < ";
-                            	}
-                            	
-                            	for (var i = start ; i <= end ; i++) {
-                            		if (i == pn) {
-                            			paging += "<b> " + i + " </b>";
-                            		} else {
-                            			paging += "<a href=\"" + url + "?pn=" + i + "\"> " + i + " </a>";
-                            		}
-                            	}
-                            	
-                            	if (end < total) {
+                                }
+                                
+                                for (var i = start ; i <= end ; i++) {
+                                    if (i == pn) {
+                                        paging += "<b> " + i + " </b>";
+                                    } else {
+                                        paging += "<a href=\"" + url + "?pn=" + i + "\"> " + i + " </a>";
+                                    }
+                                }
+                                
+                                if (end < total) {
                                     var next = end + 1;
                                     paging += "<a href=\"" + url + "?pn=" + next + "\"> > </a>";
-                            	} else {
+                                } else {
                                     paging += " > ";
-                            	}
-                            	if (end < total) {
+                                }
+                                if (end < total) {
                                     paging += "<a href=\"" + url + "?pn=" + total + "\"> >> </a>";
-                            	} else {
+                                } else {
                                     paging += " >> ";
-                            	}
-                            	
-                            	document.getElementById('paging').innerHTML = paging;
+                                }
+                                
+                                document.getElementById('paging').innerHTML = paging;
                             }
                             
                         } else if (str == "object") {
                             
-                        	var update = "/restful/user/update.html";
+                            var update = "/restful/user/update.html";
                             var object = data.response.object;
                             
                             var html = "";
@@ -114,8 +114,8 @@
                             html += "</tr>";
                             
                             for (var i = 0 ; i < object.length ; i++) {
-                            	var user = object[i];
-                            	html += "<tr>";
+                                var user = object[i];
+                                html += "<tr>";
                                 html += "<td align=\"center\">" + user.idx + "</td>"
                                 html += "<td><a href=\"" + update + "?" + user.name + "\">" + user.name + "</a></td>"
                                 html += "<td>" + user.username + "</td>" 
@@ -130,7 +130,7 @@
                         }
                         
                     }
-            	}
+                }
             }
 
             // Fail function
@@ -150,7 +150,7 @@
                 var q =  document.getElementById('search').value;
                 
                 if (q) {
-                	location.href = url + "?q=" + q;
+                    location.href = url + "?q=" + q;
                 }
             }
         </script>
@@ -164,7 +164,7 @@
             <tr>
                 <td align="center">
                     <input type="text" name="search" id="search" tabindex="1" size="10" placeholder=" Search">
-                    <button type="submit" onClick="search()"><span>Search</span></button>
+                    <input type="button" value="Search" onClick="search()">
                 </td>
             </tr>
             <tr>

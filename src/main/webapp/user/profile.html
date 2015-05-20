@@ -33,7 +33,7 @@
                     html += "role : " + user.role + "<br/>";
                 }
                 
-                html += "<div style=\"text-align:center;\"><button onClick=\"signout()\"><span>Sign Out</span></button></div>";
+                html += "<div style=\"text-align:center;\"><input type=\"button\" value=\"Sign Out\" onClick=\"signout()\"></div>";
                 
                 document.getElementById('user').innerHTML = html;
             }

@@ -68,7 +68,7 @@ public class NoteResource extends AbstractResource {
         Object object = new Object();
         
         try {
-            object = service.create(note, getUserPrincipal().getSid(), object);
+            object = service.create(note, getUserPrincipal(), object);
         } catch (DataAccessException e) {
             exceptionManager.fireSystemException(new Exception(e));
         }

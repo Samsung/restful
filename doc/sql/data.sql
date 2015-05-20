@@ -40,7 +40,7 @@ CREATE TABLE `user` (
   UNIQUE KEY `sid_UNIQUE` (`sid`),
   KEY `status` (`status`),
   KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -63,8 +63,10 @@ DROP TABLE IF EXISTS `note`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `note` (
   `idx` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `sid` varchar(7) DEFAULT NULL,
+  `sid` varchar(7) NOT NULL,
+  `username` varchar(45) NOT NULL,
   `subject` varchar(255) NOT NULL,
+  `access` smallint(4) unsigned NOT NULL DEFAULT '0',
   `content` text NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1',
   `createdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -72,7 +74,7 @@ CREATE TABLE `note` (
   PRIMARY KEY (`idx`),
   UNIQUE KEY `idx_UNIQUE` (`idx`),
   KEY `status` (`status`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -81,7 +83,7 @@ CREATE TABLE `note` (
 
 LOCK TABLES `note` WRITE;
 /*!40000 ALTER TABLE `note` DISABLE KEYS */;
-INSERT INTO `note` VALUES (1,'1','Hello','It\'s really nice to meet you.',1,'2014-10-15 00:00:00','2014-10-15 00:00:00'),(2,'1','Hello','Me too.',1,'2014-10-15 00:00:00','2014-10-15 00:00:00');
+INSERT INTO `note` VALUES (1,'1','axpower','Hello',0,'It\'s really nice to meet you.',1,'2015-03-01 00:00:00','2015-05-02 00:00:00'),(2,'1','axpower','Hello',0,'Me too.',1,'2015-03-01 00:00:00','2015-03-02 00:00:00');
 /*!40000 ALTER TABLE `note` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
