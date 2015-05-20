@@ -94,6 +94,7 @@ public class NoteResource extends AbstractResource {
     @GET
     @Path("/update/{idx}")
     @Consumes(MediaType.APPLICATION_JSON)
+    @RolesAllowed({Role.Admin,Role.User})
     public ResponseElement update(@PathParam("idx") int idx) {
         
         logger.debug("..");
