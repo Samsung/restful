@@ -1,10 +1,11 @@
 package com.sec.ax.restful.service;
 
+import java.util.List;
+
 import org.springframework.dao.DataAccessException;
 
 import com.sec.ax.restful.pojo.Note;
 import com.sec.ax.restful.pojo.Query;
-import com.sec.ax.restful.pojo.User;
 
 
 /**
@@ -17,44 +18,45 @@ public interface NoteService {
 
     /**
      * @param note
-     * @param user
-     * @param object
      * @return
      * @throws DataAccessException
      */
-    public Object create(Note note, User user, Object object) throws DataAccessException;
+    public int create(Note note) throws DataAccessException;
 
     /**
      * @param idx
-     * @param object
      * @return
      * @throws DataAccessException
      */
-    public String sid(int idx, Object object) throws DataAccessException;
+    public String sid(int idx) throws DataAccessException;
 
     /**
      * @param note
-     * @param object
      * @return
      * @throws DataAccessException
      */
-    public Object update(Note note, Object object) throws DataAccessException;
+    public int update(Note note) throws DataAccessException;
 
     /**
      * @param note
-     * @param object
      * @return
      * @throws DataAccessException
      */
-    public Object delete(Note note, Object object) throws DataAccessException;
+    public int delete(Note note) throws DataAccessException;
 
     /**
      * @param idx
-     * @param object
      * @return
      * @throws DataAccessException
      */
-    public Object idx(int idx, Object object) throws DataAccessException;
+    public Note idx(int idx) throws DataAccessException;
+    
+    /**
+     * @param idx
+     * @return
+     * @throws DataAccessException
+     */
+    public int access(int idx) throws DataAccessException;
 
     /**
      * @return
@@ -64,10 +66,9 @@ public interface NoteService {
     
     /**
      * @param query
-     * @param object
      * @return
      * @throws DataAccessException
      */
-    public Object list(Query query, Object object) throws DataAccessException;
+    public List<Note> list(Query query) throws DataAccessException;
 
 }

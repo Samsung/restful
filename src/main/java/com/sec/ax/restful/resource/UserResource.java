@@ -70,7 +70,13 @@ public class UserResource extends AbstractResource {
         Object object = new Object();
         
         try {
-            object = service.signup(user, object);
+        	
+            user.setRole(Role.User);
+            user.setIdx(service.signup(user));
+            user.setSid(FormatHelper.convertNumeral(Constant.USER_BASE_NUMERAL_SYSTEM, user.getIdx()+Constant.USER_SID_BASE_VALUE));
+            
+            object = service.sid(user);
+
         } catch (DataAccessException e) {
             exceptionManager.fireSystemException(new Exception(e));
         }
@@ -181,13 +187,13 @@ public class UserResource extends AbstractResource {
         try {
             
             User me = getUserPrincipal();
-            User target = (User) service.name(user.getName(), object);
+            User target = (User) service.name(user.getName());
 
             if (Role.User.equals(me.getRole()) && target != null && !StringUtils.equals(me.getSid(), target.getSid())) {
                 exceptionManager.fireUserException(Constant.ERR_USER_AUTHORIZATION_FAILED, new Object[] {me.getName()});
             }
             
-            object = service.update(user, object);
+            object = service.update(user);
             
             if (StringUtils.equals(me.getSid(), target.getSid())) {
             	me.setUsername(user.getUsername());
@@ -226,18 +232,16 @@ public class UserResource extends AbstractResource {
         try {
             
             User me = getUserPrincipal();
-            User target = (User) service.name(user.getName(), object);
+            User target = (User) service.name(user.getName());
 
             if (Role.User.equals(me.getRole()) && target != null && !StringUtils.equals(me.getSid(), target.getSid())) {
                 exceptionManager.fireUserException(Constant.ERR_USER_AUTHORIZATION_FAILED, new Object[] {me.getName()});
             }
 
-            object = service.delete(user, object);
+            object = service.delete(user);
             
-            try {
-                service.signout(request, response);
-            } catch (Exception e) {
-                exceptionManager.fireSystemException(new Exception(e));
+            if (StringUtils.equals(me.getSid(), target.getSid())) {
+            	service.signout(request, response);
             }
             
         } catch (DataAccessException e) {
@@ -266,7 +270,7 @@ public class UserResource extends AbstractResource {
         Object object = new Object();
 
         try {
-            object = service.name(name, object);
+            object = service.name(name);
         } catch (DataAccessException e) {
             exceptionManager.fireSystemException(new Exception(e));
         }
@@ -306,7 +310,7 @@ public class UserResource extends AbstractResource {
 			List list = new List();
             
             list.setQuery(query);
-            list.setObject(service.list(query, object));
+            list.setObject(service.list(query));
             
             object = list;
 
