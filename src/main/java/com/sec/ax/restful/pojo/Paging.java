@@ -21,13 +21,13 @@ public class Paging {
         this.pn = pn;
     }
 
-	public int getMaxPaging() {
-		return maxPaging;
-	}
+    public int getMaxPaging() {
+        return maxPaging;
+    }
 
-	public void setMaxPaging(int maxPaging) {
-		this.maxPaging = maxPaging;
-	}
+    public void setMaxPaging(int maxPaging) {
+        this.maxPaging = maxPaging;
+    }
 
     public int getMaxResults() {
         return maxResults;

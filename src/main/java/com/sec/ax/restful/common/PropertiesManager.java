@@ -13,30 +13,30 @@ import org.apache.log4j.Logger;
  */
 
 public class PropertiesManager {
-	
+    
     private static final Logger logger = Logger.getLogger(PropertiesManager.class);
     
     private Properties properties;
 
     public PropertiesManager() {
-    	
+        
         logger.debug("..");
-    	
-    	InputStream is = null;
-    	
-    	try {
-			is = this.getClass().getResourceAsStream(Constant.PROPERTIES_CLASSPATH);
-	    	
-			properties = new Properties();
-			properties.load(is);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-    	    	
+        
+        InputStream is = null;
+        
+        try {
+            is = this.getClass().getResourceAsStream(Constant.PROPERTIES_CLASSPATH);
+            
+            properties = new Properties();
+            properties.load(is);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+                
     }
 
-	public String getProperty(String key) {
-		return properties.getProperty(key);
-	}
+    public String getProperty(String key) {
+        return properties.getProperty(key);
+    }
 
 }

@@ -70,7 +70,7 @@ public class UserResource extends AbstractResource {
         Object object = new Object();
         
         try {
-        	
+            
             user.setRole(Role.User);
             user.setIdx(service.signup(user));
             user.setSid(FormatHelper.convertNumeral(Constant.USER_BASE_NUMERAL_SYSTEM, user.getIdx()+Constant.USER_SID_BASE_VALUE));
@@ -196,15 +196,15 @@ public class UserResource extends AbstractResource {
             object = service.update(user);
             
             if (StringUtils.equals(me.getSid(), target.getSid())) {
-            	me.setUsername(user.getUsername());
-            	service.cookie(request, response, me);
+                me.setUsername(user.getUsername());
+                service.cookie(request, response, me);
             }
             
         } catch (DataAccessException e) {
             exceptionManager.fireSystemException(new Exception(e));
         } catch (AxCryptException e) {
             exceptionManager.fireSystemException(new Exception(e));
-		}
+        }
 
         logger.debug(FormatHelper.printPretty(user));
         logger.debug(FormatHelper.printPretty(object));
@@ -241,7 +241,7 @@ public class UserResource extends AbstractResource {
             object = service.delete(user);
             
             if (StringUtils.equals(me.getSid(), target.getSid())) {
-            	service.signout(request, response);
+                service.signout(request, response);
             }
             
         } catch (DataAccessException e) {
@@ -306,8 +306,8 @@ public class UserResource extends AbstractResource {
             paging.setMaxPaging(Integer.parseInt(properties.getProperty(Constant.LIST_MAX_PAGING)));
             paging.setMaxResults(Integer.parseInt(properties.getProperty(Constant.LIST_MAX_RESULTS)));
             paging.setTotalResults(service.count(query));
-			
-			List list = new List();
+            
+            List list = new List();
             
             list.setQuery(query);
             list.setObject(service.list(query));

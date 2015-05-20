@@ -35,13 +35,13 @@ public class Note extends Audit {
         this.sid = sid;
     }
 
-	public String getUsername() {
-		return username;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public String getSubject() {
         return subject;
@@ -59,12 +59,12 @@ public class Note extends Audit {
         this.content = content;
     }
 
-	public int getAccess() {
-		return access;
-	}
+    public int getAccess() {
+        return access;
+    }
 
-	public void setAccess(int access) {
-		this.access = access;
-	}
+    public void setAccess(int access) {
+        this.access = access;
+    }
 
 }

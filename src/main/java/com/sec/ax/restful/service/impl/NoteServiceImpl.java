@@ -91,8 +91,8 @@ public class NoteServiceImpl implements NoteService {
 
         logger.debug("..");
 
-    	return persistence.access(idx);
-    	
+        return persistence.access(idx);
+        
     }
 
     /* 

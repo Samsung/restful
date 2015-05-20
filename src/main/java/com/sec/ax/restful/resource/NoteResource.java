@@ -68,9 +68,9 @@ public class NoteResource extends AbstractResource {
         Object object = new Object();
         
         try {
-        	
-        	User me = getUserPrincipal();
-        	
+            
+            User me = getUserPrincipal();
+            
             note.setSid(me.getSid());
             note.setUsername(me.getUsername());
             
@@ -101,7 +101,7 @@ public class NoteResource extends AbstractResource {
         Object object = new Object();
 
         try {
-        	
+            
             User me = getUserPrincipal();
             String sid = service.sid(idx);
 
@@ -210,10 +210,10 @@ public class NoteResource extends AbstractResource {
         Object object = new Object();
 
         try {
-        	
-        	service.access(idx);
             
-        	object = service.idx(idx);
+            service.access(idx);
+            
+            object = service.idx(idx);
             
         } catch (DataAccessException e) {
             exceptionManager.fireSystemException(new Exception(e));
