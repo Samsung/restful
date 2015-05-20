@@ -68,7 +68,14 @@ public class NoteResource extends AbstractResource {
         Object object = new Object();
         
         try {
-            object = service.create(note, getUserPrincipal(), object);
+            
+            User me = getUserPrincipal();
+            
+            note.setSid(me.getSid());
+            note.setUsername(me.getUsername());
+            
+            object = service.create(note);
+            
         } catch (DataAccessException e) {
             exceptionManager.fireSystemException(new Exception(e));
         }
@@ -80,6 +87,42 @@ public class NoteResource extends AbstractResource {
 
     }
 
+    /**
+     * @param idx
+     * @return
+     */
+    @GET
+    @Path("/update/{idx}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @RolesAllowed({Role.Admin,Role.User})
+    public ResponseElement update(@PathParam("idx") int idx) {
+        
+        logger.debug("..");
+        
+        Object object = new Object();
+
+        try {
+            
+            User me = getUserPrincipal();
+            String sid = service.sid(idx);
+
+            if (Role.User.equals(me.getRole()) && sid != null && !StringUtils.equals(me.getSid(), sid)) {
+                exceptionManager.fireUserException(Constant.ERR_USER_AUTHORIZATION_FAILED, new Object[] {me.getName()});
+            }
+
+            object = service.idx(idx);
+            
+        } catch (DataAccessException e) {
+            exceptionManager.fireSystemException(new Exception(e));
+        }
+        
+        logger.debug(FormatHelper.printPretty(idx));
+        logger.debug(FormatHelper.printPretty(object));
+        
+        return ResponseElement.newSuccessInstance(object);
+
+    }
+    
     /**
      * @param note
      * @return
@@ -98,13 +141,13 @@ public class NoteResource extends AbstractResource {
         try {
             
             User me = getUserPrincipal();
-            String sid = service.sid(note.getIdx(), object);
+            String sid = service.sid(note.getIdx());
 
             if (Role.User.equals(me.getRole()) && sid != null && !StringUtils.equals(me.getSid(), sid)) {
                 exceptionManager.fireUserException(Constant.ERR_USER_AUTHORIZATION_FAILED, new Object[] {me.getName()});
             }
             
-            object = service.update(note, object);
+            object = service.update(note);
             
         } catch (DataAccessException e) {
             exceptionManager.fireSystemException(new Exception(e));
@@ -135,13 +178,13 @@ public class NoteResource extends AbstractResource {
         try {
             
             User me = getUserPrincipal();
-            String sid = service.sid(note.getIdx(), object);
+            String sid = service.sid(note.getIdx());
 
             if (Role.User.equals(me.getRole()) && sid != null && !StringUtils.equals(me.getSid(), sid)) {
                 exceptionManager.fireUserException(Constant.ERR_USER_AUTHORIZATION_FAILED, new Object[] {me.getName()});
             }
 
-            object = service.delete(note, object);
+            object = service.delete(note);
             
         } catch (DataAccessException e) {
             exceptionManager.fireSystemException(new Exception(e));
@@ -168,7 +211,11 @@ public class NoteResource extends AbstractResource {
         Object object = new Object();
 
         try {
-            object = service.idx(idx, object);
+            
+            service.access(idx);
+            
+            object = service.idx(idx);
+            
         } catch (DataAccessException e) {
             exceptionManager.fireSystemException(new Exception(e));
         }
@@ -207,7 +254,7 @@ public class NoteResource extends AbstractResource {
             List list = new List();
             
             list.setQuery(query);
-            list.setObject(service.list(query, object));
+            list.setObject(service.list(query));
             
             object = list;
             

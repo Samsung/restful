@@ -1,5 +1,7 @@
 package com.sec.ax.restful.service.impl;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -7,7 +9,6 @@ import org.springframework.dao.DataAccessException;
 import com.sec.ax.restful.persistence.NotePersistence;
 import com.sec.ax.restful.pojo.Note;
 import com.sec.ax.restful.pojo.Query;
-import com.sec.ax.restful.pojo.User;
 import com.sec.ax.restful.service.NoteService;
 
 /**
@@ -24,76 +25,73 @@ public class NoteServiceImpl implements NoteService {
     private NotePersistence persistence;
 
     /* 
-     * @see com.sec.ax.restful.service.NoteService#create(com.sec.ax.restful.pojo.Note, java.lang.String, java.lang.Object)
+     * @see com.sec.ax.restful.service.NoteService#create(com.sec.ax.restful.pojo.Note)
      */
     @Override
-    public Object create(Note note, User user, Object object) throws DataAccessException {
+    public int create(Note note) throws DataAccessException {
 
         logger.debug("..");
         
-        note.setSid(user.getSid());
-        note.setUsername(user.getUsername());
-        
-        object = persistence.create(note);
-
-        return object;
+        return persistence.create(note);
         
     }
 
     /* 
-     * @see com.sec.ax.restful.service.NoteService#sid(int, java.lang.Object)
+     * @see com.sec.ax.restful.service.NoteService#sid(int)
      */
     @Override
-    public String sid(int idx, Object object) throws DataAccessException {
+    public String sid(int idx) throws DataAccessException {
 
         logger.debug("..");
         
-        object = persistence.sid(idx);
-        
-        return (String) object;
+        return persistence.sid(idx);
         
     }
 
     /* 
-     * @see com.sec.ax.restful.service.NoteService#update(com.sec.ax.restful.pojo.Note, java.lang.Object)
+     * @see com.sec.ax.restful.service.NoteService#update(com.sec.ax.restful.pojo.Note)
      */
     @Override
-    public Object update(Note note, Object object) throws DataAccessException {
+    public int update(Note note) throws DataAccessException {
 
         logger.debug("..");
         
-        object = persistence.update(note);
-
-        return object;
+        return persistence.update(note);
         
     }
 
     /* 
-     * @see com.sec.ax.restful.service.NoteService#delete(com.sec.ax.restful.pojo.Note, java.lang.Object)
+     * @see com.sec.ax.restful.service.NoteService#delete(com.sec.ax.restful.pojo.Note)
      */
     @Override
-    public Object delete(Note note, Object object) throws DataAccessException {
+    public int delete(Note note) throws DataAccessException {
 
         logger.debug("..");
         
-        object = persistence.delete(note);
-
-        return object;
+        return persistence.delete(note);
         
     }
 
     /* 
-     * @see com.sec.ax.restful.service.NoteService#idx(int, java.lang.Object)
+     * @see com.sec.ax.restful.service.NoteService#idx(int)
      */
     @Override
-    public Object idx(int idx, Object object) throws DataAccessException {
+    public Note idx(int idx) throws DataAccessException {
     
         logger.debug("..");
         
-        persistence.access(idx);
-        object = persistence.idx(idx);
+        return persistence.idx(idx);
         
-        return object;
+    }
+    
+    /* 
+     * @see com.sec.ax.restful.service.NoteService#access(int)
+     */
+    public int access(int idx) throws DataAccessException {
+
+        logger.debug("..");
+
+        return persistence.access(idx);
         
     }
 
@@ -105,23 +103,19 @@ public class NoteServiceImpl implements NoteService {
     
         logger.debug("..");
         
-        int cnt = persistence.count();
-        
-        return cnt;
+        return persistence.count();
         
     }
 
     /* 
-     * @see com.sec.ax.restful.service.NoteService#list(com.sec.ax.restful.pojo.Query, java.lang.Object)
+     * @see com.sec.ax.restful.service.NoteService#list(com.sec.ax.restful.pojo.Query)
      */
     @Override
-    public Object list(Query query, Object object) throws DataAccessException {
+    public List<Note> list(Query query) throws DataAccessException {
     
         logger.debug("..");
         
-        object = persistence.list(query);
-        
-        return object;
+        return persistence.list(query);
         
     }
 

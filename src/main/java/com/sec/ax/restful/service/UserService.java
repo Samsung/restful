@@ -1,8 +1,9 @@
 package com.sec.ax.restful.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.core.Context;
 
 import org.springframework.dao.DataAccessException;
 
@@ -21,11 +22,17 @@ public interface UserService {
 
     /**
      * @param user
-     * @param object
      * @return
      * @throws DataAccessException
      */
-    public Object signup(User user, Object object) throws DataAccessException;
+    public int signup(User user) throws DataAccessException;
+    
+    /**
+     * @param user
+     * @return
+     * @throws DataAccessException
+     */
+    public int sid(User user) throws DataAccessException;
 
     /**
      * @param request
@@ -44,7 +51,7 @@ public interface UserService {
      * @return
      * @throws AxCryptException
      */
-    public User cookie(@Context HttpServletRequest request, @Context HttpServletResponse response, User user) throws AxCryptException;
+    public User cookie(HttpServletRequest request, HttpServletResponse response, User user) throws AxCryptException;
     
     /**
      * @param request
@@ -54,27 +61,24 @@ public interface UserService {
 
     /**
      * @param user
-     * @param object
      * @return
      * @throws DataAccessException
      */
-    public Object update(User user, Object object) throws DataAccessException;
+    public int update(User user) throws DataAccessException;
     
     /**
      * @param user
-     * @param object
      * @return
      * @throws DataAccessException
      */
-    public Object delete(User user, Object object) throws DataAccessException;
+    public int delete(User user) throws DataAccessException;
     
     /**
      * @param name
-     * @param object
      * @return
      * @throws DataAccessException
      */
-    public Object name(String name, Object object) throws DataAccessException;
+    public User name(String name) throws DataAccessException;
     
     /**
      * @param query
@@ -85,10 +89,9 @@ public interface UserService {
     
     /**
      * @param query
-     * @param object
      * @return
      * @throws DataAccessException
      */
-    public Object list(Query query, Object object) throws DataAccessException;
+    public List<User> list(Query query) throws DataAccessException;
 
 }

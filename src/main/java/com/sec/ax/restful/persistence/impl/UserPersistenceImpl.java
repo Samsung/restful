@@ -53,9 +53,7 @@ public class UserPersistenceImpl extends SqlMapClientDaoSupport implements UserP
 
         logger.debug("..");
         
-        user = (User) getSqlMapClientTemplate().queryForObject("user.signin", user);
-        
-        return user;
+        return (User) getSqlMapClientTemplate().queryForObject("user.signin", user);
 
     }
     
@@ -91,9 +89,7 @@ public class UserPersistenceImpl extends SqlMapClientDaoSupport implements UserP
 
         logger.debug("..");
         
-        User user = (User) getSqlMapClientTemplate().queryForObject("user.name", name);
-        
-        return user;
+        return (User) getSqlMapClientTemplate().queryForObject("user.name", name);
         
     }
     
