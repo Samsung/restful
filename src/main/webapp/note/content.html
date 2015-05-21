@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>Note/Content</title>
+        <link rel="stylesheet" type="text/css" href="/restful/css/style.css"/>
+        <script type="text/javascript" src="/restful/js/restful.js"></script>
+        <script type="text/javascript">
+            // window.onload
+            window.onload = function() {
+                var url = location.href;
+                var idx = url.substring(url.indexOf("?")+1, url.length);
+                
+                var endpoint = "/restful/api/note/" + idx;
+                
+                ajaxCall('GET', endpoint, null, null, function(data) {
+                        var status = data.status;
+                        if (status == 'OK') {
+                            success(data);
+                        }
+                    }, function(data) {
+                        fail(data);
+                    }
+                );
+            };
+    
+            // Success function
+            function success(data) {
+                var html = "";
+                
+                if (data.response != null) {
+                    var note = data.response;
+                    
+                    html += "<input type=\"hidden\" name=\"idx\" id=\"idx\" value=\"" + note.idx + "\">";
+                    html += "<table width=\"100%\">";
+                    html += "<tr>";
+                    html += "<td align=\"center\" colspan=\"2\"><b>" + note.subject + "</b></td>";
+                    html += "</tr>";
+                    html += "<tr>";
+                    html += "<td align=\"right\" colspan=\"2\">" + note.username + "</td>";
+                    html += "</tr>";
+                    html += "<tr>";
+                    html += "<td>Access: " + note.access + "</td>";
+                    html += "<td align=\"right\">" + new Date(note.updatedate).toLocaleDateString() + " " + new Date(note.updatedate).toLocaleTimeString() + "</td>";
+                    html += "</tr>";
+                    html += "<tr>";
+                    html += "<td colspan=\"2\">" + note.content + "</td>";
+                    html += "</tr>";
+                    html += "</table>";
+                }
+                
+                document.getElementById('note').innerHTML = html;
+            }
+
+            // Fail function
+            function fail(data) {
+                var html = data.response;
+                document.getElementById('note').innerHTML = html;
+            }
+            
+            // Delete note
+            function update() {
+                var url = "/restful/note/update.html";
+                
+                var idx =  document.getElementById('idx').value;
+                
+                if (!idx) {
+                    return;
+                }
+                
+                location.href = url + "?" + idx;
+            }
+            
+            // Delete note
+            function deletion() {
+                var url = "/restful/api/note/delete";
+                
+                var idx =  document.getElementById('idx').value;
+                
+                if (!idx) {
+                    return;
+                }
+                
+                var params = {
+                    'idx': idx
+                };
+                
+                ajaxCall('DELETE', url, null, params, function(data) {
+                        var status = data.status;
+                        if (status == 'OK') {
+                            location.replace("list.html");
+                        }
+                    },
+                    function(data) {
+                        alert(data.response);
+                    }
+                );
+            }
+        </script>
+    </head>
+    <body>
+        <p>Content</p>
+        <table style="width: 200px;">
+            <tr>
+                <td colspan="2"><div id="note"></div></td>
+            </tr>
+            <tr>
+                <td align="left"><input type="button" value="Update" onclick="update();"></td>
+                <td align="right"><input type="button" value="Delete" onclick="deletion();"></td>
+            </tr>
+        </table>
+    </body>
+</html>
