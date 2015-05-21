@@ -40,6 +40,8 @@ public class Constant {
     
     public static final String ERR_SYSTEM_ERROR = "err.system.error";
 
+    public static final String ERR_DATA_ACCESS = "err.data.access";
+
     public static final String ERR_USER_NAME_DUPLICATED = "err.user.name.duplicated";
     public static final String ERR_USER_NAME_PATTERN = "err.user.name.pattern";
     public static final String ERR_USER_NAME_LENGTH = "err.user.name.length";
