@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>Note/Create</title>
+        <link rel="stylesheet" type="text/css" href="/restful/css/style.css"/>
+        <script type="text/javascript" src="/restful/js/restful.js"></script>
+        <script type="text/javascript">
+            // Sign Up
+            function create() {
+                var subject =  document.getElementById('subject').value;
+                var content =  document.getElementById('content').value;
+                
+                if (!subject) {
+                    alert('Please input subject');
+                    return;
+                } else if (!content) {
+                    alert('Please insert content');
+                    return;
+                }
+                
+                var params = {
+                    'subject': subject,
+                    'content': content,
+                };
+                
+                var endpoint = "/restful/api/note/create";
+                
+                ajaxCall('POST', endpoint, null, params, function(data) {
+                        var status = data.status;
+                        if (status == 'OK') {
+                            location.replace("list.html"); 
+                        }
+                    },
+                    function(data) {
+                        alert(data.response);
+                    }
+                );
+            }
+        </script>
+    </head>
+    <body>
+        <p>Create</p>
+        <table style="width: 200px;">
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <td>subject</td>
+                            <td><input type="text" name="subject" id="subject" tabindex="1" placeholder=" Subject"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><textarea name="content" id="content" tabindex="1" placeholder=" Content" rows="5" cols="25"></textarea></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td align="center"><input type="button" value="Create" onClick="create()"></td>
+            </tr>
+        </table>
+    </body>
+</html>
