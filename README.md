@@ -20,10 +20,10 @@ And, please, take a look at [jdbc.properties](/src/main/resources/config/jdbc.pr
   - [x] [/restful/user/list.html](/src/main/webapp/user/list.html "Retrieving user list") (_admin only_)
 
 ##### Note #####
-  - [x] [/restful/note/create.html](/restful/main/webapp/note/create.html "Creating new note")
-  - [x] [/restful/note/update.html](/restful/main/webapp/note/update.html "Updating note")
-  - [x] [/restful/note/content.html](/restful/main/webapp/note/content.html "Retrieving note content")
-  - [x] [/restful/note/list.html](/restful/main/webapp/note/list.html "Retrieving note list")
+  - [x] [/restful/note/create.html](/src/main/webapp/note/create.html "Creating new note")
+  - [x] [/restful/note/update.html](/src/main/webapp/note/update.html "Updating note")
+  - [x] [/restful/note/content.html](/src/main/webapp/note/content.html "Retrieving note content")
+  - [x] [/restful/note/list.html](/src/main/webapp/note/list.html "Retrieving note list")
 
 #### Restful ####
 ##### User #####
