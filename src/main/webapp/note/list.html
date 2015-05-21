@@ -138,6 +138,21 @@
                 var html = data.response;
                 document.getElementById('user').innerHTML = html;
             }
+            
+            // Search note
+            function search() {
+                var url = location.href;
+                
+                if (url.indexOf('?') > 0) {
+                    url = url.substring(0, url.indexOf('?'));
+                }
+                
+                var q =  document.getElementById('search').value;
+                
+                if (q) {
+                    location.href = url + "?q=" + q;
+                }
+            }
         </script>
     </head>
     <body>
@@ -145,6 +160,12 @@
         <table style="width: 200px;">
             <tr>
                 <td><div id="note"></div></td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <input type="text" name="search" id="search" tabindex="1" size="10" placeholder=" Search">
+                    <input type="button" value="Search" onClick="search()">
+                </td>
             </tr>
             <tr>
                 <td align="center"><div id="paging"></div></td>
