@@ -39,7 +39,7 @@ public class FileHelper {
         
         logger.debug("..");
         
-        InputStream is = StreamHelper.class.getClass().getResourceAsStream(classpath);
+        InputStream is = FileHelper.class.getClass().getResourceAsStream(classpath);
         
         Reader reader = new InputStreamReader(is, "utf-8");
         
@@ -73,7 +73,7 @@ public class FileHelper {
             folder.append((char) (ALPHA_START + mod));
             folder.append('/');
             
-            hash = (hash * RANDOM_SEED) / (2 * (RANDOM_MAX+1)) % (RANDOM_MAX +1);
+            hash = (hash * RANDOM_SEED) / (2 * (RANDOM_MAX+1)) % (RANDOM_MAX+1);
 
         }
 

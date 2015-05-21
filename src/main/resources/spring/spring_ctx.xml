@@ -11,7 +11,7 @@
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd">
 
-    <context:annotation-config />
+    <context:annotation-config/>
 
     <context:component-scan base-package="com.sec.ax.restful"/>
 
@@ -66,6 +66,8 @@
     <bean name="notePersistence" class="com.sec.ax.restful.persistence.impl.NotePersistenceImpl">
         <property name="sqlMapClient" ref="sqlMapClient"/>
     </bean>
+
+    <bean name="propertiesManager" class="com.sec.ax.restful.common.PropertiesManager"/>
 
     <util:map id="validateMap" map-class="java.util.HashMap">
         <entry key="validatingName" value-ref="validatingName"/>

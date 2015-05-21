@@ -48,6 +48,11 @@
             user
         SET
             username = #username#
+            <dynamic>
+                <isNotEmpty prepend="," property="pwd">
+                    pwd = PASSWORD(#pwd#)
+                </isNotEmpty>
+            </dynamic>
         WHERE
             name = LOWER(#name#) AND status = 1
     </update>
@@ -68,13 +73,18 @@
             name = LOWER(#name#) AND status = 1
     </select>
             
-    <select id="count" parameterClass="int" resultClass="int">
+    <select id="count" parameterClass="query" resultClass="int">
         SELECT
             COUNT(idx)
         FROM
             user
         WHERE
             status = 1
+            <dynamic>
+                <isNotNull prepend="AND" property="search">
+                    name LIKE CONCAT('%', LOWER(#search#), '%') OR username LIKE CONCAT('%', LOWER(#search#), '%') 
+                </isNotNull>
+            </dynamic>
     </select>
     
     <select id="list" parameterClass="query" resultMap="userResult">

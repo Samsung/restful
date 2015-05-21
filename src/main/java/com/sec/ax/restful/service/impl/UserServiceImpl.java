@@ -1,11 +1,11 @@
 package com.sec.ax.restful.service.impl;
 
 import java.util.Calendar;
+import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.core.Context;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -19,7 +19,6 @@ import com.sec.ax.restful.persistence.UserPersistence;
 import com.sec.ax.restful.pojo.Query;
 import com.sec.ax.restful.pojo.User;
 import com.sec.ax.restful.service.UserService;
-import com.sec.ax.restful.utils.FormatHelper;
 
 /**
  * 
@@ -35,19 +34,26 @@ public class UserServiceImpl implements UserService {
     private UserPersistence persistence;
     
     /* 
-     * @see com.sec.ax.restful.service.UserService#signup(com.sec.ax.restful.pojo.User, java.lang.Object)
+     * @see com.sec.ax.restful.service.UserService#signup(com.sec.ax.restful.pojo.User)
      */
     @Override
-    public Object signup(User user, Object object) throws DataAccessException {
+    public int signup(User user) throws DataAccessException {
 
         logger.debug("..");
         
-        user.setIdx(persistence.signup(user));
-        user.setSid(FormatHelper.convertNumeral(Constant.USER_BASE_NUMERAL_SYSTEM, user.getIdx()+Constant.USER_SID_BASE_VALUE));
+        return persistence.signup(user);
         
-        object = persistence.sid(user);
+    }
+    
+    /* 
+     * @see com.sec.ax.restful.service.UserService#sid(com.sec.ax.restful.pojo.User)
+     */
+    @Override
+    public int sid(User user) throws DataAccessException {
 
-        return object;
+        logger.debug("..");
+        
+        return persistence.sid(user);
         
     }
 
@@ -55,12 +61,22 @@ public class UserServiceImpl implements UserService {
      * @see com.sec.ax.restful.service.UserService#signin(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.sec.ax.restful.pojo.User)
      */
     @Override
-    public User signin(@Context HttpServletRequest request, @Context HttpServletResponse response, User user) throws DataAccessException, AxCryptException {
+    public User signin(HttpServletRequest request, HttpServletResponse response, User user) throws DataAccessException, AxCryptException {
 
         logger.debug("..");
         
         user = persistence.signin(user);
         
+        return cookie(request, response, user);
+        
+    }
+    
+    /* 
+     * @see com.sec.ax.restful.service.UserService#cookie(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.sec.ax.restful.pojo.User)
+     */
+    @Override
+    public User cookie(HttpServletRequest request, HttpServletResponse response, User user) throws AxCryptException {
+
         if (user != null) {
 
             StringBuffer Ax = new StringBuffer();
@@ -98,7 +114,7 @@ public class UserServiceImpl implements UserService {
      * @see com.sec.ax.restful.service.UserService#signout(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
-    public void signout(@Context HttpServletRequest request, @Context HttpServletResponse response) {
+    public void signout(HttpServletRequest request, HttpServletResponse response) {
         
         Cookie[] cookies = request.getCookies();
         
@@ -127,72 +143,64 @@ public class UserServiceImpl implements UserService {
     }
 
     /* 
-     * @see com.sec.ax.restful.service.UserService#update(com.sec.ax.restful.pojo.User, java.lang.Object)
+     * @see com.sec.ax.restful.service.UserService#update(com.sec.ax.restful.pojo.User)
      */
     @Override
-    public Object update(User user, Object object) throws DataAccessException {
+    public int update(User user) throws DataAccessException {
 
         logger.debug("..");
         
-        object = persistence.update(user);
-        
-        return object;
+        return persistence.update(user);
         
     }
 
     /* 
-     * @see com.sec.ax.restful.service.UserService#delete(com.sec.ax.restful.pojo.User, java.lang.Object)
+     * @see com.sec.ax.restful.service.UserService#delete(com.sec.ax.restful.pojo.User)
      */
     @Override
-    public Object delete(User user, Object object) throws DataAccessException {
+    public int delete(User user) throws DataAccessException {
 
         logger.debug("..");
         
-        object = persistence.delete(user);
-
-        return object;
+        return persistence.delete(user);
         
     }
     
     /* 
-     * @see com.sec.ax.restful.service.UserService#name(java.lang.String, java.lang.Object)
+     * @see com.sec.ax.restful.service.UserService#name(java.lang.String)
      */
     @Override
-    public Object name(String name, Object object) throws DataAccessException {
+    public User name(String name) throws DataAccessException {
 
         logger.debug("..");
         
-        object = persistence.name(name);
-        
-        return object;
+        return persistence.name(name);
         
     }
     
     /*
-     * @see com.sec.ax.restful.service.UserService#count()
+     * @see com.sec.ax.restful.service.UserService#count(com.sec.ax.restful.pojo.Query)
      */
     @Override
-    public int count() throws DataAccessException {
+    public int count(Query query) throws DataAccessException {
 
         logger.debug("..");
         
-        int cnt = persistence.count();
+        int cnt = persistence.count(query);
         
         return cnt;
         
     }
     
     /* 
-     * @see com.sec.ax.restful.service.UserService#list(com.sec.ax.restful.pojo.Query, java.lang.Object)
+     * @see com.sec.ax.restful.service.UserService#list(com.sec.ax.restful.pojo.Query)
      */
     @Override
-    public Object list(Query query, Object object) throws DataAccessException {
+    public List<User> list(Query query) throws DataAccessException {
 
         logger.debug("..");
         
-        object = persistence.list(query);
-        
-        return object;
+        return persistence.list(query);
         
     }
 

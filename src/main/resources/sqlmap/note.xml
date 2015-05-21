@@ -6,17 +6,11 @@
     <typeAlias alias="note" type="com.sec.ax.restful.pojo.Note"/>
     <typeAlias alias="query" type="com.sec.ax.restful.pojo.Query"/>
 
-    <resultMap id="noteResult" class="note" extends="audit.auditResult">
-        <result property="idx" column="idx" javaType="int" jdbcType="INT"/>
-        <result property="subject" column="subject" javaType="String" jdbcType="VARCHAR"/>
-        <result property="content" column="content" javaType="String" jdbcType="VARCHAR"/>
-    </resultMap>
-
     <insert id="create" parameterClass="note">
         INSERT INTO
-            note (sid, subject, content)
+            note (sid, username, subject, content)
         VALUES (
-            #sid#, #subject#, #content#
+            #sid#, #username#, #subject#, #content#
         )
         <selectKey resultClass="int" keyProperty="idx">
             SELECT LAST_INSERT_ID() AS idx
@@ -49,27 +43,41 @@
             idx = #idx# AND status = 1
     </delete>
     
-    <select id="idx" parameterClass="int" resultMap="noteResult">
+    <select id="idx" parameterClass="int" resultClass="note">
         SELECT
-            idx, subject, content, createdate, updatedate
+            idx, username, subject, access, content, createdate, updatedate
         FROM
             note
         WHERE
             idx = #idx# AND status = 1
     </select>
     
-    <select id="count" parameterClass="int" resultClass="int">
+    <update id="access" parameterClass="int">
+        UPDATE
+            note
+        SET
+            access = access + 1
+        WHERE
+            idx = #idx# AND status = 1
+    </update>
+
+    <select id="count" parameterClass="query" resultClass="int">
         SELECT
             COUNT(idx)
         FROM
             note
         WHERE
             status = 1
+            <dynamic prepend="AND">
+                <isNotNull property="search">
+                    (subject LIKE CONCAT('%', #search#, '%') OR content LIKE CONCAT('%', #search#, '%')) 
+                </isNotNull>
+            </dynamic>
     </select>
     
-    <select id="list" parameterClass="query" resultMap="noteResult">
+    <select id="list" parameterClass="query" resultClass="note">
         SELECT
-            idx, subject, content, createdate, updatedate
+            idx, username, subject, access, createdate, updatedate
         FROM
             note
         WHERE

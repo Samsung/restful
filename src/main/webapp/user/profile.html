@@ -2,17 +2,17 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <title>Profile</title>
-        <link rel="stylesheet" type="text/css" href="/restful/css/style.css" />
+        <title>User/Profile</title>
+        <link rel="stylesheet" type="text/css" href="/restful/css/style.css"/>
         <script type="text/javascript" src="/restful/js/restful.js"></script>
         <script type="text/javascript">
             // window.onload
             window.onload = function() {
-                var url = "/restful/api/user/profile";
+                var endpoint = "/restful/api/user/profile";
                 
-                ajaxCall('GET', url, null, null, function(data) {
+                ajaxCall('GET', endpoint, null, null, function(data) {
                         var status = data.status;
-                        if(status == 'OK') {
+                        if (status == 'OK') {
                             success(data);
                         }
                     }, function(data) {
@@ -25,19 +25,23 @@
             function success(data) {
                 var html = "";
                 
-                for (str in data.response) {              
-                    html += str + " : " + data.response[str] + "<br/>";
+                if (data.response != null) {
+                    var user = data.response;
+                    
+                    html += "userid : " + user.name + "<br/>";
+                    html += "username : " + user.username + "<br/>";
+                    html += "role : " + user.role + "<br/>";
                 }
                 
-                html += "<div style=\"text-align:center;\"><button onClick=\"signout()\"><span>Sign Out</span></button></div>";
+                html += "<div style=\"text-align:center;\"><input type=\"button\" value=\"Sign Out\" onClick=\"signout()\"></div>";
                 
-                document.getElementById('me').innerHTML = html;
+                document.getElementById('user').innerHTML = html;
             }
 
             // Fail function
             function fail(data) {
                 var html = data.response;
-                document.getElementById('me').innerHTML = html;
+                document.getElementById('user').innerHTML = html;
             }
             
             // Sign Out
@@ -46,30 +50,27 @@
                 
                 ajaxCall('GET', url, null, null, function(data) {
                         var status = data.status;
-                        if(status == 'OK'){
+                        if (status == 'OK') {
                             location.reload(true);
                         }
                     },
-                    function(data){
+                    function(data) {
                         alert(data.response);
-                  });
+                    }
+                );
             }
-
         </script>
     </head>
     <body>
         <p>Profile</p>
-        <table style="width: 180px;">
+        <table style="width: 200px;">
             <tr>
-                <td colspan="2"><div id="me"></div></td>
+                <td colspan="3"><div id="user"></div></td>
             </tr>
             <tr>
-                <td align="left">
-                    <a href="signin.html">Sign In</a>
-                </td>
-                <td align="right">
-                    <a href="signup.html">Sign Up</a>
-                </td>
+                <td align="left"><a href="signin.html">Sign In</a></td>
+                <td align="center"><a href="signup.html">Sign Up</a></td>
+                <td align="right"><a href="update.html">Setting</a></td>
             </tr>
         </table>
     </body>

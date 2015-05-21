@@ -2,14 +2,12 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <title>Sign In</title>
-        <link rel="stylesheet" type="text/css" href="/restful/css/style.css" />
+        <title>User/Sign In</title>
+        <link rel="stylesheet" type="text/css" href="/restful/css/style.css"/>
         <script type="text/javascript" src="/restful/js/restful.js"></script>
         <script type="text/javascript">
             // Sign In
             function signin() {
-                var url = "/restful/api/user/signin";
-                
                 var userid =  document.getElementById('userid').value;
                 var password =  document.getElementById('password').value;
                 
@@ -26,31 +24,34 @@
                     'pwd' : password
                 };
                 
-                ajaxCall('POST', url, null, params, function(data) {
+                var endpoint = "/restful/api/user/signin";
+                
+                ajaxCall('POST', endpoint, null, params, function(data) {
                         var status = data.status;
-                        if(status == 'OK') {
+                        if (status == 'OK') {
                             location.replace("profile.html"); 
                         }
                     },
                     function(data) {
                         alert(data.response);
-                  });
+                    }
+                );
             }
         </script>
     </head>
     <body>
         <p>Sign In</p>
-        <table style="width: 180px;">
+        <table style="width: 200px;">
             <tr>
-                <td>UserId</td>
+                <td>userid</td>
                 <td><input type="text" name="userid" id="userid" tabindex="1" placeholder=" UserId"></td>
             </tr>
             <tr>
-                <td>Password</td>
+                <td>password</td>
                 <td><input type="password" name="password" id="password" tabindex="1" placeholder=" Password"></td>
             </tr>
             <tr>
-                <td align="center" colspan="2"><button type="submit" onClick="signin()"><span>Sign In</span></button></td>
+                <td align="center" colspan="2"><input type="button" value="Sign In" onClick="signin()"></td>
             </tr>
             <tr>
                 <td align="right" colspan="2"><a href="signup.html">Sign Up</a></td>

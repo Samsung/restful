@@ -1,5 +1,7 @@
 package com.sec.ax.restful.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -20,11 +22,17 @@ public interface UserService {
 
     /**
      * @param user
-     * @param object
      * @return
      * @throws DataAccessException
      */
-    public Object signup(User user, Object object) throws DataAccessException;
+    public int signup(User user) throws DataAccessException;
+    
+    /**
+     * @param user
+     * @return
+     * @throws DataAccessException
+     */
+    public int sid(User user) throws DataAccessException;
 
     /**
      * @param request
@@ -39,45 +47,51 @@ public interface UserService {
     /**
      * @param request
      * @param response
+     * @param user
+     * @return
+     * @throws AxCryptException
+     */
+    public User cookie(HttpServletRequest request, HttpServletResponse response, User user) throws AxCryptException;
+    
+    /**
+     * @param request
+     * @param response
      */
     public void signout(HttpServletRequest request, HttpServletResponse response);
 
     /**
      * @param user
-     * @param object
      * @return
      * @throws DataAccessException
      */
-    public Object update(User user, Object object) throws DataAccessException;
+    public int update(User user) throws DataAccessException;
     
     /**
      * @param user
-     * @param object
      * @return
      * @throws DataAccessException
      */
-    public Object delete(User user, Object object) throws DataAccessException;
+    public int delete(User user) throws DataAccessException;
     
     /**
      * @param name
-     * @param object
      * @return
      * @throws DataAccessException
      */
-    public Object name(String name, Object object) throws DataAccessException;
-    
-    /**
-     * @return
-     * @throws DataAccessException
-     */
-    public int count() throws DataAccessException;
+    public User name(String name) throws DataAccessException;
     
     /**
      * @param query
-     * @param object
      * @return
      * @throws DataAccessException
      */
-    public Object list(Query query, Object object) throws DataAccessException;
+    public int count(Query query) throws DataAccessException;
+    
+    /**
+     * @param query
+     * @return
+     * @throws DataAccessException
+     */
+    public List<User> list(Query query) throws DataAccessException;
 
 }

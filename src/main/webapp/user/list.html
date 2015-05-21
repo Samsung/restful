@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>User/List</title>
+        <link rel="stylesheet" type="text/css" href="/restful/css/style.css"/>
+        <script type="text/javascript" src="/restful/js/restful.js"></script>
+        <script type="text/javascript">
+            // window.onload
+            window.onload = function() {
+                var url = location.href;
+                var params = "";
+                
+                if (url.indexOf('?') > 0) {
+                    params = (url.substring(url.indexOf('?'), url.length));
+                }
+                
+                var endpoint = "/restful/api/user/list" + params;
+                
+                ajaxCall('GET', endpoint, null, null, function(data) {
+                        var status = data.status;
+                        if (status == 'OK') {
+                            success(data);
+                        }
+                    }, function(data) {
+                        fail(data);
+                    }
+                );
+            };
+    
+            // Success function
+            function success(data) {
+                for (str in data.response) {
+                    if (data.response[str] != null && data.response[str] != 0) {
+                        
+                        if (str == "query") {
+                            
+                            var url = location.href;
+                            
+                            if (url.indexOf('?') > 0) {
+                                url = url.substring(0, url.indexOf('?'));
+                            }
+                            
+                            var query = data.response.query;
+                                                        
+                            var pn = query.paging.pn;
+                            var maxPaging = query.paging.maxPaging;
+                            var maxResults = query.paging.maxResults;
+                            var totalResults = query.paging.totalResults;
+                            
+                            if (totalResults > 0) {
+                                var paging = "";
+                                
+                                var current = parseInt((pn - 1) / maxPaging) + 1;
+                                var start = (current - 1) * maxPaging + 1;
+                                var end = (start + maxPaging) - 1;
+                                var total = parseInt(totalResults / maxResults);
+                                
+                                if (totalResults % maxResults > 0) {
+                                    total = total + 1;
+                                }
+                                if (end > total) {
+                                    end = total;
+                                }
+                                
+                                if (start > 1) {
+                                    paging += "<a href=\""+ url + "?pn=1\"> << </a>"; 
+                                } else {
+                                    paging += " << ";
+                                }
+                                if (start > maxPaging) {
+                                    var prev = start - 1;
+                                    paging += "<a href=\"" + url + "?pn=" + prev + "\"> < </a>";
+                                } else {
+                                    paging += " < ";
+                                }
+                                
+                                for (var i = start ; i <= end ; i++) {
+                                    if (i == pn) {
+                                        paging += "<b> " + i + " </b>";
+                                    } else {
+                                        paging += "<a href=\"" + url + "?pn=" + i + "\"> " + i + " </a>";
+                                    }
+                                }
+                                
+                                if (end < total) {
+                                    var next = end + 1;
+                                    paging += "<a href=\"" + url + "?pn=" + next + "\"> > </a>";
+                                } else {
+                                    paging += " > ";
+                                }
+                                if (end < total) {
+                                    paging += "<a href=\"" + url + "?pn=" + total + "\"> >> </a>";
+                                } else {
+                                    paging += " >> ";
+                                }
+                                
+                                document.getElementById('paging').innerHTML = paging;
+                            }
+                            
+                        } else if (str == "object") {
+                            
+                            var update = "/restful/user/update.html";
+                            var object = data.response.object;
+                            
+                            var html = "";
+                            
+                            html += "<table width=\"100%\">";
+                            html += "<tr align=\"center\">";
+                            html += "<td>idx</td>";
+                            html += "<td>userid</td>";
+                            html += "<td>username</td>";
+                            html += "<td>role</td>";
+                            html += "</tr>";
+                            
+                            for (var i = 0 ; i < object.length ; i++) {
+                                var user = object[i];
+                                html += "<tr>";
+                                html += "<td align=\"center\">" + user.idx + "</td>"
+                                html += "<td><a href=\"" + update + "?" + user.name + "\">" + user.name + "</a></td>"
+                                html += "<td>" + user.username + "</td>" 
+                                html += "<td>" + user.role + "</td>"
+                                html += "</tr>";
+                            }
+                            
+                            html += "</table>";
+                            
+                            document.getElementById('user').innerHTML = html;
+                        
+                        }
+                        
+                    }
+                }
+            }
+
+            // Fail function
+            function fail(data) {
+                var html = data.response;
+                document.getElementById('user').innerHTML = html;
+            }
+            
+            // Search user
+            function search() {
+                var url = location.href;
+                
+                if (url.indexOf('?') > 0) {
+                    url = url.substring(0, url.indexOf('?'));
+                }
+                
+                var q =  document.getElementById('search').value;
+                
+                if (q) {
+                    location.href = url + "?q=" + q;
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <p>List</p>
+        <table style="width: 200px;">
+            <tr>
+                <td><div id="user"></div></td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <input type="text" name="search" id="search" tabindex="1" size="10" placeholder=" Search">
+                    <input type="button" value="Search" onClick="search()">
+                </td>
+            </tr>
+            <tr>
+                <td align="center"><div id="paging"></div></td>
+            </tr>
+        </table>
+    </body>
+</html>

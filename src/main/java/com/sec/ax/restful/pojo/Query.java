@@ -27,4 +27,18 @@ public class Query {
         this.paging = paging;
     }
     
+    public static Query setQuery(int pn, String search) {
+        
+        Query query = new Query();
+        
+        Paging paging = new Paging();
+        
+        paging.setPn(pn);
+        
+        query.setSearch(search);
+        query.setPaging(paging);
+        
+        return query;
+        
+    }
 }
