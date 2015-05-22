@@ -78,7 +78,7 @@ public class UserResource extends AbstractResource {
             object = service.sid(user);
 
         } catch (DataAccessException e) {
-            exceptionManager.fireSystemException(new Exception(e));
+            exceptionManager.fireUserException(Constant.ERR_DATA_ACCESS, null);
         }
 
         logger.debug(FormatHelper.printPretty(user));
@@ -110,7 +110,7 @@ public class UserResource extends AbstractResource {
             }
             
         } catch (DataAccessException e) {
-            exceptionManager.fireSystemException(new Exception(e));
+            exceptionManager.fireUserException(Constant.ERR_DATA_ACCESS, null);
         } catch (AxCryptException e) {
             exceptionManager.fireSystemException(new Exception(e));
         }
@@ -154,13 +154,7 @@ public class UserResource extends AbstractResource {
         
         logger.debug("..");
         
-        User me = new User();
-        
-        try {
-            me = getUserPrincipal();
-        } catch (DataAccessException e) {
-            exceptionManager.fireSystemException(new Exception(e));
-        }
+        User me = getUserPrincipal();
         
         logger.debug(FormatHelper.printPretty(me));
         
@@ -201,7 +195,7 @@ public class UserResource extends AbstractResource {
             }
             
         } catch (DataAccessException e) {
-            exceptionManager.fireSystemException(new Exception(e));
+            exceptionManager.fireUserException(Constant.ERR_DATA_ACCESS, null);
         } catch (AxCryptException e) {
             exceptionManager.fireSystemException(new Exception(e));
         }
@@ -245,7 +239,7 @@ public class UserResource extends AbstractResource {
             }
             
         } catch (DataAccessException e) {
-            exceptionManager.fireSystemException(new Exception(e));
+            exceptionManager.fireUserException(Constant.ERR_DATA_ACCESS, null);
         }
 
         logger.debug(FormatHelper.printPretty(user));
@@ -272,7 +266,7 @@ public class UserResource extends AbstractResource {
         try {
             object = service.name(name);
         } catch (DataAccessException e) {
-            exceptionManager.fireSystemException(new Exception(e));
+            exceptionManager.fireUserException(Constant.ERR_DATA_ACCESS, null);
         }
         
         logger.debug(FormatHelper.printPretty(name));
@@ -315,7 +309,7 @@ public class UserResource extends AbstractResource {
             object = list;
 
         } catch (DataAccessException e) {
-            exceptionManager.fireSystemException(new Exception(e));
+            exceptionManager.fireUserException(Constant.ERR_DATA_ACCESS, null);
         }
         
         logger.debug(FormatHelper.printPretty(query));

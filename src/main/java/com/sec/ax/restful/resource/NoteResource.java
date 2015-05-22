@@ -77,7 +77,7 @@ public class NoteResource extends AbstractResource {
             object = service.create(note);
             
         } catch (DataAccessException e) {
-            exceptionManager.fireSystemException(new Exception(e));
+            exceptionManager.fireUserException(Constant.ERR_DATA_ACCESS, null);
         }
 
         logger.debug(FormatHelper.printPretty(note));
@@ -113,7 +113,7 @@ public class NoteResource extends AbstractResource {
             object = service.idx(idx);
             
         } catch (DataAccessException e) {
-            exceptionManager.fireSystemException(new Exception(e));
+            exceptionManager.fireUserException(Constant.ERR_DATA_ACCESS, null);
         }
         
         logger.debug(FormatHelper.printPretty(idx));
@@ -150,7 +150,7 @@ public class NoteResource extends AbstractResource {
             object = service.update(note);
             
         } catch (DataAccessException e) {
-            exceptionManager.fireSystemException(new Exception(e));
+            exceptionManager.fireUserException(Constant.ERR_DATA_ACCESS, null);
         }
 
         logger.debug(FormatHelper.printPretty(note));
@@ -187,7 +187,7 @@ public class NoteResource extends AbstractResource {
             object = service.delete(note);
             
         } catch (DataAccessException e) {
-            exceptionManager.fireSystemException(new Exception(e));
+            exceptionManager.fireUserException(Constant.ERR_DATA_ACCESS, null);
         }
 
         logger.debug(FormatHelper.printPretty(note));
@@ -217,7 +217,7 @@ public class NoteResource extends AbstractResource {
             object = service.idx(idx);
             
         } catch (DataAccessException e) {
-            exceptionManager.fireSystemException(new Exception(e));
+            exceptionManager.fireUserException(Constant.ERR_DATA_ACCESS, null);
         }
         
         logger.debug(FormatHelper.printPretty(idx));
@@ -259,7 +259,7 @@ public class NoteResource extends AbstractResource {
             object = list;
             
         } catch (DataAccessException e) {
-            exceptionManager.fireSystemException(new Exception(e));
+            exceptionManager.fireUserException(Constant.ERR_DATA_ACCESS, null);
         }
         
         logger.debug(FormatHelper.printPretty(query));
