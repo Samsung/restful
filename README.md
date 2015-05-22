@@ -83,7 +83,7 @@ Content-Type: application/json
 ##### Note #####
 ```json
 // Creating a note
-POST /restful/api/note/create
+POST /restful/api/note
 Content-Type: application/json
 {
   "subject": "Hello",
@@ -91,7 +91,7 @@ Content-Type: application/json
 }
 
 // Updating a note
-PUT /restful/api/note/update
+PUT /restful/api/note
 Content-Type: application/json
 {
   "idx": 1,
@@ -100,7 +100,7 @@ Content-Type: application/json
 }
 
 // Deleting a note
-DELETE /restful/api/note/delete
+DELETE /restful/api/note
 Content-Type: application/json
 {
   "idx": 1
