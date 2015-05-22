@@ -6,6 +6,73 @@
         <link rel="stylesheet" type="text/css" href="/restful/css/style.css"/>
         <script type="text/javascript" src="/restful/js/restful.js"></script>
         <script type="text/javascript">
+            // window.onload
+            window.onload = function() {
+                var endpoint = "/restful/api/user/profile";
+                
+                ajaxCall('GET', endpoint, null, null, function(data) {
+                    }, function(data) {
+                        createSignin(data.response);
+                    }
+                );
+            };
+            
+            //create signin 
+            function createSignin(str){
+                var html = '<table>'
+                         + '<tr>'
+            	         + '<td>userid</td>' 
+                         + '<td><input type="text" name="userid" id="userid" tabindex="1" placeholder=" UserId"></td>'
+                         + '</tr>'
+                         + '<tr>'
+                         + '<td>password</td>'
+                         + '<td><input type="password" name="password" id="password" tabindex="1" placeholder=" Password"></td>'
+                         + '</tr>'
+                         + '<tr>'
+                         + '<td align="center" colspan="2"><input type="button" value="Sign In" onClick="signin()"></td>'
+                         + '</tr>'
+                         + '<tr>'
+                         + '<td align="right" colspan="2"><a href="/restful/user/signup.html">Sign Up</a></td>'
+                         + '</tr>'
+                         + '</table>';
+                         
+                var res = '<p>'+ str +'</p>';
+                
+                document.getElementById('table').innerHTML = res + html;
+            }
+            
+            // Sign In
+            function signin() {
+                var userid =  document.getElementById('userid').value;
+                var password =  document.getElementById('password').value;
+                
+                if (!userid) {
+                    alert('Please input your userid');
+                    return;
+                } else if (!password) {
+                    alert('Please insert your password');
+                    return;
+                }
+                
+                var params = {
+                    'name' : userid,
+                    'pwd' : password
+                };
+                
+                var endpoint = "/restful/api/user/signin";
+                
+                ajaxCall('POST', endpoint, null, params, function(data) {
+                        var status = data.status;
+                        if (status == 'OK') {
+                        	location.reload(true);
+                        }
+                    },
+                    function(data) {
+                        alert(data.response);
+                    }
+                );
+            }
+            
             // Sign Up
             function create() {
                 var subject =  document.getElementById('subject').value;
@@ -41,23 +108,25 @@
     </head>
     <body>
         <p>Create</p>
-        <table style="width: 200px;">
-            <tr>
-                <td>
-                    <table>
-                        <tr>
-                            <td>subject</td>
-                            <td><input type="text" name="subject" id="subject" tabindex="1" placeholder=" Subject"></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2"><textarea name="content" id="content" tabindex="1" placeholder=" Content" rows="5" cols="25"></textarea></td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <td align="center"><input type="button" value="Create" onClick="create()"></td>
-            </tr>
-        </table>
+        <div id='table' >
+            <table style="width: 200px;">
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <td>subject</td>
+                                <td><input type="text" name="subject" id="subject" tabindex="1" placeholder=" Subject"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><textarea name="content" id="content" tabindex="1" placeholder=" Content" rows="5" cols="25"></textarea></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center"><input type="button" value="Create" onClick="create()"></td>
+                </tr>
+            </table>
+        </div>
     </body>
 </html>
