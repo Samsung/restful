@@ -18,10 +18,10 @@
             };
             
             //create signin 
-            function createSignin(str){
+            function createSignin(str) {
                 var html = '<table>'
                          + '<tr>'
-            	         + '<td>userid</td>' 
+                         + '<td>userid</td>' 
                          + '<td><input type="text" name="userid" id="userid" tabindex="1" placeholder=" UserId"></td>'
                          + '</tr>'
                          + '<tr>'
@@ -64,7 +64,7 @@
                 ajaxCall('POST', endpoint, null, params, function(data) {
                         var status = data.status;
                         if (status == 'OK') {
-                        	location.reload(true);
+                            location.reload(true);
                         }
                     },
                     function(data) {
@@ -88,7 +88,7 @@
                 
                 var params = {
                     'subject': subject,
-                    'content': content,
+                    'content': content
                 };
                 
                 var endpoint = "/restful/api/note/create";
@@ -108,7 +108,7 @@
     </head>
     <body>
         <p>Create</p>
-        <div id='table' >
+        <div id='table'>
             <table style="width: 200px;">
                 <tr>
                     <td>
