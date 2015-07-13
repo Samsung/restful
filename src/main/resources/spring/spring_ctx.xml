@@ -13,11 +13,11 @@
 
     <context:annotation-config/>
 
-    <context:component-scan base-package="com.sec.ax.restful"/>
+    <context:component-scan base-package="com.samsung.ax.restful"/>
 
-    <bean name="exceptionManager" class="com.sec.ax.restful.common.impl.ExceptionManagerImpl"/>
+    <bean name="exceptionManager" class="com.samsung.ax.restful.common.impl.ExceptionManagerImpl"/>
 
-    <bean name="localizationManager" class="com.sec.ax.restful.common.impl.ResourceBundleMessageSourceProxy"/>
+    <bean name="localizationManager" class="com.samsung.ax.restful.common.impl.ResourceBundleMessageSourceProxy"/>
 
     <bean name="resourceBundle" class="org.springframework.context.support.ResourceBundleMessageSource">
         <property name="basenames">
@@ -33,7 +33,7 @@
         </property>
     </bean>
  
-    <bean id="dataSource" class="com.sec.ax.restful.db.CryptDataSource" destroy-method="close">
+    <bean id="dataSource" class="com.samsung.ax.restful.db.CryptDataSource" destroy-method="close">
         <property name="driverClassName" value="${jdbc.driver}"/>
         <property name="url" value="${jdbc.url}"/>
         <property name="username" value="${jdbc.username}"/>
@@ -49,25 +49,25 @@
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
-    <bean name="userResource" class="com.sec.ax.restful.resource.UserResource"/>
-    <bean name="userService" class="com.sec.ax.restful.service.impl.UserServiceImpl"/>
-    <bean name="userPersistence" class="com.sec.ax.restful.persistence.impl.UserPersistenceImpl">
+    <bean name="userResource" class="com.samsung.ax.restful.resource.UserResource"/>
+    <bean name="userService" class="com.samsung.ax.restful.service.impl.UserServiceImpl"/>
+    <bean name="userPersistence" class="com.samsung.ax.restful.persistence.impl.UserPersistenceImpl">
         <property name="sqlMapClient" ref="sqlMapClient"/>
     </bean>
 
-    <bean name="bbsResource" class="com.sec.ax.restful.resource.BBSResource"/>
-    <bean name="bbsService" class="com.sec.ax.restful.service.impl.BBSServiceImpl"/>
-    <bean name="bbsPersistence" class="com.sec.ax.restful.persistence.impl.BBSPersistenceImpl">
+    <bean name="bbsResource" class="com.samsung.ax.restful.resource.BBSResource"/>
+    <bean name="bbsService" class="com.samsung.ax.restful.service.impl.BBSServiceImpl"/>
+    <bean name="bbsPersistence" class="com.samsung.ax.restful.persistence.impl.BBSPersistenceImpl">
         <property name="sqlMapClient" ref="sqlMapClient"/>
     </bean>
     
-    <bean name="noteResource" class="com.sec.ax.restful.resource.NoteResource"/>
-    <bean name="noteService" class="com.sec.ax.restful.service.impl.NoteServiceImpl"/>
-    <bean name="notePersistence" class="com.sec.ax.restful.persistence.impl.NotePersistenceImpl">
+    <bean name="noteResource" class="com.samsung.ax.restful.resource.NoteResource"/>
+    <bean name="noteService" class="com.samsung.ax.restful.service.impl.NoteServiceImpl"/>
+    <bean name="notePersistence" class="com.samsung.ax.restful.persistence.impl.NotePersistenceImpl">
         <property name="sqlMapClient" ref="sqlMapClient"/>
     </bean>
 
-    <bean name="propertiesManager" class="com.sec.ax.restful.common.PropertiesManager"/>
+    <bean name="propertiesManager" class="com.samsung.ax.restful.common.PropertiesManager"/>
 
     <util:map id="validateMap" map-class="java.util.HashMap">
         <entry key="validatingName" value-ref="validatingName"/>
@@ -76,9 +76,9 @@
         <entry key="missingContent" value-ref="missingContent"/>
     </util:map>
     
-    <bean id="validatingName" class="com.sec.ax.restful.validate.user.ValidatingName"/>
-    <bean id="missingIdx" class="com.sec.ax.restful.validate.note.MissingIdx"/>
-    <bean id="missingSubject" class="com.sec.ax.restful.validate.note.MissingSubject"/>
-    <bean id="missingContent" class="com.sec.ax.restful.validate.note.MissingContent"/>
+    <bean id="validatingName" class="com.samsung.ax.restful.validate.user.ValidatingName"/>
+    <bean id="missingIdx" class="com.samsung.ax.restful.validate.note.MissingIdx"/>
+    <bean id="missingSubject" class="com.samsung.ax.restful.validate.note.MissingSubject"/>
+    <bean id="missingContent" class="com.samsung.ax.restful.validate.note.MissingContent"/>
     
 </beans>

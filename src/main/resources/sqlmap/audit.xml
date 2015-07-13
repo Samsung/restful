@@ -3,7 +3,7 @@
 
 <sqlMap namespace="audit">
 
-    <typeAlias alias="audit" type="com.sec.ax.restful.pojo.Audit"/>
+    <typeAlias alias="audit" type="com.samsung.ax.restful.pojo.Audit"/>
 
     <resultMap id="auditResult" class="audit">
         <result property="createdate" column="createdate" javaType="java.util.Date" jdbcType="TIMESTAMP"/>

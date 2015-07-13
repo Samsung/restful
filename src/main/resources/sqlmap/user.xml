@@ -3,22 +3,22 @@
 
 <sqlMap namespace="user">
 
-    <typeAlias alias="user" type="com.sec.ax.restful.pojo.User"/>
-    <typeAlias alias="query" type="com.sec.ax.restful.pojo.Query"/>
+    <typeAlias alias="user" type="com.samsung.ax.restful.pojo.User"/>
+    <typeAlias alias="query" type="com.samsung.ax.restful.pojo.Query"/>
 
     <resultMap id="userResult" class="user" extends="audit.auditResult">
         <result property="idx" column="idx" javaType="int" jdbcType="INT"/>
         <result property="name" column="name" javaType="String" jdbcType="VARCHAR"/>
         <result property="sid" column="sid" javaType="String" jdbcType="VARCHAR"/>
         <result property="username" column="username" javaType="String" jdbcType="VARCHAR"/>
-        <result property="role" column="role" javaType="com.sec.ax.restful.pojo.Role" jdbcType="VARCHAR"/>
+        <result property="role" column="role" javaType="com.samsung.ax.restful.pojo.Role" jdbcType="VARCHAR"/>
     </resultMap>
 
     <insert id="signup" parameterClass="user">
         INSERT INTO
             user (name, pwd, sid, username, role)
         VALUES (
-            LOWER(#name#), PASSWORD(#pwd#), #sid#, #username#, #role,javaType=com.sec.ax.restful.pojo.Role,jdbcType=VARCHAR#
+            LOWER(#name#), PASSWORD(#pwd#), #sid#, #username#, #role,javaType=com.samsung.ax.restful.pojo.Role,jdbcType=VARCHAR#
         )
         <selectKey resultClass="int" keyProperty="idx">
             SELECT LAST_INSERT_ID() AS idx
