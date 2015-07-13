@@ -5,7 +5,7 @@
 
     <settings useStatementNamespaces="true" cacheModelsEnabled="false"/>
 
-    <typeHandler javaType="com.sec.ax.restful.pojo.Role" jdbcType="VARCHAR" callback="com.sec.ax.restful.pojo.RoleTypeHandlerCallback"/> 
+    <typeHandler javaType="com.samsung.ax.restful.pojo.Role" jdbcType="VARCHAR" callback="com.samsung.ax.restful.pojo.RoleTypeHandlerCallback"/> 
 
     <sqlMap resource="sqlmap/audit.xml"/>
     <sqlMap resource="sqlmap/user.xml"/>
