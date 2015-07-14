@@ -5,8 +5,7 @@ import java.io.InputStream;
 
 import org.springframework.dao.DataAccessException;
 
-import com.samsung.ax.restful.pojo.User;
-
+import com.samsung.ax.restful.pojo.UserPrincipal;
 
 /**
  * 
@@ -23,6 +22,6 @@ public interface BBSService {
      * @return
      * @throws DataAccessException
      */
-    public Object upload(User user, InputStream is, String filename) throws IOException;
+    public Object upload(UserPrincipal user, InputStream is, String filename) throws IOException;
     
 }

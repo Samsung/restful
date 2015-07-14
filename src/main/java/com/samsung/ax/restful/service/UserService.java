@@ -11,7 +11,6 @@ import com.samsung.ax.restful.crypt.AxCryptException;
 import com.samsung.ax.restful.pojo.Query;
 import com.samsung.ax.restful.pojo.User;
 
-
 /**
  * 
  * @author heesik.jeon

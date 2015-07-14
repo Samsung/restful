@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 
 import com.samsung.ax.restful.annotation.RolesAllowed;
 import com.samsung.ax.restful.annotation.ValidatedBy;
-import com.samsung.ax.restful.common.Constant;
+import com.samsung.ax.restful.common.Constants;
 import com.samsung.ax.restful.common.PropertiesManager;
 import com.samsung.ax.restful.pojo.List;
 import com.samsung.ax.restful.pojo.Note;
@@ -28,7 +28,7 @@ import com.samsung.ax.restful.pojo.Paging;
 import com.samsung.ax.restful.pojo.Query;
 import com.samsung.ax.restful.pojo.ResponseElement;
 import com.samsung.ax.restful.pojo.Role;
-import com.samsung.ax.restful.pojo.User;
+import com.samsung.ax.restful.pojo.UserPrincipal;
 import com.samsung.ax.restful.service.NoteService;
 import com.samsung.ax.restful.utils.FormatHelper;
 
@@ -69,7 +69,7 @@ public class NoteResource extends AbstractResource {
         
         try {
             
-            User me = getUserPrincipal();
+            UserPrincipal me = getUserPrincipal();
             
             note.setSid(me.getSid());
             note.setUsername(me.getUsername());
@@ -77,7 +77,7 @@ public class NoteResource extends AbstractResource {
             object = service.create(note);
             
         } catch (DataAccessException e) {
-            exceptionManager.fireUserException(Constant.ERR_DATA_ACCESS, null);
+            exceptionManager.fireUserException(Constants.ERR_DATA_ACCESS, null);
         }
 
         logger.debug(FormatHelper.printPretty(note));
@@ -103,17 +103,17 @@ public class NoteResource extends AbstractResource {
 
         try {
             
-            User me = getUserPrincipal();
+        	UserPrincipal me = getUserPrincipal();
             String sid = service.sid(idx);
 
             if (Role.User.equals(me.getRole()) && sid != null && !StringUtils.equals(me.getSid(), sid)) {
-                exceptionManager.fireUserException(Constant.ERR_USER_AUTHORIZATION_FAILED, new Object[] {me.getName()});
+                exceptionManager.fireUserException(Constants.ERR_USER_AUTHORIZATION_FAILED, new Object[] {me.getName()});
             }
 
             object = service.idx(idx);
             
         } catch (DataAccessException e) {
-            exceptionManager.fireUserException(Constant.ERR_DATA_ACCESS, null);
+            exceptionManager.fireUserException(Constants.ERR_DATA_ACCESS, null);
         }
         
         logger.debug(FormatHelper.printPretty(idx));
@@ -140,17 +140,17 @@ public class NoteResource extends AbstractResource {
 
         try {
             
-            User me = getUserPrincipal();
+        	UserPrincipal me = getUserPrincipal();
             String sid = service.sid(note.getIdx());
 
             if (Role.User.equals(me.getRole()) && sid != null && !StringUtils.equals(me.getSid(), sid)) {
-                exceptionManager.fireUserException(Constant.ERR_USER_AUTHORIZATION_FAILED, new Object[] {me.getName()});
+                exceptionManager.fireUserException(Constants.ERR_USER_AUTHORIZATION_FAILED, new Object[] {me.getName()});
             }
             
             object = service.update(note);
             
         } catch (DataAccessException e) {
-            exceptionManager.fireUserException(Constant.ERR_DATA_ACCESS, null);
+            exceptionManager.fireUserException(Constants.ERR_DATA_ACCESS, null);
         }
 
         logger.debug(FormatHelper.printPretty(note));
@@ -177,17 +177,17 @@ public class NoteResource extends AbstractResource {
 
         try {
             
-            User me = getUserPrincipal();
+        	UserPrincipal me = getUserPrincipal();
             String sid = service.sid(note.getIdx());
 
             if (Role.User.equals(me.getRole()) && sid != null && !StringUtils.equals(me.getSid(), sid)) {
-                exceptionManager.fireUserException(Constant.ERR_USER_AUTHORIZATION_FAILED, new Object[] {me.getName()});
+                exceptionManager.fireUserException(Constants.ERR_USER_AUTHORIZATION_FAILED, new Object[] {me.getName()});
             }
 
             object = service.delete(note);
             
         } catch (DataAccessException e) {
-            exceptionManager.fireUserException(Constant.ERR_DATA_ACCESS, null);
+            exceptionManager.fireUserException(Constants.ERR_DATA_ACCESS, null);
         }
 
         logger.debug(FormatHelper.printPretty(note));
@@ -217,7 +217,7 @@ public class NoteResource extends AbstractResource {
             object = service.idx(idx);
             
         } catch (DataAccessException e) {
-            exceptionManager.fireUserException(Constant.ERR_DATA_ACCESS, null);
+            exceptionManager.fireUserException(Constants.ERR_DATA_ACCESS, null);
         }
         
         logger.debug(FormatHelper.printPretty(idx));
@@ -247,8 +247,8 @@ public class NoteResource extends AbstractResource {
             
             Paging paging = query.getPaging();
             
-            paging.setMaxPaging(Integer.parseInt(properties.getProperty(Constant.LIST_MAX_PAGING)));
-            paging.setMaxResults(Integer.parseInt(properties.getProperty(Constant.LIST_MAX_RESULTS)));
+            paging.setMaxPaging(Integer.parseInt(properties.getProperty(Constants.LIST_MAX_PAGING)));
+            paging.setMaxResults(Integer.parseInt(properties.getProperty(Constants.LIST_MAX_RESULTS)));
             paging.setTotalResults(service.count());
             
             List list = new List();
@@ -259,7 +259,7 @@ public class NoteResource extends AbstractResource {
             object = list;
             
         } catch (DataAccessException e) {
-            exceptionManager.fireUserException(Constant.ERR_DATA_ACCESS, null);
+            exceptionManager.fireUserException(Constants.ERR_DATA_ACCESS, null);
         }
         
         logger.debug(FormatHelper.printPretty(query));

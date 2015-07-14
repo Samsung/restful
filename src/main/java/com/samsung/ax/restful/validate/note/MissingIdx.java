@@ -2,7 +2,7 @@ package com.samsung.ax.restful.validate.note;
 
 import java.util.List;
 
-import com.samsung.ax.restful.common.Constant;
+import com.samsung.ax.restful.common.Constants;
 import com.samsung.ax.restful.pojo.Note;
 import com.samsung.ax.restful.validate.Error;
 
@@ -21,7 +21,7 @@ public class MissingIdx extends AbstractNoteValidate {
     public void validate(Note target, List<Error> error) {
 
         if (target.getIdx() <= 0) {
-            error.add(new Error(Constant.ERR_MANDATORY_MISSING, new Object[] {Constant.NOTE_IDX}));
+            error.add(new Error(Constants.ERR_MANDATORY_MISSING, new Object[] {Constants.NOTE_IDX}));
         }
         
     }

@@ -50,6 +50,15 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- ax-restful-framework -->
+        <dependency>
+            <groupId>ax</groupId>
+            <artifactId>ax-restful-framework</artifactId>
+            <version>1.0.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/ax-restful-framework.jar</systemPath>
+        </dependency>
+        
         <!-- spring -->
         <dependency>
             <groupId>org.springframework</groupId>

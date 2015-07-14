@@ -1,25 +1,20 @@
 package com.samsung.ax.restful.pojo;
 
-import java.security.Principal;
-
-import javax.xml.bind.annotation.XmlRootElement;
-
 /**
- * 
- * @author ax
+ *
+ * @author heesik.jeon
  *
  */
 
-@XmlRootElement
-public class User extends Audit implements Principal {
-
+public class User extends Audit {
+    
     private int idx;
     
-    private String name;     // UserId
+    private String name; // UserId
     private String pwd;
     
     private String sid;
-    private String username; // UserName
+    private String username;
     private Role role; 
     private int status;
     
@@ -33,7 +28,6 @@ public class User extends Audit implements Principal {
         this.idx = idx;
     }
 
-    @Override
     public String getName() {
         return name;
     }

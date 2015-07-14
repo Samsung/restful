@@ -12,7 +12,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 
-import com.samsung.ax.restful.common.Constant;
+import com.samsung.ax.restful.common.Constants;
 import com.samsung.ax.restful.crypt.AxCryptException;
 import com.samsung.ax.restful.crypt.aes.AxCrypt;
 import com.samsung.ax.restful.persistence.UserPersistence;
@@ -97,7 +97,7 @@ public class UserServiceImpl implements UserService {
             Cookie cookie = new Cookie("Ax", crypted);
             
 //            cookie.setDomain(Constant.COOKIE_DOMAIN);
-            cookie.setMaxAge(Constant.COOKIE_MAX_AGE);
+            cookie.setMaxAge(Constants.COOKIE_MAX_AGE);
             cookie.setPath("/");
 
             response.addCookie(cookie);
@@ -124,10 +124,10 @@ public class UserServiceImpl implements UserService {
                 
                 logger.debug(cookie.getName() + ": " + cookie.getValue());
                 
-                if (StringUtils.equals(Constant.COOKIE_USER_KEY, cookie.getName())) {
+                if (StringUtils.equals(Constants.COOKIE_USER_KEY, cookie.getName())) {
 
 //                    cookie.setDomain(Constant.COOKIE_DOMAIN);
-                    cookie.setMaxAge(Constant.COOKIE_EXPIRY);
+                    cookie.setMaxAge(Constants.COOKIE_EXPIRY);
                     cookie.setPath("/");
 
                     response.addCookie(cookie);
