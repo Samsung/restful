@@ -23,7 +23,7 @@ import org.springframework.stereotype.Component;
 
 import com.samsung.ax.restful.annotation.RolesAllowed;
 import com.samsung.ax.restful.annotation.ValidatedBy;
-import com.samsung.ax.restful.common.Constant;
+import com.samsung.ax.restful.common.Constants;
 import com.samsung.ax.restful.common.PropertiesManager;
 import com.samsung.ax.restful.crypt.AxCryptException;
 import com.samsung.ax.restful.pojo.List;
@@ -32,6 +32,7 @@ import com.samsung.ax.restful.pojo.Query;
 import com.samsung.ax.restful.pojo.ResponseElement;
 import com.samsung.ax.restful.pojo.Role;
 import com.samsung.ax.restful.pojo.User;
+import com.samsung.ax.restful.pojo.UserPrincipal;
 import com.samsung.ax.restful.service.UserService;
 import com.samsung.ax.restful.utils.FormatHelper;
 
@@ -73,12 +74,12 @@ public class UserResource extends AbstractResource {
             
             user.setRole(Role.User);
             user.setIdx(service.signup(user));
-            user.setSid(FormatHelper.convertNumeral(Constant.USER_BASE_NUMERAL_SYSTEM, user.getIdx()+Constant.USER_SID_BASE_VALUE));
+            user.setSid(FormatHelper.convertNumeral(Constants.USER_BASE_NUMERAL_SYSTEM, user.getIdx()+Constants.USER_SID_BASE_VALUE));
             
             object = service.sid(user);
 
         } catch (DataAccessException e) {
-            exceptionManager.fireUserException(Constant.ERR_DATA_ACCESS, null);
+            exceptionManager.fireUserException(Constants.ERR_DATA_ACCESS, null);
         }
 
         logger.debug(FormatHelper.printPretty(user));
@@ -106,11 +107,11 @@ public class UserResource extends AbstractResource {
             user = service.signin(request, response, user);
             
             if (user == null) {
-                exceptionManager.fireUserException(Constant.ERR_USER_LOGIN_FAILED, null);
+                exceptionManager.fireUserException(Constants.ERR_USER_LOGIN_FAILED, null);
             }
             
         } catch (DataAccessException e) {
-            exceptionManager.fireUserException(Constant.ERR_DATA_ACCESS, null);
+            exceptionManager.fireUserException(Constants.ERR_DATA_ACCESS, null);
         } catch (AxCryptException e) {
             exceptionManager.fireSystemException(new Exception(e));
         }
@@ -154,7 +155,7 @@ public class UserResource extends AbstractResource {
         
         logger.debug("..");
         
-        User me = getUserPrincipal();
+        UserPrincipal me = getUserPrincipal();
         
         logger.debug(FormatHelper.printPretty(me));
         
@@ -180,24 +181,24 @@ public class UserResource extends AbstractResource {
 
         try {
             
-            User me = getUserPrincipal();
+        	UserPrincipal me = getUserPrincipal();
             User target = (User) service.name(user.getName());
             
             if (target == null) {
-                exceptionManager.fireUserException(Constant.ERR_USER_NOT_FOUND, new Object[] {user.getName()});
+                exceptionManager.fireUserException(Constants.ERR_USER_NOT_FOUND, new Object[] {user.getName()});
             } else if (Role.User.equals(me.getRole()) && !StringUtils.equals(me.getSid(), target.getSid())) {
-                exceptionManager.fireUserException(Constant.ERR_USER_AUTHORIZATION_FAILED, new Object[] {me.getName()});
+                exceptionManager.fireUserException(Constants.ERR_USER_AUTHORIZATION_FAILED, new Object[] {me.getName()});
             }
             
             object = service.update(user);
             
             if (StringUtils.equals(me.getSid(), target.getSid())) {
-                me.setUsername(user.getUsername());
-                service.cookie(request, response, me);
+//                me.setUsername(user.getUsername()); // TODO delete?
+                service.cookie(request, response, user);
             }
             
         } catch (DataAccessException e) {
-            exceptionManager.fireUserException(Constant.ERR_DATA_ACCESS, null);
+            exceptionManager.fireUserException(Constants.ERR_DATA_ACCESS, null);
         } catch (AxCryptException e) {
             exceptionManager.fireSystemException(new Exception(e));
         }
@@ -227,11 +228,13 @@ public class UserResource extends AbstractResource {
 
         try {
             
-            User me = getUserPrincipal();
+        	UserPrincipal me = getUserPrincipal();
             User target = (User) service.name(user.getName());
 
-            if (Role.User.equals(me.getRole()) && target != null && !StringUtils.equals(me.getSid(), target.getSid())) {
-                exceptionManager.fireUserException(Constant.ERR_USER_AUTHORIZATION_FAILED, new Object[] {me.getName()});
+            if (target == null) {
+                exceptionManager.fireUserException(Constants.ERR_USER_NOT_FOUND, new Object[] {user.getName()});
+            } else if (Role.User.equals(me.getRole()) && !StringUtils.equals(me.getSid(), target.getSid())) {
+                exceptionManager.fireUserException(Constants.ERR_USER_AUTHORIZATION_FAILED, new Object[] {me.getName()});
             }
 
             object = service.delete(user);
@@ -241,7 +244,7 @@ public class UserResource extends AbstractResource {
             }
             
         } catch (DataAccessException e) {
-            exceptionManager.fireUserException(Constant.ERR_DATA_ACCESS, null);
+            exceptionManager.fireUserException(Constants.ERR_DATA_ACCESS, null);
         }
 
         logger.debug(FormatHelper.printPretty(user));
@@ -268,7 +271,7 @@ public class UserResource extends AbstractResource {
         try {
             object = service.name(name);
         } catch (DataAccessException e) {
-            exceptionManager.fireUserException(Constant.ERR_DATA_ACCESS, null);
+            exceptionManager.fireUserException(Constants.ERR_DATA_ACCESS, null);
         }
         
         logger.debug(FormatHelper.printPretty(name));
@@ -299,8 +302,8 @@ public class UserResource extends AbstractResource {
 
             Paging paging = query.getPaging();
             
-            paging.setMaxPaging(Integer.parseInt(properties.getProperty(Constant.LIST_MAX_PAGING)));
-            paging.setMaxResults(Integer.parseInt(properties.getProperty(Constant.LIST_MAX_RESULTS)));
+            paging.setMaxPaging(Integer.parseInt(properties.getProperty(Constants.LIST_MAX_PAGING)));
+            paging.setMaxResults(Integer.parseInt(properties.getProperty(Constants.LIST_MAX_RESULTS)));
             paging.setTotalResults(service.count(query));
             
             List list = new List();
@@ -311,7 +314,7 @@ public class UserResource extends AbstractResource {
             object = list;
 
         } catch (DataAccessException e) {
-            exceptionManager.fireUserException(Constant.ERR_DATA_ACCESS, null);
+            exceptionManager.fireUserException(Constants.ERR_DATA_ACCESS, null);
         }
         
         logger.debug(FormatHelper.printPretty(query));

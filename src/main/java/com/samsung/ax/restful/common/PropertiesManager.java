@@ -25,7 +25,7 @@ public class PropertiesManager {
         InputStream is = null;
         
         try {
-            is = this.getClass().getResourceAsStream(Constant.PROPERTIES_CLASSPATH);
+            is = this.getClass().getResourceAsStream(Constants.PROPERTIES_CLASSPATH);
             
             properties = new Properties();
             properties.load(is);

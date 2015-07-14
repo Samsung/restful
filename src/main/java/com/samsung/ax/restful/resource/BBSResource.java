@@ -20,7 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.samsung.ax.restful.annotation.RolesAllowed;
-import com.samsung.ax.restful.common.Constant;
+import com.samsung.ax.restful.common.Constants;
 import com.samsung.ax.restful.pojo.ResponseElement;
 import com.samsung.ax.restful.pojo.Role;
 import com.samsung.ax.restful.service.BBSService;
@@ -61,11 +61,11 @@ public class BBSResource extends AbstractResource {
             object = service.upload(getUserPrincipal(), is, fdcd.getFileName());
             
             if (object == null) {
-                exceptionManager.fireUserException(Constant.ERR_FILE_MISSING, null);
+                exceptionManager.fireUserException(Constants.ERR_FILE_MISSING, null);
             }
             
         } catch (java.io.FileNotFoundException e) {
-            exceptionManager.fireUserException(Constant.ERR_FILE_MISSING, null);
+            exceptionManager.fireUserException(Constants.ERR_FILE_MISSING, null);
         } catch (IOException e) {
             exceptionManager.fireSystemException(new Exception(e));
         }
@@ -86,7 +86,7 @@ public class BBSResource extends AbstractResource {
         
         try {
             
-            String hash = FileHelper.hashdir(Constant.FILE_BASE_PATH, getUserPrincipal().getName(), Constant.FILE_BASE_DEPTH);
+            String hash = FileHelper.hashdir(Constants.FILE_BASE_PATH, getUserPrincipal().getName(), Constants.FILE_BASE_DEPTH);
             String filepath = new StringBuffer(hash).append(filename).toString();
 
             File file = new File(filepath);

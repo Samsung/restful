@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.samsung.ax.restful.common.Constant;
+import com.samsung.ax.restful.common.Constants;
 import com.samsung.ax.restful.pojo.User;
 import com.samsung.ax.restful.service.UserService;
 import com.samsung.ax.restful.validate.Error;
@@ -30,11 +30,11 @@ public class ValidatingName extends AbstractUserValidate {
     public void validate(User target, List<Error> error) {
         
         if (service.name(target.getName()) != null) {
-            error.add(new Error(Constant.ERR_USER_NAME_DUPLICATED, new Object[] {target.getName()}));
-        } else if (target.getName().length() < Constant.USER_NAME_MIN_LENGTH || target.getName().length() > Constant.USER_NAME_MAX_LENGTH) {
-            error.add(new Error(Constant.ERR_USER_NAME_LENGTH, new Object[] {Constant.USER_NAME_MIN_LENGTH, Constant.USER_NAME_MAX_LENGTH}));
+            error.add(new Error(Constants.ERR_USER_NAME_DUPLICATED, new Object[] {target.getName()}));
+        } else if (target.getName().length() < Constants.USER_NAME_MIN_LENGTH || target.getName().length() > Constants.USER_NAME_MAX_LENGTH) {
+            error.add(new Error(Constants.ERR_USER_NAME_LENGTH, new Object[] {Constants.USER_NAME_MIN_LENGTH, Constants.USER_NAME_MAX_LENGTH}));
         } else if (!isNamePattern(target.getName())) {
-            error.add(new Error(Constant.ERR_USER_NAME_PATTERN, null));
+            error.add(new Error(Constants.ERR_USER_NAME_PATTERN, null));
         }
         
     }

@@ -9,9 +9,9 @@ import java.io.OutputStream;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.samsung.ax.restful.common.Constant;
+import com.samsung.ax.restful.common.Constants;
 import com.samsung.ax.restful.persistence.BBSPersistence;
-import com.samsung.ax.restful.pojo.User;
+import com.samsung.ax.restful.pojo.UserPrincipal;
 import com.samsung.ax.restful.service.BBSService;
 import com.samsung.ax.restful.utils.FileHelper;
 
@@ -29,14 +29,14 @@ public class BBSServiceImpl implements BBSService {
     private BBSPersistence persistence;
 
     /* 
-     * @see com.samsung.ax.restful.service.BBSService#uploadUser(com.samsung.ax.restful.pojo.User, java.io.InputStream, java.lang.String)
+     * @see com.samsung.ax.restful.service.BBSService#uploadUser(com.samsung.ax.restful.pojo.UserPrincipal, java.io.InputStream, java.lang.String)
      */
     @Override
-    public Object upload(User user, InputStream is, String filename) throws IOException {
+    public Object upload(UserPrincipal user, InputStream is, String filename) throws IOException {
         
         logger.debug("..");
         
-        String hash = FileHelper.hashdir(Constant.FILE_BASE_PATH, user.getName(), Constant.FILE_BASE_DEPTH);
+        String hash = FileHelper.hashdir(Constants.FILE_BASE_PATH, user.getName(), Constants.FILE_BASE_DEPTH);
         
         File filepath = new File(hash);
         

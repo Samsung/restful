@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.samsung.ax.restful.common.Constant;
+import com.samsung.ax.restful.common.Constants;
 import com.samsung.ax.restful.pojo.Note;
 import com.samsung.ax.restful.validate.Error;
 
@@ -23,7 +23,7 @@ public class MissingSubject extends AbstractNoteValidate {
     public void validate(Note target, List<Error> error) {
 
         if (StringUtils.isBlank(target.getSubject())) {
-            error.add(new Error(Constant.ERR_MANDATORY_MISSING, new Object[] {Constant.NOTE_SUBJECT}));
+            error.add(new Error(Constants.ERR_MANDATORY_MISSING, new Object[] {Constants.NOTE_SUBJECT}));
         }
         
     }

@@ -10,7 +10,7 @@ import junit.framework.TestCase;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
-import com.samsung.ax.restful.common.Constant;
+import com.samsung.ax.restful.common.Constants;
 import com.samsung.ax.restful.utils.FileHelper;
 
 /**
@@ -80,7 +80,7 @@ public class FileHelperTest extends TestCase {
             String input = "ax";
             int depth = 2;
             
-            logger.debug(FileHelper.hashdir(Constant.FILE_BASE_PATH, input, depth));
+            logger.debug(FileHelper.hashdir(Constants.FILE_BASE_PATH, input, depth));
             
         } catch (Exception e) {
             fail(e.toString());
