@@ -1,3 +1,7 @@
+#### Release v0.4.5 ####
+Fix count of results (note)
+Handle note not found
+
 #### Release v0.4.4 ####
 Separate framework and service
 
@@ -11,7 +15,7 @@ Add collection for postman
 Add list for user management
 
 #### Release v0.4.0 ####
-Fix count of results
+Fix count of results (user)
 
 #### Release v0.3.9 ####
 Add sign out after user applies to withdraw from member

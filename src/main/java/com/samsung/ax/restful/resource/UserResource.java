@@ -57,6 +57,129 @@ public class UserResource extends AbstractResource {
     private PropertiesManager properties;
     
     /**
+	 * @param request
+	 * @param response
+	 * @param user
+	 * @return
+	 */
+	@POST
+	@Path("/signin")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public ResponseElement signin(@Context HttpServletRequest request, @Context HttpServletResponse response, User user) {
+	    
+	    logger.debug("..");
+	    
+	    try {
+	        
+	        user = service.signin(request, response, user);
+	        
+	        if (user == null) {
+	            exceptionManager.fireUserException(Constants.ERR_USER_LOGIN_FAILED, null);
+	        }
+	        
+	    } catch (DataAccessException e) {
+	        exceptionManager.fireUserException(Constants.ERR_DATA_ACCESS, null);
+	    } catch (AxCryptException e) {
+	        exceptionManager.fireSystemException(new Exception(e));
+	    }
+	    
+	    logger.debug(FormatHelper.printPretty(user));
+	    
+	    return ResponseElement.newSuccessInstance(true);
+	    
+	}
+	
+	/**
+	 * @param request
+	 * @param response
+	 * @param user
+	 * @return
+	 */
+	@PUT
+	@Path("/update")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@RolesAllowed({Role.Admin,Role.User})
+	public ResponseElement update(@Context HttpServletRequest request, @Context HttpServletResponse response, User user) {
+	    
+	    logger.debug("..");
+	    
+	    Object object = new Object();
+	
+	    try {
+	        
+	    	UserPrincipal me = getUserPrincipal();
+	        User target = (User) service.name(user.getName());
+	        
+	        if (target == null) {
+	            exceptionManager.fireUserException(Constants.ERR_USER_NOT_FOUND, new Object[] {user.getName()});
+	        } else if (Role.User.equals(me.getRole()) && !StringUtils.equals(me.getSid(), target.getSid())) {
+	            exceptionManager.fireUserException(Constants.ERR_USER_AUTHORIZATION_FAILED, new Object[] {me.getName()});
+	        }
+	        
+	        object = service.update(user);
+	        
+	        if (StringUtils.equals(me.getSid(), target.getSid())) {
+	            service.cookie(request, response, user);
+	        }
+	        
+	    } catch (DataAccessException e) {
+	        exceptionManager.fireUserException(Constants.ERR_DATA_ACCESS, null);
+	    } catch (AxCryptException e) {
+	        exceptionManager.fireSystemException(new Exception(e));
+	    }
+	
+	    logger.debug(FormatHelper.printPretty(user));
+	    logger.debug(FormatHelper.printPretty(object));
+	    
+	    return ResponseElement.newSuccessInstance(object);
+	
+	}
+	
+	/**
+	 * @param request
+	 * @param response
+	 * @param user
+	 * @return
+	 */
+	@DELETE
+	@Path("/delete")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@RolesAllowed({Role.Admin,Role.User})
+	public ResponseElement delete(@Context HttpServletRequest request, @Context HttpServletResponse response, User user) {
+	    
+	    logger.debug("..");
+	    
+	    Object object = new Object();
+	
+	    try {
+	        
+	    	UserPrincipal me = getUserPrincipal();
+	        User target = (User) service.name(user.getName());
+	
+	        if (target == null) {
+	            exceptionManager.fireUserException(Constants.ERR_USER_NOT_FOUND, new Object[] {user.getName()});
+	        } else if (Role.User.equals(me.getRole()) && !StringUtils.equals(me.getSid(), target.getSid())) {
+	            exceptionManager.fireUserException(Constants.ERR_USER_AUTHORIZATION_FAILED, new Object[] {me.getName()});
+	        }
+	
+	        object = service.delete(user);
+	        
+	        if (StringUtils.equals(me.getSid(), target.getSid())) {
+	            service.signout(request, response);
+	        }
+	        
+	    } catch (DataAccessException e) {
+	        exceptionManager.fireUserException(Constants.ERR_DATA_ACCESS, null);
+	    }
+	
+	    logger.debug(FormatHelper.printPretty(user));
+	    logger.debug(FormatHelper.printPretty(object));
+	    
+	    return ResponseElement.newSuccessInstance(object);
+	
+	}
+	
+	/**
      * @param user
      * @return
      */
@@ -87,39 +210,6 @@ public class UserResource extends AbstractResource {
         
         return ResponseElement.newSuccessInstance(object);
 
-    }
-
-    /**
-     * @param request
-     * @param response
-     * @param user
-     * @return
-     */
-    @POST
-    @Path("/signin")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public ResponseElement signin(@Context HttpServletRequest request, @Context HttpServletResponse response, User user) {
-        
-        logger.debug("..");
-        
-        try {
-            
-            user = service.signin(request, response, user);
-            
-            if (user == null) {
-                exceptionManager.fireUserException(Constants.ERR_USER_LOGIN_FAILED, null);
-            }
-            
-        } catch (DataAccessException e) {
-            exceptionManager.fireUserException(Constants.ERR_DATA_ACCESS, null);
-        } catch (AxCryptException e) {
-            exceptionManager.fireSystemException(new Exception(e));
-        }
-        
-        logger.debug(FormatHelper.printPretty(user));
-        
-        return ResponseElement.newSuccessInstance(true);
-        
     }
     
     /**
@@ -164,97 +254,6 @@ public class UserResource extends AbstractResource {
     }
     
     /**
-     * @param request
-     * @param response
-     * @param user
-     * @return
-     */
-    @PUT
-    @Path("/update")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @RolesAllowed({Role.Admin,Role.User})
-    public ResponseElement update(@Context HttpServletRequest request, @Context HttpServletResponse response, User user) {
-        
-        logger.debug("..");
-        
-        Object object = new Object();
-
-        try {
-            
-        	UserPrincipal me = getUserPrincipal();
-            User target = (User) service.name(user.getName());
-            
-            if (target == null) {
-                exceptionManager.fireUserException(Constants.ERR_USER_NOT_FOUND, new Object[] {user.getName()});
-            } else if (Role.User.equals(me.getRole()) && !StringUtils.equals(me.getSid(), target.getSid())) {
-                exceptionManager.fireUserException(Constants.ERR_USER_AUTHORIZATION_FAILED, new Object[] {me.getName()});
-            }
-            
-            object = service.update(user);
-            
-            if (StringUtils.equals(me.getSid(), target.getSid())) {
-//                me.setUsername(user.getUsername()); // TODO delete?
-                service.cookie(request, response, user);
-            }
-            
-        } catch (DataAccessException e) {
-            exceptionManager.fireUserException(Constants.ERR_DATA_ACCESS, null);
-        } catch (AxCryptException e) {
-            exceptionManager.fireSystemException(new Exception(e));
-        }
-
-        logger.debug(FormatHelper.printPretty(user));
-        logger.debug(FormatHelper.printPretty(object));
-        
-        return ResponseElement.newSuccessInstance(object);
-
-    }
-    
-    /**
-     * @param request
-     * @param response
-     * @param user
-     * @return
-     */
-    @DELETE
-    @Path("/delete")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @RolesAllowed({Role.Admin,Role.User})
-    public ResponseElement delete(@Context HttpServletRequest request, @Context HttpServletResponse response, User user) {
-        
-        logger.debug("..");
-        
-        Object object = new Object();
-
-        try {
-            
-        	UserPrincipal me = getUserPrincipal();
-            User target = (User) service.name(user.getName());
-
-            if (target == null) {
-                exceptionManager.fireUserException(Constants.ERR_USER_NOT_FOUND, new Object[] {user.getName()});
-            } else if (Role.User.equals(me.getRole()) && !StringUtils.equals(me.getSid(), target.getSid())) {
-                exceptionManager.fireUserException(Constants.ERR_USER_AUTHORIZATION_FAILED, new Object[] {me.getName()});
-            }
-
-            object = service.delete(user);
-            
-            if (StringUtils.equals(me.getSid(), target.getSid())) {
-                service.signout(request, response);
-            }
-            
-        } catch (DataAccessException e) {
-            exceptionManager.fireUserException(Constants.ERR_DATA_ACCESS, null);
-        }
-
-        logger.debug(FormatHelper.printPretty(user));
-        logger.debug(FormatHelper.printPretty(object));
-        
-        return ResponseElement.newSuccessInstance(object);
-
-    }
-    
-    /**
      * @param name
      * @return
      */
@@ -280,7 +279,7 @@ public class UserResource extends AbstractResource {
         return ResponseElement.newSuccessInstance(object);
 
     }
-
+    
     /**
      * @param pn
      * @param search

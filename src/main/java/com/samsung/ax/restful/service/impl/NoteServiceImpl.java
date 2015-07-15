@@ -96,14 +96,14 @@ public class NoteServiceImpl implements NoteService {
     }
 
     /* 
-     * @see com.samsung.ax.restful.service.NoteService#count()
+     * @see com.samsung.ax.restful.service.NoteService#count(com.samsung.ax.restful.pojo.Query)
      */
     @Override
-    public int count() throws DataAccessException {
+    public int count(Query query) throws DataAccessException {
     
         logger.debug("..");
         
-        return persistence.count();
+        return persistence.count(query);
         
     }
 
