@@ -22,7 +22,7 @@
         <servlet-class>com.sun.jersey.spi.spring.container.servlet.SpringServlet</servlet-class>
         <init-param>
             <param-name>com.sun.jersey.config.property.packages</param-name>
-            <param-value>com.sec.ax.restful.resource</param-value>
+            <param-value>com.samsung.ax.restful.resource</param-value>
         </init-param>
         <init-param>
             <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
@@ -30,11 +30,11 @@
         </init-param>
         <init-param>
             <param-name>com.sun.jersey.spi.container.ContainerRequestFilters</param-name>
-            <param-value>com.sec.ax.restful.filter.AuthenticationContainerFilter</param-value>
+            <param-value>com.samsung.ax.restful.filter.AuthenticationContainerFilter</param-value>
         </init-param>
         <init-param>
             <param-name>com.sun.jersey.spi.container.ResourceFilters</param-name>
-            <param-value>com.sec.ax.restful.filter.ResourceFilterFactoryImpl</param-value>
+            <param-value>com.samsung.ax.restful.filter.ResourceFilterFactoryImpl</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
