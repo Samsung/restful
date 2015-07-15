@@ -11,7 +11,7 @@
                 var url = location.href;
                 var idx = url.substring(url.indexOf("?")+1, url.length);
                 
-                var endpoint = "/restful/api/note/update/" + idx;
+                var endpoint = "/restful/api/note/" + idx;
                 
                 ajaxCall('GET', endpoint, null, null, function(data) {
                         var status = data.status;
