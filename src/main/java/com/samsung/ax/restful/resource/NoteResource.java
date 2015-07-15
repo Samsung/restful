@@ -51,7 +51,7 @@ public class NoteResource extends AbstractResource {
     
     @Autowired
     private PropertiesManager properties;
-
+    
     /**
      * @param note
      * @return
@@ -86,42 +86,6 @@ public class NoteResource extends AbstractResource {
         return ResponseElement.newSuccessInstance(object);
 
     }
-
-    /**
-     * @param idx
-     * @return
-     */
-    @GET
-    @Path("/update/{idx}")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @RolesAllowed({Role.Admin,Role.User})
-    public ResponseElement update(@PathParam("idx") int idx) {
-        
-        logger.debug("..");
-        
-        Object object = new Object();
-
-        try {
-            
-        	UserPrincipal me = getUserPrincipal();
-            String sid = service.sid(idx);
-
-            if (Role.User.equals(me.getRole()) && sid != null && !StringUtils.equals(me.getSid(), sid)) {
-                exceptionManager.fireUserException(Constants.ERR_USER_AUTHORIZATION_FAILED, new Object[] {me.getName()});
-            }
-
-            object = service.idx(idx);
-            
-        } catch (DataAccessException e) {
-            exceptionManager.fireUserException(Constants.ERR_DATA_ACCESS, null);
-        }
-        
-        logger.debug(FormatHelper.printPretty(idx));
-        logger.debug(FormatHelper.printPretty(object));
-        
-        return ResponseElement.newSuccessInstance(object);
-
-    }
     
     /**
      * @param note
@@ -143,7 +107,9 @@ public class NoteResource extends AbstractResource {
         	UserPrincipal me = getUserPrincipal();
             String sid = service.sid(note.getIdx());
 
-            if (Role.User.equals(me.getRole()) && sid != null && !StringUtils.equals(me.getSid(), sid)) {
+            if (sid == null) {
+            	exceptionManager.fireUserException(Constants.ERR_NOTE_NOT_FOUND, new Object[] {note.getIdx()});
+            } else if (Role.User.equals(me.getRole()) && !StringUtils.equals(me.getSid(), sid)) {
                 exceptionManager.fireUserException(Constants.ERR_USER_AUTHORIZATION_FAILED, new Object[] {me.getName()});
             }
             
@@ -159,7 +125,7 @@ public class NoteResource extends AbstractResource {
         return ResponseElement.newSuccessInstance(object);
 
     }
-
+    
     /**
      * @param note
      * @return
@@ -179,8 +145,10 @@ public class NoteResource extends AbstractResource {
             
         	UserPrincipal me = getUserPrincipal();
             String sid = service.sid(note.getIdx());
-
-            if (Role.User.equals(me.getRole()) && sid != null && !StringUtils.equals(me.getSid(), sid)) {
+            
+            if (sid == null) {
+            	exceptionManager.fireUserException(Constants.ERR_NOTE_NOT_FOUND, new Object[] {note.getIdx()});
+            } else if (Role.User.equals(me.getRole()) && !StringUtils.equals(me.getSid(), sid)) {
                 exceptionManager.fireUserException(Constants.ERR_USER_AUTHORIZATION_FAILED, new Object[] {me.getName()});
             }
 
@@ -196,7 +164,7 @@ public class NoteResource extends AbstractResource {
         return ResponseElement.newSuccessInstance(object);
 
     }
-
+    
     /**
      * @param idx
      * @return
@@ -216,6 +184,10 @@ public class NoteResource extends AbstractResource {
             
             object = service.idx(idx);
             
+            if (object == null) {
+                exceptionManager.fireUserException(Constants.ERR_NOTE_NOT_FOUND, new Object[] {idx});
+            }
+
         } catch (DataAccessException e) {
             exceptionManager.fireUserException(Constants.ERR_DATA_ACCESS, null);
         }
@@ -226,7 +198,7 @@ public class NoteResource extends AbstractResource {
         return ResponseElement.newSuccessInstance(object);
 
     }
-
+    
     /**
      * @param pn
      * @param search
@@ -249,7 +221,7 @@ public class NoteResource extends AbstractResource {
             
             paging.setMaxPaging(Integer.parseInt(properties.getProperty(Constants.LIST_MAX_PAGING)));
             paging.setMaxResults(Integer.parseInt(properties.getProperty(Constants.LIST_MAX_RESULTS)));
-            paging.setTotalResults(service.count());
+            paging.setTotalResults(service.count(query));
             
             List list = new List();
             

@@ -49,6 +49,8 @@ public class Constants {
     public static final String ERR_USER_NOT_FOUND = "err.user.not.found";
     public static final String ERR_USER_LOGIN_FAILED = "err.user.login.failed";
     
+    public static final String ERR_NOTE_NOT_FOUND = "err.note.not.found";
+
     public static final String ERR_FILE_MISSING = "err.file.missing";
 
     public static final String ERR_MANDATORY_MISSING = "err.mandatory.missing";

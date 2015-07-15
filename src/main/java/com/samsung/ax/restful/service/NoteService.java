@@ -59,10 +59,11 @@ public interface NoteService {
     public int access(int idx) throws DataAccessException;
 
     /**
+     * @param query
      * @return
      * @throws DataAccessException
      */
-    public int count() throws DataAccessException;
+    public int count(Query query) throws DataAccessException;
     
     /**
      * @param query
