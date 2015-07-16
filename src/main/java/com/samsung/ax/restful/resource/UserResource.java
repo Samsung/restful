@@ -96,7 +96,6 @@ public class UserResource extends AbstractResource {
 	 * @return
 	 */
 	@PUT
-	@Path("/update")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@RolesAllowed({Role.Admin,Role.User})
 	public ResponseElement update(@Context HttpServletRequest request, @Context HttpServletResponse response, User user) {
@@ -142,7 +141,6 @@ public class UserResource extends AbstractResource {
 	 * @return
 	 */
 	@DELETE
-	@Path("/delete")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@RolesAllowed({Role.Admin,Role.User})
 	public ResponseElement delete(@Context HttpServletRequest request, @Context HttpServletResponse response, User user) {
