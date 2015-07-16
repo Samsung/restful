@@ -57,7 +57,6 @@ public class NoteResource extends AbstractResource {
      * @return
      */
     @POST
-    @Path("/create")
     @Consumes(MediaType.APPLICATION_JSON)
     @RolesAllowed({Role.Admin,Role.User})
     @ValidatedBy({"missingSubject","missingContent"})
@@ -92,7 +91,6 @@ public class NoteResource extends AbstractResource {
      * @return
      */
     @PUT
-    @Path("/update")
     @Consumes(MediaType.APPLICATION_JSON)
     @RolesAllowed({Role.Admin,Role.User})
     @ValidatedBy({"missingIdx","missingSubject","missingContent"})
@@ -131,7 +129,6 @@ public class NoteResource extends AbstractResource {
      * @return
      */
     @DELETE
-    @Path("/delete")
     @Consumes(MediaType.APPLICATION_JSON)
     @RolesAllowed({Role.Admin,Role.User})
     @ValidatedBy({"missingIdx"})
