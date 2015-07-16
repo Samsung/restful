@@ -55,7 +55,7 @@ GET /restful/api/user/profile
 Content-Type: application/json
 
 // Updating a user
-PUT /restful/api/user/update
+PUT /restful/api/user
 Content-Type: application/json
 {
   "name": "axpower",
@@ -63,7 +63,7 @@ Content-Type: application/json
 }
 
 // Deleting a user
-DELETE /restful/api/user/delete
+DELETE /restful/api/user
 Content-Type: application/json
 {
   "name": "axpower"
