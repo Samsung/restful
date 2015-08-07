@@ -3,8 +3,8 @@
 
 <sqlMap namespace="note">
 
-    <typeAlias alias="note" type="com.sec.ax.restful.pojo.Note"/>
-    <typeAlias alias="query" type="com.sec.ax.restful.pojo.Query"/>
+    <typeAlias alias="note" type="com.samsung.ax.restful.pojo.Note"/>
+    <typeAlias alias="query" type="com.samsung.ax.restful.pojo.Query"/>
 
     <insert id="create" parameterClass="note">
         INSERT INTO

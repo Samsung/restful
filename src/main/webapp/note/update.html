@@ -11,7 +11,7 @@
                 var url = location.href;
                 var idx = url.substring(url.indexOf("?")+1, url.length);
                 
-                var endpoint = "/restful/api/note/update/" + idx;
+                var endpoint = "/restful/api/note/" + idx;
                 
                 ajaxCall('GET', endpoint, null, null, function(data) {
                         var status = data.status;
@@ -53,7 +53,7 @@
             
             // Update note
             function update() {
-                var url = "/restful/api/note/update";
+                var url = "/restful/api/note";
                 
                 var idx =  document.getElementById('idx').value;
                 var subject =  document.getElementById('subject').value;
@@ -88,7 +88,7 @@
             
             // Delete note
             function deletion() {
-                var url = "/restful/api/note/delete";
+                var url = "/restful/api/note";
                 
                 var idx =  document.getElementById('idx').value;
                 
