@@ -10,7 +10,7 @@ You need to install MySQL. Please, run a sql file named [data.sql](/doc/sql/data
 And, please, take a look at [jdbc.properties](/src/main/resources/config/jdbc.properties) in [/src/main/resources/config](/src/main/resources/config) and edit url if needed.<br>
 The followings are quick guides:<br>
 [A. Preparing development environment](/doc/Quick_Guide_1.docx)<br>
-[B. Quick guide how to develop RESTful using this project](/doc/Quick_Guide_2.docx)<br>
+[B. Quick guide how to run RESTful using this project](/doc/Quick_Guide_2.docx)<br>
 C. Customizing for your project (in progress)
 
 
