@@ -100,20 +100,20 @@ UNLOCK TABLES;
 -- Dumping data for table `db`
 --
 
-LOCK TABLES `user` WRITE;
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+LOCK TABLES `mysql`.`user` WRITE;
+/*!40000 ALTER TABLE `mysql`.`user` DISABLE KEYS */;
 INSERT INTO `mysql`.`user` VALUES ('localhost','axpower',PASSWORD('axpower'),'N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','','','','',0,0,0,0,'mysql_native_password','','N');
-/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+/*!40000 ALTER TABLE `mysql`.`user` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
 -- Dumping data for table `user`
 --
 
-LOCK TABLES `db` WRITE;
-/*!40000 ALTER TABLE `db` DISABLE KEYS */;
+LOCK TABLES `mysql`.`db` WRITE;
+/*!40000 ALTER TABLE `mysql`.`db` DISABLE KEYS */;
 INSERT INTO `mysql`.`db` VALUES ('localhost','data','axpower','Y','Y','Y','Y','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N');
-/*!40000 ALTER TABLE `db` ENABLE KEYS */;
+/*!40000 ALTER TABLE `mysql`.`db` ENABLE KEYS */;
 UNLOCK TABLES;
 
 flush privileges;

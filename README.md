@@ -6,8 +6,13 @@ Suggesting the codes for RESTful API including filter/annotator for allowing use
 Please take a look at [readme](/doc/readme) to see release note.
 
 ### Guide ###
-You need to install MySQL and create database for this. Please, run a sql file named [data.sql](/doc/sql/data.sql) in doc/sql.<br>
-And, please, take a look at [jdbc.properties](/src/main/resources/config/jdbc.properties) in [/src/main/resources/config](/src/main/resources/config) and edit url, username and password.
+You need to install MySQL. Please, run a sql file named [data.sql](/doc/sql/data.sql) in doc/sql.<br>
+And, please, take a look at [jdbc.properties](/src/main/resources/config/jdbc.properties) in [/src/main/resources/config](/src/main/resources/config) and edit url if needed.<br>
+The followings are quick guides:<br>
+[A. Preparing development environment](/doc/Quick_Guide_1.docx)<br>
+[B. Quick guide how to develop RESTful using this project](/doc/Quick_Guide_2.docx)<br>
+C. Customizing for your project (in progress)
+
 
 ### Usage ###
 
