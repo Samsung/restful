@@ -97,7 +97,7 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 --
--- Dumping data for table `db`
+-- Dumping data for table `user`
 --
 
 LOCK TABLES `mysql`.`user` WRITE;
