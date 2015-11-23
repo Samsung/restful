@@ -113,11 +113,17 @@ public class UserResource extends AbstractResource {
 	            exceptionManager.fireUserException(Constants.ERR_USER_NOT_FOUND, new Object[] {user.getName()});
 	        } else if (Role.User.equals(me.getRole()) && !StringUtils.equals(me.getSid(), target.getSid())) {
 	            exceptionManager.fireUserException(Constants.ERR_USER_AUTHORIZATION_FAILED, new Object[] {me.getName()});
+	        } else if (user.getRole() != null && !Role.Admin.equals(me.getRole())) {
+	            exceptionManager.fireUserException(Constants.ERR_USER_AUTHORIZATION_FAILED, new Object[] {me.getName()});
 	        }
 	        
 	        object = service.update(user);
 	        
 	        if (StringUtils.equals(me.getSid(), target.getSid())) {
+	            if(user.getName() == null) user.setName(target.getName());
+	            if(user.getSid() == null) user.setSid(target.getSid());
+	            if(user.getUsername() == null) user.setUsername(target.getUsername());
+	            if(user.getRole() == null) user.setRole(target.getRole());
 	            service.cookie(request, response, user);
 	        }
 	        
@@ -133,7 +139,7 @@ public class UserResource extends AbstractResource {
 	    return ResponseElement.newSuccessInstance(object);
 	
 	}
-	
+    
 	/**
 	 * @param request
 	 * @param response

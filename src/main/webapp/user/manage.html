@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>User/Update</title>
+        <link rel="stylesheet" type="text/css" href="/restful/css/style.css"/>
+        <script type="text/javascript" src="/restful/js/restful.js"></script>
+        <script type="text/javascript">
+            // window.onload
+            window.onload = function() {
+                var url = location.href;
+                var params = "";
+                                
+                if (url.indexOf('?') > 0) {
+                    params = (url.substring(url.indexOf('?'), url.length));
+                }
+                                
+                var endpoint = "/restful/api/user/list" + params;
+                                
+                ajaxCall('GET', endpoint, null, null, function(data) {
+                    var status = data.status;
+                    if (status == 'OK') {
+                        success(data);
+                        }
+                }, function(data) {
+                    fail(data);
+                });
+            };
+                        
+            // Success function
+            function success(data) {
+                for (str in data.response) {
+                    if (data.response[str] != null && data.response[str] != 0) {
+                                        	
+                        if (str == "query") {
+                                        		
+                            var url = location.href;
+                                                        
+                            if (url.indexOf('?') > 0) {
+                                url = url.substring(0, url.indexOf('?'));
+                            }
+                                                        
+                            var query = data.response.query;
+                                                                                                                
+                            var pn = query.paging.pn;
+                            var maxPaging = query.paging.maxPaging;
+                            var maxResults = query.paging.maxResults;
+                            var totalResults = query.paging.totalResults;
+                                                        
+                            if (totalResults > 0) {
+                                var paging = "";
+                                                                
+                                var current = parseInt((pn - 1) / maxPaging) + 1;
+                                var start = (current - 1) * maxPaging + 1;
+                                var end = (start + maxPaging) - 1;
+                                var total = parseInt(totalResults / maxResults);
+                                                                
+                                if (totalResults % maxResults > 0) {
+                                    total = total + 1;
+                                }
+                                if (end > total) {
+                                    end = total;
+                                }
+                                                                
+                                if (start > 1) {
+                                    paging += "<a href=\""+ url + "?pn=1\"> << </a>"; 
+                                } else {
+                                    paging += " << ";
+                                }
+                                if (start > maxPaging) {
+                                    var prev = start - 1;
+                                    paging += "<a href=\"" + url + "?pn=" + prev + "\"> < </a>";
+                                } else {
+                                    paging += " < ";
+                                }
+                                                                
+                                for (var i = start ; i <= end ; i++) {
+                                    if (i == pn) {
+                                        paging += "<b> " + i + " </b>";
+                                    } else {
+                                        paging += "<a href=\"" + url + "?pn=" + i + "\"> " + i + " </a>";
+                                    }
+                                }
+                                                                
+                                if (end < total) {
+                                    var next = end + 1;
+                                    paging += "<a href=\"" + url + "?pn=" + next + "\"> > </a>";
+                                } else {
+                                    paging += " > ";
+                                }
+                                if (end < total) {
+                                    paging += "<a href=\"" + url + "?pn=" + total + "\"> >> </a>";
+                                } else {
+                                    paging += " >> ";
+                                }
+                                                                
+                                document.getElementById('paging').innerHTML = paging;
+                                }
+                            } else if (str == "object") {
+                                                        	
+                                var html = "";
+                                var users = data.response.object;
+                                        
+                                html += "<table width=\"100%\">";
+                                html += "<tr>";
+                                html += "<td>idx</td>";
+                                html += "<td>userid</td>";
+                                html += "<td>username</td>";
+                                html += "<td>sid</td>";
+                                html += "<td>role</td>";
+                                html += "<td>updatedate</td>";
+                                html += "<td>createdate</td>";
+                                html += "</tr>";
+                                        
+                                for (n in users) {
+                                    var user = users[n];	                                 
+
+                                    var option = "";                                        
+                                    if(user.role == "Admin" ){
+                                        option += "<option value=\"Admin\">Admin</option>";
+                                        option += "<option value=\"User\">User</option>";
+                                    }else{
+                                        option += "<option value=\"User\">User</option>";
+                                        option += "<option value=\"Admin\">Admin</option>";	                                        	
+                                    }
+	                                        
+                                    var select = ""; 
+                                    select += "<select onchange=\"update(this)\">";
+                                    select += option;
+                                    select += "</select>";
+
+                                    html += "<tr>";
+                                    html += "<td>"+ user.idx +"</td>";
+                                    html += "<td id=\"name\">"+ user.name +"</td>";
+                                    html += "<td>"+ user.username +"</td>";
+                                    html += "<td>"+ user.sid +"</td>";
+                                    html += "<td>"+ select +"</td>";
+                                    html += "<td>"+ new Date(user.updatedate).toLocaleDateString() +"</td>";
+                                    html += "<td>"+ new Date(user.createdate).toLocaleDateString() +"</td>";
+                                    html += "</tr>";                                                
+                                    }	
+                                                        
+                                html += "</table>";
+
+                                document.getElementById('list').innerHTML = html;
+                                }
+                        }
+                    }
+                }
+
+            // Fail function
+            function fail(data) {
+                var html = data.response;
+                document.getElementById('list').innerHTML = html;
+            }
+                        
+            // Update profile
+            function update(o) {
+                                
+                var nodes = o.parentNode.parentNode.childNodes;
+                var role = o.value;
+                        	
+                if (!role) {
+                    alert('Please select user\'s role');
+                    return;
+                }
+                                
+                var url = "/restful/api/user";
+                        	
+                for(n in nodes){
+                    if(nodes[n].id == "name"){
+                        	        	     
+                        var params = {
+                        	    'name': nodes[n].innerText,
+                        	    'role': role
+                        };
+                                                 
+                        ajaxCall('PUT', url, null, params, function(data) {
+                            var status = data.status;
+                            if (status == 'OK') {
+                                location.reload(true);
+                            }
+                        },
+                        function(data) {
+                            alert(data.response);
+                        });
+                    }
+                }
+            }
+        </script>
+        </head>
+        <body>
+            <p>Management</p>
+            <table style="width: 450px; text-align:center;">
+               <tr>
+                   <td colspan="2"><div id="list"></div></td>
+               </tr>
+               <tr>
+                   <td align="center"><div id="paging"></div></td>
+               </tr>
+            </table>
+        </body>
+</html>

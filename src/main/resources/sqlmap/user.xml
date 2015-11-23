@@ -47,11 +47,18 @@
         UPDATE
             user
         SET
-            username = #username#
             <dynamic>
-                <isNotEmpty prepend="," property="pwd">
-                    pwd = PASSWORD(#pwd#)
-                </isNotEmpty>
+                <isNotNull removeFirstPrepend="true">
+                    <isNotEmpty prepend="," property="username">
+                        username = #username#
+                    </isNotEmpty>
+                    <isNotEmpty prepend="," property="pwd">
+                        pwd = PASSWORD(#pwd#)
+                    </isNotEmpty>
+                    <isNotEmpty prepend="," property="role">
+                        role = #role,javaType=com.samsung.ax.restful.pojo.Role,jdbcType=VARCHAR#
+                    </isNotEmpty>
+                </isNotNull>
             </dynamic>
         WHERE
             name = LOWER(#name#) AND status = 1
